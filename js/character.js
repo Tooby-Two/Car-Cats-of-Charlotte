@@ -3,7 +3,7 @@ $(document).ready(function () {
     const characterName = urlParams.get('name');
     $('#lightboxOverlay').hide();
 
-    const characterFile = `characters/${characterName}.html`;
+    const characterFile = `characters/${characterName}.html`; // Ensure the path is correct
     $.get(characterFile, function (response) {
         const characterData = $(response).filter('#character-data').html();
         const data = JSON.parse(characterData);
