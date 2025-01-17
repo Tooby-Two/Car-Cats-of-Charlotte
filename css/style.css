@@ -1,0 +1,153 @@
+  
+  /* Default Light Mode (Fallback) */
+body {
+    background-color: white;
+    color: black;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Dark Mode */
+  body[data-theme="dark"] {
+    background-color: #121212;
+    color: white;
+  }
+  
+  /* Optional: Style links, buttons, etc., specifically for dark mode */
+  body[data-theme="dark"] a {
+    color: #1e90ff;
+  }
+  
+  a {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:hover {
+    color:#00A0C6; 
+    text-decoration:none; 
+    cursor:pointer;  
+}
+
+/* Lightbox overlay */
+.lightbox-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: none; /* Hidden by default */
+  justify-content: center;
+  align-items: center;
+  z-index: 1050; /* Ensure it's above everything else */
+}
+
+/* Lightbox image */
+.lightbox-image {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Lightbox close button */
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 30px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+}
+
+.gallery-thumb {
+  aspect-ratio: 1 / 1; /* Maintain square aspect ratio */
+  object-fit: cover; /* Crop and focus on the center of the image */
+}
+
+.gallery-item {
+  text-align: center;
+  cursor:pointer;
+  margin:10px
+}
+
+.gallery-item:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-caption {
+  margin-top: 5px;
+  font-size: 0.9rem;
+  color: #555; /* Adjust color as needed */
+  font-style: italic;
+}
+
+#lightboxOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+#lightboxImage {
+  max-width: 90%;
+  max-height: 90%;
+}
+
+#lightboxClose {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #828282;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Styling for the search bar */
+#searchBar {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.gallery-tags {
+  text-align: center;
+}
+
+.badge {
+  font-size: 0.8rem;
+  padding: 5px 10px;
+  cursor: default;
+}
+
+/* Styling for character cards */
+.character-item {
+  display: block;
+}
+
+.card {
+  border: 1px solid #393939;
+  border-radius: 5px;
+  background-color:#ffffff;
+}
+
+.card img {
+  max-height: 200px;
+  object-fit:contain;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  
+}
+
