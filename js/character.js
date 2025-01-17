@@ -3,27 +3,26 @@ $(document).ready(function () {
     const characterName = urlParams.get('name');
     $('#lightboxOverlay').hide();
 
-    const characterFile = `characters/${characterName}.html`; // Ensure the path is correct
-    $.get(characterFile, function (response) {
-        const characterData = $(response).filter('#character-data').html();
-        const data = JSON.parse(characterData);
+    // Load character data from characters.json
+    $.getJSON('characters.json', function (data) {
+        const characterData = data.find(c => c.name.toLowerCase() === characterName.toLowerCase());
 
-        if (data) {
-            $('#character-name').text(data.name);
-            $('#main-character-image').attr('src', data.gallery?.[0]?.full);
+        if (characterData) {
+            $('#character-name').text(characterData.name);
+            $('#main-character-image').attr('src', characterData.gallery?.[0]?.full);
             $('#character-details').html(`
-                <p>${data.details}</p>
-                ${data.uniqueContent}
+                <p>${characterData.details}</p>
+                ${characterData.uniqueContent}
             `);
 
             // Populate the gallery
-            if (data.gallery && data.gallery.length > 0) {
+            if (characterData.gallery && characterData.gallery.length > 0) {
                 const galleryContainer = $('#characterGallery');
-                data.gallery.forEach((img) => {
+                characterData.gallery.forEach((img) => {
                     const galleryItem = `
                         <div class="col-6 col-sm-4 col-md-3 mb-3">
                             <div class="gallery-item">
-                                <img src="${img.thumb}" class="img-thumbnail gallery-thumb" alt="${data.name}">
+                                <img src="${img.thumb}" class="img-thumbnail gallery-thumb" alt="${characterData.name}">
                                 <div class="gallery-caption">${img.caption}</div>
                             </div>
                         </div>`;
@@ -33,7 +32,7 @@ $(document).ready(function () {
                 // Lightbox functionality
                 $('.gallery-thumb').on('click', function () {
                     const index = $('.gallery-thumb').index(this);
-                    const fullImageSrc = data.gallery[index].full;
+                    const fullImageSrc = characterData.gallery[index].full;
                     $('#lightboxImage').attr('src', fullImageSrc);
                     $('#lightboxOverlay').fadeIn();
                 });
