@@ -53,17 +53,18 @@
 
             <!-- Gallery Tab -->
             <div class="tab-pane fade" id="gallery" role="tabpanel">
-                <div class="row" id="characterGallery" style="margin-top: 10px;">
+                <div class="row" id="indivCharacterGallery" style="margin-top: 10px;">
                     <!-- Thumbnails will be injected here -->
                 </div>
             </div>
             
-            <!-- Lightbox Overlay -->
-            <div id="lightboxOverlay" class="lightbox-overlay">
-                <img id="lightboxImage" class="lightbox-image" src="" alt="Full-size">
-                <p id="lightboxCredit"></p>
-                <span id="lightboxClose" class="lightbox-close">&times;</span>
-            </div>
+            <!-- Lightbox -->
+	<div id="lightboxOverlay">
+		<div id="lightboxContent" style="position: relative; text-align: center;">
+		<img id="lightboxImage" src="" alt="">
+		<p id="lightboxCredit"></p>
+		<button id="lightboxClose">X</button>
+	</div>
             
             
         </div>

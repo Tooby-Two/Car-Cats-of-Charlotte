@@ -62,11 +62,20 @@ a:hover {
 }
 
 .gallery-thumb {
+  width: 100%; /* Ensures the image takes the full width of the parent */
   aspect-ratio: 1 / 1; /* Maintain square aspect ratio */
   object-fit: cover; /* Crop and focus on the center of the image */
 }
 
 #mainGallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+  gap: 15px; /* Space between gallery items */
+}
+
+#indivCharacterGallery {
   display: flex;
   flex-wrap: wrap;
   justify-content: center; /* Center items horizontally */
@@ -82,6 +91,7 @@ a:hover {
   justify-content: center;
   align-items: center;
   width:200px;
+  position:relative;
 }
 
 .gallery-item:hover {

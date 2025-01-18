@@ -49,14 +49,19 @@ $(document).ready(function () {
 
                 // Populate the gallery
                 if (data.gallery && data.gallery.length > 0) {
-                    const galleryContainer = $('#characterGallery');
+                    const galleryContainer = $('#indivCharacterGallery');
                     data.gallery.forEach((img) => {
                         const galleryItem = `
-                            <div class="col-6 col-sm-4 col-md-3 mb-3">
-                                <div class="gallery-item">
-                                    <img src="${img.thumb}" class="img-thumbnail gallery-thumb" alt="${data.name}">
-									
-                                    <div class="gallery-caption">${img.caption}</div>
+                            <div class="col-5 col-sm-4 col-md-3 mb-4 gallery-item" data-tags="${img.tags.join(',')}">
+                                <div class="gallery-item-inner">
+                                    <img src="${img.thumb}" 
+                                         class="img-thumbnail bg-dark gallery-thumb" 
+                                         alt="${data.name}"
+                                         data-full="${img.full}" 
+                                         data-credit="${img.credit}">
+                                    <div class="gallery-caption">
+                                        ${img.caption}
+                                    </div>
                                 </div>
                             </div>`;
                         galleryContainer.append(galleryItem);
