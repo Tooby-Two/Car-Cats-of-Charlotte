@@ -66,10 +66,22 @@ a:hover {
   object-fit: cover; /* Crop and focus on the center of the image */
 }
 
+#mainGallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+  gap: 15px; /* Space between gallery items */
+}
+
 .gallery-item {
   text-align: center;
   cursor:pointer;
-  margin:10px
+  margin:10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width:200px;
 }
 
 .gallery-item:hover {

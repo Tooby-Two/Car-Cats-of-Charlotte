@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    const folders = ['car_cats', 'jefferyverse']; // Folder names to search
+    const folders = ['car_cats', 'jefferyverse', 'other']; // Folder names to search
     const galleryContainer = $('#mainGallery');
     const urlParams = new URLSearchParams(window.location.search);
     const characterName = urlParams.get('name');

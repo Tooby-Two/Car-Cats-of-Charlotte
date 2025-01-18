@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    const folders = ['car_cats', 'jefferyverse']; // Folder names
+    const folders = ['car_cats', 'jefferyverse', 'other']; // Folder names
     const galleryContainer = $('#mainGallery');
     
     $('#lightboxOverlay').hide();
@@ -9,7 +9,7 @@ $(document).ready(function () {
     // Function to load images from each character's HTML file in the specified folder
     function loadCharacterImagesFromFolder(folder) {
         // Get the list of character HTML files (you'll need a fixed list of character names here)
-        const characterNames = ['Creed', 'Jeffery', 'reddick', 'bubba']; // List of character names in the folder
+        const characterNames = ['Creed', 'Jeffery', 'reddick', 'bubba', 'Raiden']; // List of character names in the folder
         
         characterNames.forEach((character) => {
             const characterFile = `characters/${folder}/${character}.html`; // Path to the character's HTML file
@@ -26,7 +26,7 @@ $(document).ready(function () {
                         const tagsHTML = img.tags.map(tag => `<span class="badge bg-secondary">${tag}</span>`).join(' ');
                     
                         const galleryItem = `
-                            <div class="col-6 col-sm-4 col-md-3 mb-3 gallery-item" data-tags="${img.tags.join(',')}">
+                            <div class="col-5 col-sm-4 col-md-3 mb-4 gallery-item" data-tags="${img.tags.join(',')}">
                                 <div class="gallery-item-inner">
                                     <img src="${img.thumb}" 
                                          class="img-thumbnail bg-dark gallery-thumb" 
