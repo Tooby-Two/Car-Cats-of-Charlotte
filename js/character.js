@@ -49,6 +49,11 @@ $(document).ready(function () {
                 $('#character-backstory').html(data.backstory);
                 $('#uniqueContent').html(data.uniqueContent);
 
+                document.documentElement.style.setProperty('--primary-color', data.color);
+                document.documentElement.style.setProperty('--secondary-color', data.colorSecondary);
+
+
+
                 // Populate the gallery
                 if (data.gallery && data.gallery.length > 0) {
                     const galleryContainer = $('#indivCharacterGallery');
