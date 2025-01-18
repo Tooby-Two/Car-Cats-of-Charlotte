@@ -1,6 +1,18 @@
 $(document).ready(function () {
     const folders = ['car_cats', 'jefferyverse', 'other']; // Folder names
     const galleryContainer = $('#mainGallery');
+    const tagToCharacterMapping = {
+        "Reddick": "car_cats",
+        "Heim": "car_cats",
+        "Jeffery": "jefferyverse",
+        "Creed": "car_cats",
+        "Bubba": "car_cats",
+        "Raiden": "other",
+        "Magma": "other",
+        "Willow": "other",
+        "Arthur": "other"
+        // Add other characters and their corresponding folder paths
+    };
 
     $('#lightboxOverlay').hide();
 
@@ -10,7 +22,7 @@ $(document).ready(function () {
     // Function to load images from each character's HTML file in the specified folder
     function loadCharacterImagesFromFolder(folder) {
         // List of character names in the folder
-        const characterNames = ['Creed', 'Jeffery', 'reddick', 'bubba', 'Raiden', 'Magma', 'Willow','Arthur'];
+        const characterNames = ['Heim','Creed', 'Jeffery', 'Bubba', 'Raiden', 'Magma', 'Willow', 'Arthur'];
 
         characterNames.forEach((character) => {
             const characterFile = `characters/${folder}/${character}.html`; // Path to the character's HTML file
@@ -35,9 +47,10 @@ $(document).ready(function () {
                                     <div class="gallery-item-inner">
                                         <img src="${img.thumb}" 
                                              class="img-thumbnail bg-dark gallery-thumb" 
-                                             alt="${data.name}"
+                                             alt="${img.tags}"
                                              data-full="${img.full}" 
-                                             data-credit="${img.credit}">
+                                             data-credit="${img.credit}"
+                                             data-folder="${img.folder}">
                                         <div class="gallery-caption">
                                             ${img.caption}
                                             <div class="gallery-tags mt-2">${tagsHTML}</div>
@@ -63,14 +76,44 @@ $(document).ready(function () {
     $(document).on('click', '.gallery-thumb', function () {
         const fullImageSrc = $(this).attr('src').replace('_thumb', '');
         const credit = $(this).data('credit');
+        const tags = $(this).attr('alt').split(",");  // Assuming alt contains tags like "Reddick,Jeffery"
+        
+        // Update lightbox content
         $('#lightboxImage').attr('src', fullImageSrc);
         $('#lightboxCredit').html(credit).show();
+        
+        // Create buttons for each character based on the tags
+        let characterLinks = '';
+        tags.forEach(tag => {
+            if (tagToCharacterMapping[tag]) { // Check if the tag is mapped to a character
+                const folder = tagToCharacterMapping[tag]; // Get the folder from the mapping
+                const iconPath = `images/icons/${tag.toLowerCase()}_icon.png`; // Modify this path to your icon image location
+                characterLinks += `
+                    <a href="_character-template.html?name=${tag}" class="btn btn-primary mt-3">
+                        <img src="${iconPath}" alt="${tag} Icon" class="character-icon me-2">
+                        View ${tag}
+                    </a>`;
+            }
+        });
+        
+        // Append buttons to lightbox content
+        $('#lightboxContent').append(characterLinks);
+        
         $('#lightboxOverlay').fadeIn();
     });
-
-    $('#lightboxClose, #lightboxOverlay').on('click', function () {
+    
+    
+    // Close lightbox when clicking outside of the content area
+    $('#lightboxOverlay').on('click', function () {
         $('#lightboxOverlay').fadeOut();
+        $('#lightboxContent').find('a').remove(); // Remove the appended character link when closing the lightbox
     });
+    
+    $('#lightboxClose').on('click', function () {
+        $('#lightboxOverlay').fadeOut();
+        $('#lightboxContent').find('a').remove(); // Remove the appended character link when closing the lightbox
+    });
+    
 
     // Implementing the search functionality
     $('#searchBar').on('input', function () {

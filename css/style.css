@@ -191,3 +191,10 @@ a:hover {
   font-size: 1.5rem;
   cursor: pointer;
 }
+
+.character-icon {
+  width: 50px;  /* Adjust size of the icon */
+  height: 50px; /* Ensure the icon maintains aspect ratio */
+  vertical-align: middle; /* Align the icon with the text */
+}
+

@@ -76,6 +76,13 @@
 			display: flex;
 			flex-wrap: nowrap;
 		}
+
+		.img-max-size {
+			max-height: 500px;
+			/* Set your desired max width */
+			height: 100%;
+			/* Ensure it scales down on smaller screens */
+		}
 	</style>
 </head>
 
@@ -88,12 +95,12 @@
 	<div class="main-layout">
 		<!-- Left Sidebar -->
 		<div class="sidebar">
-			
+
 		</div>
 
 		<!-- Main Content -->
 		<div class="content">
-			<div class="container" style="padding: 5px; ">
+			<div class="container-fluid justify-content-center" style="padding: 5px; ">
 
 				<!-- Character Name Header -->
 				<header>
@@ -106,7 +113,7 @@
 
 				<!-- Character Main Image -->
 				<div class="container justify-content-center">
-					<img id="main-character-image" class="img-fluid" style="max-width: 500px;" src="#">
+					<img id="main-character-image" class="img-fluid mx-auto d-block img-max-size" src="#">
 				</div>
 
 				<!-- Tab Navigation -->
@@ -154,26 +161,25 @@
 
 					<!-- Lightbox -->
 					<div id="lightboxOverlay">
-						<div id="lightboxContent" style="position: relative; text-align: center;">
+						<div id="lightboxContent">
 							<img id="lightboxImage" src="" alt="">
-							<p id="lightboxCredit"></p>
+							<div id="lightboxCredit"></div>
 							<button id="lightboxClose">X</button>
-
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<!-- Right Sidebar -->
-						<div class="sidebar">
-						</div>
+		<div class="sidebar">
+		</div>
 	</div>
-				<!-- Bootstrap JS -->
-				<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Bootstrap JS -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-				<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-				<script src="js/navbar.js"></script>
-				<script src="js/character.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="js/navbar.js"></script>
+	<script src="js/character.js"></script>
 
 </body>
 

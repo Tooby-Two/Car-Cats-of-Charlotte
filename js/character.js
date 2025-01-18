@@ -5,6 +5,18 @@ $(document).ready(function () {
     const characterName = urlParams.get('name');
     $('#lightboxOverlay').hide();
 
+    const tagToCharacterMapping = {
+        "Reddick": "car_cats",
+        "Jeffery": "jefferyverse",
+        "Creed": "car_cats",
+        "Bubba": "car_cats",
+        "Raiden": "other",
+        "Magma": "other",
+        "Willow": "other",
+        "Arthur": "other"
+        // Add other characters and their corresponding folder paths
+    };
+
     // Function to search for character in multiple folders
     const searchCharacterInFolders = (name) => {
         let characterFile = '';
@@ -51,46 +63,31 @@ $(document).ready(function () {
 
                 document.documentElement.style.setProperty('--primary-color', data.color);
                 document.documentElement.style.setProperty('--secondary-color', data.colorSecondary);
-                
+
                 $('.sidebar').css('background-image', `url(${data.sidebarImage})`);
-
-                
-
 
                 // Populate the gallery
                 if (data.gallery && data.gallery.length > 0) {
                     const galleryContainer = $('#indivCharacterGallery');
                     data.gallery.forEach((img) => {
+                        const tagsHTML = img.tags.map(tag => `<span class="badge bg-secondary">${tag}</span>`).join(' ');
+
                         const galleryItem = `
                             <div class="col-5 col-sm-4 col-md-3 mb-4 gallery-item" data-tags="${img.tags.join(',')}">
                                 <div class="gallery-item-inner">
                                     <img src="${img.thumb}" 
                                          class="img-thumbnail bg-dark gallery-thumb" 
-                                         alt="${data.name}"
+                                         alt="${img.tags.join(',')}"
                                          data-full="${img.full}" 
                                          data-credit="${img.credit}">
                                     <div class="gallery-caption">
                                         ${img.caption}
+                                        <div class="gallery-tags mt-2">${tagsHTML}</div>
                                     </div>
                                 </div>
                             </div>`;
                         galleryContainer.append(galleryItem);
                     });
-
-                    // Lightbox functionality
-    $(document).on('click', '.gallery-thumb', function () {
-        const fullImageSrc = $(this).attr('src').replace('_thumb', '')
-        const credit = $(this).data('credit');
-        $('#lightboxImage').attr('src', fullImageSrc);
-        $('#lightboxCredit').html(credit).show();
-        $('#lightboxOverlay').fadeIn();
-    });
-
-                    $('#lightboxClose, #lightboxOverlay').on('click', function () {
-                        $('#lightboxOverlay').fadeOut();
-                    });
-                } else {
-                    $('#characterGallery').html('<p>No gallery images available for this character.</p>');
                 }
             } else {
                 $('#character-name').text('Character not found');
@@ -105,4 +102,59 @@ $(document).ready(function () {
         $('#character-name').text('Character not found');
         $('#character-details').html('<p>No details available for this character.</p>');
     }
+
+    // Lightbox functionality
+    $(document).on('click', '.gallery-thumb', function () {
+        const fullImageSrc = $(this).attr('src').replace('_thumb', '');
+        const credit = $(this).data('credit');
+        const tags = $(this).attr('alt').split(",");  // Assuming alt contains tags like "Reddick,Jeffery"
+        
+        // Update lightbox content
+        $('#lightboxImage').attr('src', fullImageSrc);
+        $('#lightboxCredit').html(credit).show();
+        
+        // Create buttons for each character based on the tags
+        let characterLinks = '';
+        tags.forEach(tag => {
+            if (tagToCharacterMapping[tag]) { // Check if the tag is mapped to a character
+                const folder = tagToCharacterMapping[tag]; // Get the folder from the mapping
+                const iconPath = `images/icons/${tag.toLowerCase()}_icon.png`; // Modify this path to your icon image location
+                characterLinks += `
+                    <a href="_character-template.html?name=${tag}" class="btn btn-primary mt-3">
+                        <img src="${iconPath}" alt="${tag} Icon" class="character-icon me-2">
+                        View ${tag}
+                    </a>`;
+            }
+        });
+        
+        // Append buttons to lightbox content
+        $('#lightboxContent').append(characterLinks);
+        
+        $('#lightboxOverlay').fadeIn();
+    });
+
+    // Close lightbox when clicking outside of the content area
+    $('#lightboxOverlay').on('click', function () {
+        $('#lightboxOverlay').fadeOut();
+        $('#lightboxContent').find('a').remove(); // Remove the appended character link when closing the lightbox
+    });
+
+    $('#lightboxClose').on('click', function () {
+        $('#lightboxOverlay').fadeOut();
+        $('#lightboxContent').find('a').remove(); // Remove the appended character link when closing the lightbox
+    });
+
+    // Implementing the search functionality
+    $('#searchBar').on('input', function () {
+        const searchQuery = $(this).val().toLowerCase();
+
+        $('.gallery-item').each(function () {
+            const tags = $(this).data('tags').toLowerCase();
+            if (tags.includes(searchQuery)) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
 });
