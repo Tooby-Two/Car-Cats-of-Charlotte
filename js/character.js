@@ -51,7 +51,10 @@ $(document).ready(function () {
 
                 document.documentElement.style.setProperty('--primary-color', data.color);
                 document.documentElement.style.setProperty('--secondary-color', data.colorSecondary);
+                
+                $('.sidebar').css('background-image', `url(${data.sidebarImage})`);
 
+                
 
 
                 // Populate the gallery
