@@ -9,7 +9,7 @@ $(document).ready(function () {
     // Function to load images from each character's HTML file in the specified folder
     function loadCharacterImagesFromFolder(folder) {
         // Get the list of character HTML files (you'll need a fixed list of character names here)
-        const characterNames = ['Creed', 'Jeffery', 'reddick', 'bubba', 'Raiden']; // List of character names in the folder
+        const characterNames = ['Creed', 'Jeffery', 'reddick', 'bubba', 'Raiden', 'Magma', 'Willow']; // List of character names in the folder
         
         characterNames.forEach((character) => {
             const characterFile = `characters/${folder}/${character}.html`; // Path to the character's HTML file

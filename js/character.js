@@ -41,11 +41,13 @@ $(document).ready(function () {
 
             if (data) {
                 $('#character-name').text(data.name);
+                $('#character-designer').html(data.designer);
                 $('#main-character-image').attr('src', data.gallery?.[0]?.full);
-                $('#character-details').html(`
-                    <p>${data.details}</p>
-                    ${data.uniqueContent}
-                `);
+                $('#character-details').html(data.details);
+                $('#character-appearance').html(data.appearance);
+                $('#character-personality').html(data.personality);
+                $('#character-backstory').html(data.backstory);
+                $('#uniqueContent').html(data.uniqueContent);
 
                 // Populate the gallery
                 if (data.gallery && data.gallery.length > 0) {
