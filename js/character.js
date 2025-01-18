@@ -1,55 +1,93 @@
 $(document).ready(function () {
+    const folders = ['car_cats', 'jefferyverse']; // Folder names to search
+    const galleryContainer = $('#mainGallery');
     const urlParams = new URLSearchParams(window.location.search);
     const characterName = urlParams.get('name');
     $('#lightboxOverlay').hide();
 
-    const characterFile = `characters/${characterName}.html`;
-    $.get(characterFile, function (response) {
-        const characterData = $(response).filter('#character-data').html();
-        const data = JSON.parse(characterData);
+    // Function to search for character in multiple folders
+    const searchCharacterInFolders = (name) => {
+        let characterFile = '';
+        let found = false;
 
-        if (data) {
-            $('#character-name').text(data.name);
-            $('#main-character-image').attr('src', data.gallery?.[0]?.full);
-            $('#character-details').html(`
-                <p>${data.details}</p>
-                ${data.uniqueContent}
-            `);
+        // Iterate through folders to find the character file
+        for (const folder of folders) {
+            characterFile = `characters/${folder}/${name}.html`;
+            $.ajax({
+                url: characterFile,
+                type: 'HEAD', // Send a HEAD request to check if the file exists
+                async: false, // Make it synchronous so it doesn't continue until the file is found
+                success: function () {
+                    found = true;
+                },
+                error: function () {
+                    // Do nothing on error; just continue to check other folders
+                }
+            });
 
-            // Populate the gallery
-            if (data.gallery && data.gallery.length > 0) {
-                const galleryContainer = $('#characterGallery');
-                data.gallery.forEach((img) => {
-                    const galleryItem = `
-                        <div class="col-6 col-sm-4 col-md-3 mb-3">
-                            <div class="gallery-item">
-                                <img src="${img.thumb}" class="img-thumbnail gallery-thumb" alt="${data.name}">
-                                <div class="gallery-caption">${img.caption}</div>
-                            </div>
-                        </div>`;
-                    galleryContainer.append(galleryItem);
-                });
+            if (found) break; // Exit the loop once the file is found
+        }
 
-                // Lightbox functionality
-                $('.gallery-thumb').on('click', function () {
-                    const index = $('.gallery-thumb').index(this);
-                    const fullImageSrc = data.gallery[index].full;
-                    $('#lightboxImage').attr('src', fullImageSrc);
-                    $('#lightboxOverlay').fadeIn();
-                });
+        return found ? characterFile : null; // Return the file path if found, otherwise null
+    };
 
-                $('#lightboxClose, #lightboxOverlay').on('click', function () {
-                    $('#lightboxOverlay').fadeOut();
-                });
+    const characterFile = searchCharacterInFolders(characterName); // Search through folders for the character file
+
+    if (characterFile) {
+        // If the character file is found, load the content
+        $.get(characterFile, function (response) {
+            const characterData = $(response).filter('#character-data').html();
+            const data = JSON.parse(characterData);
+
+            if (data) {
+                $('#character-name').text(data.name);
+                $('#main-character-image').attr('src', data.gallery?.[0]?.full);
+                $('#character-details').html(`
+                    <p>${data.details}</p>
+                    ${data.uniqueContent}
+                `);
+
+                // Populate the gallery
+                if (data.gallery && data.gallery.length > 0) {
+                    const galleryContainer = $('#characterGallery');
+                    data.gallery.forEach((img) => {
+                        const galleryItem = `
+                            <div class="col-6 col-sm-4 col-md-3 mb-3">
+                                <div class="gallery-item">
+                                    <img src="${img.thumb}" class="img-thumbnail gallery-thumb" alt="${data.name}">
+									
+                                    <div class="gallery-caption">${img.caption}</div>
+                                </div>
+                            </div>`;
+                        galleryContainer.append(galleryItem);
+                    });
+
+                    // Lightbox functionality
+    $(document).on('click', '.gallery-thumb', function () {
+        const fullImageSrc = $(this).attr('src').replace('_thumb', '')
+        const credit = $(this).data('credit');
+        $('#lightboxImage').attr('src', fullImageSrc);
+        $('#lightboxCredit').html(credit).show();
+        $('#lightboxOverlay').fadeIn();
+    });
+
+                    $('#lightboxClose, #lightboxOverlay').on('click', function () {
+                        $('#lightboxOverlay').fadeOut();
+                    });
+                } else {
+                    $('#characterGallery').html('<p>No gallery images available for this character.</p>');
+                }
             } else {
-                $('#characterGallery').html('<p>No gallery images available for this character.</p>');
+                $('#character-name').text('Character not found');
+                $('#character-details').html('<p>No details available for this character.</p>');
             }
-        } else {
+        }).fail(function () {
             $('#character-name').text('Character not found');
             $('#character-details').html('<p>No details available for this character.</p>');
-        }
-    }).fail(function () {
+        });
+    } else {
+        // If no character file is found, show an error
         $('#character-name').text('Character not found');
         $('#character-details').html('<p>No details available for this character.</p>');
-    });
+    }
 });
