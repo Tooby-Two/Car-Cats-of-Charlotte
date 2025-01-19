@@ -8,13 +8,16 @@ $(document).ready(function () {
     const tagToCharacterMapping = {
         "Reddick": "car_cats",
         "Jeffery": "jefferyverse",
+        "Heim": "car_cats",
         "Creed": "car_cats",
         "Bubba": "car_cats",
         "Raiden": "other",
         "Magma": "other",
         "Willow": "other",
         "Arthur": "other",
-        "Moonie": "other"
+        "Moonie": "other",
+        "Roy": "other",
+        "Nolan": "other"
         // Add other characters and their corresponding folder paths
     };
 

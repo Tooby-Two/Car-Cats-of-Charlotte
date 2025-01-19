@@ -11,7 +11,9 @@ $(document).ready(function () {
         "Magma": "other",
         "Willow": "other",
         "Arthur": "other",
-        "Moonie": "other"
+        "Moonie": "other",
+        "Roy": "other",
+        "Nolan": "other"
         // Add other characters and their corresponding folder paths
     };
 
@@ -23,7 +25,7 @@ $(document).ready(function () {
     // Function to load images from each character's HTML file in the specified folder
     function loadCharacterImagesFromFolder(folder) {
         // List of character names in the folder
-        const characterNames = ['Moonie','Heim','Creed', 'Jeffery', 'Bubba', 'Raiden', 'Magma', 'Willow', 'Arthur'];
+        const characterNames = ['Nolan','Roy','Moonie','Heim','Creed', 'Jeffery', 'Bubba', 'Raiden', 'Magma', 'Willow', 'Arthur'];
 
         characterNames.forEach((character) => {
             const characterFile = `characters/${folder}/${character}.html`; // Path to the character's HTML file
