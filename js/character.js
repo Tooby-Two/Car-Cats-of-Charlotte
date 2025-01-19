@@ -13,7 +13,8 @@ $(document).ready(function () {
         "Raiden": "other",
         "Magma": "other",
         "Willow": "other",
-        "Arthur": "other"
+        "Arthur": "other",
+        "Moonie": "other"
         // Add other characters and their corresponding folder paths
     };
 

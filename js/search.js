@@ -1,6 +1,6 @@
 $(document).ready(function () {
     const characterFolders = ['characters/car_cats', 'characters/jefferyverse', 'characters/other']; // List of folders where characters are stored
-    const characters = ['Heim','Reddick', 'Bubba', 'Creed', 'Jeffery', 'Raiden', 'Magma', 'Willow', 'Arthur']; // List of character names
+    const characters = ['Moonie', 'Heim','Reddick', 'Bubba', 'Creed', 'Jeffery', 'Raiden', 'Magma', 'Willow', 'Arthur']; // List of character names
     const characterList = $('#characterList'); // Element where character cards will be displayed
 
     // Load all character data
