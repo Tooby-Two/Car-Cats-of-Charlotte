@@ -21,7 +21,9 @@ $(document).ready(function () {
         "ET": "other",
         "Interstellar": "other",
         "SVK": "car_cats",
-        "Lajoie": "car_cats"
+        "Lajoie": "car_cats",
+        "Hunter": "other",
+        "SolarFlare": "other"
         // Add other characters and their corresponding folder paths
     };
 
@@ -60,7 +62,7 @@ $(document).ready(function () {
             const data = JSON.parse(characterData);
 
             if (data) {
-                $('#character-name').text(data.name);
+                $('.character-name').text(data.name);
                 $('#character-designer').html(data.designer);
                 $('#main-character-image').attr('src', data.gallery?.[0]?.full);
                 $('#character-details').html(data.details);
@@ -98,29 +100,29 @@ $(document).ready(function () {
                     });
                 }
             } else {
-                $('#character-name').text('Character not found');
+                $('.character-name').text('Character not found');
                 $('#character-details').html('<p>No details available for this character.</p>');
             }
         }).fail(function () {
-            $('#character-name').text('Character not found');
+            $('.character-name').text('Character not found');
             $('#character-details').html('<p>No details available for this character.</p>');
         });
     } else {
         // If no character file is found, show an error
-        $('#character-name').text('Character not found');
+        $('.character-name').text('Character not found');
         $('#character-details').html('<p>No details available for this character.</p>');
     }
 
     // Lightbox functionality
     $(document).on('click', '.gallery-thumb', function () {
-        const fullImageSrc = $(this).attr('src').replace('_thumb', '');
+        const fullImageSrc = $(this).data('full');
         const credit = $(this).data('credit');
         const tags = $(this).attr('alt').split(",");  // Assuming alt contains tags like "Reddick,Jeffery"
-        
+
         // Update lightbox content
         $('#lightboxImage').attr('src', fullImageSrc);
         $('#lightboxCredit').html(credit).show();
-        
+
         // Create buttons for each character based on the tags
         let characterLinks = '';
         tags.forEach(tag => {
@@ -134,10 +136,10 @@ $(document).ready(function () {
                     </a>`;
             }
         });
-        
+
         // Append buttons to lightbox content
         $('#lightboxContent').append(characterLinks);
-        
+
         $('#lightboxOverlay').fadeIn();
     });
 

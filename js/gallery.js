@@ -17,66 +17,86 @@ $(document).ready(function () {
         "Interstellar": "other",
         "ET": "other",
         "SVK": "car_cats",
-        "Lajoie": "car_cats"
-        // Add other characters and their corresponding folder paths
+        "Lajoie": "car_cats",
+        "Hunter": "other",
+        "SolarFlare": "other"
     };
 
     $('#lightboxOverlay').hide();
 
     let allImages = [];
     const uniqueImages = new Set(); // Use a Set to track unique image URLs
+    let imagesLoaded = 0;
+
+    // Function to shuffle an array
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
 
     // Function to load images from each character's HTML file in the specified folder
-    function loadCharacterImagesFromFolder(folder) {
-        // List of character names in the folder
-        const characterNames = ['Lajoie','SVK','Interstellar','ET','Nolan','Roy','Moonie','Heim','Creed', 'Jeffery', 'Bubba', 'Raiden', 'Magma', 'Willow', 'Arthur'];
+    function loadCharacterImagesFromFolder(folder, onComplete) {
+        const characterNames = ['SolarFlare','Hunter','Lajoie','SVK','Interstellar','ET','Nolan','Roy','Moonie','Heim','Creed', 'Jeffery', 'Bubba', 'Raiden', 'Magma', 'Willow', 'Arthur'];
 
         characterNames.forEach((character) => {
-            const characterFile = `characters/${folder}/${character}.html`; // Path to the character's HTML file
+            const characterFile = `characters/${folder}/${character}.html`;
 
             $.get(characterFile, function (response) {
-                // Parse the character data embedded within the HTML
                 const characterData = $(response).filter('#character-data').html();
                 const data = JSON.parse(characterData);
 
-                // If the character has gallery images, process them
                 if (data && data.gallery && data.gallery.length > 0) {
                     data.gallery.forEach((img) => {
-                        // Check if the image is already in the unique set
                         if (!uniqueImages.has(img.full)) {
-                            uniqueImages.add(img.full); // Add the image's full URL to the set
-                            allImages.push(img); // Store the image
-
-                            const tagsHTML = img.tags.map(tag => `<span class="badge bg-secondary">${tag}</span>`).join(' ');
-
-                            const galleryItem = `
-                                <div class="col-5 col-sm-4 col-md-3 mb-4 gallery-item" data-tags="${img.tags.join(',')}">
-                                    <div class="gallery-item-inner">
-                                        <img src="${img.thumb}" 
-                                             class="img-thumbnail bg-dark gallery-thumb" 
-                                             alt="${img.tags}"
-                                             data-full="${img.full}" 
-                                             data-credit="${img.credit}"
-                                             data-folder="${img.folder}">
-                                        <div class="gallery-caption">
-                                            ${img.caption}
-                                            <div class="gallery-tags mt-2">${tagsHTML}</div>
-                                        </div>
-                                    </div>
-                                </div>`;
-                            galleryContainer.append(galleryItem);
+                            uniqueImages.add(img.full);
+                            allImages.push(img);
                         }
                     });
                 }
+                imagesLoaded++;
+                if (imagesLoaded === folders.length * characterNames.length) {
+                    onComplete(); // Call the callback when all images are loaded
+                }
             }).fail(function () {
                 console.error(`Failed to load ${characterFile}`);
+                imagesLoaded++;
+                if (imagesLoaded === folders.length * characterNames.length) {
+                    onComplete();
+                }
             });
+        });
+    }
+
+    // Shuffle and display images
+    function displayImages() {
+        shuffleArray(allImages); // Shuffle the images array
+        allImages.forEach((img) => {
+            const tagsHTML = img.tags.map(tag => `<span class="badge bg-secondary">${tag}</span>`).join(' ');
+
+            const galleryItem = `
+                <div class="col-5 col-sm-4 col-md-3 mb-4 gallery-item" data-tags="${img.tags.join(',')}">
+                    <div class="gallery-item-inner">
+                        <img src="${img.thumb}" 
+                             class="img-thumbnail bg-dark gallery-thumb" 
+                             alt="${img.tags}"
+                             data-full="${img.full}" 
+                             data-credit="${img.credit}"
+                             data-folder="${img.folder}">
+                        <div class="gallery-caption">
+                            ${img.caption}
+                            <div class="gallery-tags mt-2">${tagsHTML}</div>
+                        </div>
+                    </div>
+                </div>`;
+            galleryContainer.append(galleryItem);
         });
     }
 
     // Loop through each folder to load images
     folders.forEach((folder) => {
-        loadCharacterImagesFromFolder(folder); // Load images from each folder
+        loadCharacterImagesFromFolder(folder, displayImages);
     });
 
     // Lightbox functionality

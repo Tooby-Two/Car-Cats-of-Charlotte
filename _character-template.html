@@ -10,19 +10,16 @@
 	<style>
 		:root {
 			--primary-color: #000;
-			/* Default accent color (black) */
 		}
 
 		body {
 			background-color: var(--primary-color);
 			color: var(--secondary-color);
-			/* Ensure text contrast */
 		}
 
 		.accent-bg {
 			background-color: var(--primary-color);
 			color: var(--secondary-color);
-			/* Text contrast */
 			padding: 10px;
 			border-radius: 5px;
 			border: 4px double black;
@@ -31,15 +28,11 @@
 			text-align: center;
 		}
 
-		/* Sidebar Styling */
 		.sidebar {
 			width: 100px;
-			background-repeat: repeat;
-			/* Ensures the image repeats in both directions */
-			background-size: auto;
-			/* Adjusts image size as per its original dimensions */
-			background-attachment: fixed;
 			height: 100vh;
+			background-color: #343a40;
+			color: white;
 			position: sticky;
 			top: 0;
 			overflow-y: auto;
@@ -50,7 +43,6 @@
 				display: none;
 			}
 		}
-
 
 		.sidebar a {
 			color: white;
@@ -65,13 +57,11 @@
 			background-color: #495057;
 		}
 
-		/* Main Content Styling */
 		.content {
 			flex: 1;
 			padding: 20px;
 		}
 
-		/* Flex Container for Layout */
 		.main-layout {
 			display: flex;
 			flex-wrap: nowrap;
@@ -79,39 +69,27 @@
 
 		.img-max-size {
 			max-height: 500px;
-			/* Set your desired max width */
-			height: 100%;
-			/* Ensure it scales down on smaller screens */
 		}
 	</style>
 </head>
 
 <body>
-
-	<!-- Placeholder for the Navbar -->
 	<div id="navbar-container"></div>
 
-	<!-- Main Layout with Sidebars -->
 	<div class="main-layout">
-		<!-- Left Sidebar -->
-		<div class="sidebar">
+		<div class="sidebar"></div>
 
-		</div>
-
-		<!-- Main Content -->
 		<div class="content">
-			<div class="container-fluid justify-content-center" style="padding: 5px; ">
+			<div class="container-fluid justify-content-center" style="padding: 5px;">
 
-				<!-- Character Name Header -->
 				<header>
 					<p class="accent-bg">
-						<span id="character-name"></span>
+						<span class="character-name"></span>
 					</p>
-					<p style="text-align:center;">
-						By <span id="character-designer"></span></p>
+					<p style="text-align:center;">By <span id="character-designer"></span></p>
 				</header>
 
-				<!-- Character Main Image -->
+				<!-- Main Image -->
 				<div class="container justify-content-center">
 					<img id="main-character-image" class="img-fluid mx-auto d-block img-max-size" src="#">
 				</div>
@@ -125,31 +103,49 @@
 					<li class="nav-item">
 						<a class="nav-link" id="gallery-tab" data-bs-toggle="tab" href="#gallery" role="tab">Gallery</a>
 					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="misc-tab" data-bs-toggle="tab" href="#misc" role="tab">Miscellaneous</a>
+					</li>
 				</ul>
 
 				<!-- Tab Content -->
-
 				<div class="tab-content">
 
-					<!-- Character Details Tab -->
+					<!-- Details Tab -->
 					<div class="tab-pane fade show active" id="details" role="tabpanel">
-						<main>
-							<section id="character-details">
-								<!-- Character details go here -->
-							</section>
-							<section id="character-appearance">
-								<!-- Character appearance goes here -->
-							</section>
-							<section id="character-personality">
-								<!-- Character personality goes here -->
-							</section>
-							<section id="character-backstory">
-								<!-- Character backstory goes here -->
-							</section>
-							<section id="uniqueContent">
-								<!-- Character backstory goes here -->
-							</section>
-						</main>
+						<section id="basic-info">
+							<h3>Basic Information</h3>
+							<ul>
+								<li><strong>Name: </strong><span class="character-name"></span></li>
+								<li><strong>Pronouns:</strong> <span id="charcter-pronouns"></span></li>
+								<li><strong>Species:</strong> <span id="character-species"></span></li>
+								<li><strong>Role/Occupation:</strong> <span id="character-role"></span></li>
+							</ul>
+						</section>
+
+						<section id="appearance">
+							<h3>Appearance</h3>
+							<ul>
+								<li><strong>Fur/Skin Color:</strong> <span id="character-fur-color"></span></li>
+								<li><strong>Eye Color:</strong> <span id="character-eye-color"></span></li>
+								<li><strong>Distinct Features:</strong> <span id="charcter-distinct-features"></span></li>
+							</ul>
+						</section>
+
+						<section id="personality">
+							<h3>Personality</h3>
+							<ul>
+								<li><strong>General Traits:</strong> <span id="character-traits"></span></li>
+								<li><strong>Likes:</strong> <span id="character-likes"></span></li>
+								<li><strong>Dislikes:</strong> <span id="character-dislikes"></span></li>
+								<li><strong>Fears:</strong> <span id="character-fears"></span></li>
+							</ul>
+						</section>
+
+						<section id="backstory">
+							<h3>Backstory</h3>
+							<p id="character-backstory"></p>
+						</section>
 					</div>
 
 					<!-- Gallery Tab -->
@@ -167,16 +163,34 @@
 							<button id="lightboxClose">X</button>
 						</div>
 					</div>
+
+					<!-- Miscellaneous Tab -->
+					<div class="tab-pane fade" id="misc" role="tabpanel">
+						<section id="story-info">
+							<h3>Story-Specific Information</h3>
+							<ul>
+								<li><strong>Affiliation:</strong> <span id="character-affiliation"></span></li>
+								<li><strong>Current Location:</strong> <span id="character-location"></span></li>
+								<li><strong>Objective:</strong> <span id="character-objective"></span></li>
+							</ul>
+						</section>
+
+						<section id="trivia">
+							<h3>Trivia</h3>
+							<ul id="character-trivia">
+								<!-- Dynamically populated trivia items -->
+							</ul>
+						</section>
+					</div>
+
 				</div>
 			</div>
 		</div>
-		<!-- Right Sidebar -->
-		<div class="sidebar">
-		</div>
-	</div>
-	<!-- Bootstrap JS -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
+		<div class="sidebar"></div>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script src="js/navbar.js"></script>
 	<script src="js/character.js"></script>
