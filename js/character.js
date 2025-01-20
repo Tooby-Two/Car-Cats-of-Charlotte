@@ -17,7 +17,11 @@ $(document).ready(function () {
         "Arthur": "other",
         "Moonie": "other",
         "Roy": "other",
-        "Nolan": "other"
+        "Nolan": "other",
+        "ET": "other",
+        "Interstellar": "other",
+        "SVK": "car_cats",
+        "Lajoie": "car_cats"
         // Add other characters and their corresponding folder paths
     };
 
