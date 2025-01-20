@@ -71,8 +71,8 @@ a:hover {
 
 #mainGallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjust the min size as needed */
-  gap: 15px; /* Space between items */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Adjust the min size as needed */
+  gap: 5px; /* Space between items */
 }
 
 #indivCharacterGallery {
