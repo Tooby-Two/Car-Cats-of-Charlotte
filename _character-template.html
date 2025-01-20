@@ -67,8 +67,15 @@
 			flex-wrap: nowrap;
 		}
 
-		.img-max-size {
-			max-height: 500px;
+		#main-character-image {
+			max-width: 100%;
+			/* Ensures it doesn't exceed the container width */
+			height: auto;
+			/* Maintains the aspect ratio */
+			display: block;
+			margin: 0 auto;
+			object-fit: contain;
+			/* Prevents distortion */
 		}
 	</style>
 </head>
@@ -128,7 +135,8 @@
 							<ul>
 								<li><strong>Fur/Skin Color:</strong> <span id="character-fur-color"></span></li>
 								<li><strong>Eye Color:</strong> <span id="character-eye-color"></span></li>
-								<li><strong>Distinct Features:</strong> <span id="charcter-distinct-features"></span></li>
+								<li><strong>Distinct Features:</strong> <span id="charcter-distinct-features"></span>
+								</li>
 							</ul>
 						</section>
 

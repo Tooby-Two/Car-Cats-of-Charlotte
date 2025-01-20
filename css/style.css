@@ -70,29 +70,34 @@ a:hover {
 }
 
 #mainGallery {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center; /* Center items horizontally */
-  align-items: center; /* Center items vertically */
-  gap: 15px; /* Space between gallery items */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjust the min size as needed */
+  gap: 15px; /* Space between items */
 }
 
 #indivCharacterGallery {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center; /* Center items horizontally */
-  align-items: center; /* Center items vertically */
-  gap: 15px; /* Space between gallery items */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjust the min size as needed */
+  gap: 15px; /* Space between items */
 }
+
+@media (max-width: 768px) {
+  #indivCharacterGallery {
+    grid-template-columns: repeat(2, 1fr); /* Two columns for smaller screens */
+  }
+  #mainGallery {
+    grid-template-columns: repeat(2, 1fr); /* Two columns for smaller screens */
+  }
+}
+
 
 .gallery-item {
   text-align: center;
   cursor:pointer;
-  margin:10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  width:200px;
+  width:80%;
   position:relative;
 }
 
