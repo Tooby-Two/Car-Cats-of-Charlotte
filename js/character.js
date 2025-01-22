@@ -23,7 +23,8 @@ $(document).ready(function () {
         "SVK": "car_cats",
         "Lajoie": "car_cats",
         "Hunter": "other",
-        "SolarFlare": "other"
+        "SolarFlare": "other",
+        "Ignis": "other"
         // Add other characters and their corresponding folder paths
     };
 
