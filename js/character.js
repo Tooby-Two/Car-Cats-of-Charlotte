@@ -24,7 +24,8 @@ $(document).ready(function () {
         "Lajoie": "car_cats",
         "Hunter": "other",
         "SolarFlare": "other",
-        "Ignis": "other"
+        "Ignis": "other",
+        "Vaporwavezz": "other"
         // Add other characters and their corresponding folder paths
     };
 
