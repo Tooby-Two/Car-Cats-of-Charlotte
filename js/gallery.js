@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    const folders = ['car_cats', 'jefferyverse', 'other']; // Folder names
+    const folders = ['car_cats', 'jefferyverse', 'other','ecliptica']; // Folder names
     const galleryContainer = $('#mainGallery');
     const tagToCharacterMapping = {
         "Reddick": "car_cats",
@@ -23,7 +23,9 @@ $(document).ready(function () {
         "Ignis": "other",
         "Vaporwavezz": "other",
         "Cherry": "other",
-        "Gruff": "other"
+        "Gruff": "other",
+        "Nova": "Ecliptica",
+        "Volt": "Ecliptica"
     };
 
     $('#lightboxOverlay').hide();
@@ -42,7 +44,7 @@ $(document).ready(function () {
 
     // Function to load images from each character's HTML file in the specified folder
     function loadCharacterImagesFromFolder(folder, onComplete) {
-        const characterNames = ['Gruff','Cherry','Vaporwavezz','Ignis','SolarFlare','Hunter','Lajoie','SVK','Interstellar','ET','Nolan','Roy','Moonie','Heim','Creed', 'Jeffery', 'Bubba', 'Raiden', 'Magma', 'Willow', 'Arthur'];
+        const characterNames = ['Nova','Volt','Gruff','Cherry','Vaporwavezz','Ignis','SolarFlare','Hunter','Lajoie','SVK','Interstellar','ET','Nolan','Roy','Moonie','Heim','Creed', 'Jeffery', 'Bubba', 'Raiden', 'Magma', 'Willow', 'Arthur'];
 
         characterNames.forEach((character) => {
             const characterFile = `characters/${folder}/${character}.html`;

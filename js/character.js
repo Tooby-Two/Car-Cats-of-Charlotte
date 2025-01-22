@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    const folders = ['car_cats', 'jefferyverse', 'other']; // Folder names to search
+    const folders = ['car_cats', 'jefferyverse', 'other', 'ecliptica']; // Folder names to search
     const galleryContainer = $('#mainGallery');
     const urlParams = new URLSearchParams(window.location.search);
     const characterName = urlParams.get('name');
@@ -27,7 +27,9 @@ $(document).ready(function () {
         "Ignis": "other",
         "Vaporwavezz": "other",
         "Cherry": "other",
-        "Gruff": "other"
+        "Gruff": "other",
+        "Nova": "ecliptica",
+        "Volt": "ecliptica"
         // Add other characters and their corresponding folder paths
     };
 
@@ -67,7 +69,7 @@ $(document).ready(function () {
             
             if (data) {
 
-                document.title = `${data.name}`;
+                document.title = `${data.name} - Character Details`;
                 $('.character-name').text(data.name);
                 $('#character-designer').html(data.designer);
                 $('#main-character-image').attr('src', data.gallery?.[0]?.full);
