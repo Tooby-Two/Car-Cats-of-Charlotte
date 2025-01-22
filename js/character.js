@@ -64,8 +64,10 @@ $(document).ready(function () {
         $.get(characterFile, function (response) {
             const characterData = $(response).filter('#character-data').html();
             const data = JSON.parse(characterData);
-
+            
             if (data) {
+
+                document.title = `${data.name}`;
                 $('.character-name').text(data.name);
                 $('#character-designer').html(data.designer);
                 $('#main-character-image').attr('src', data.gallery?.[0]?.full);
