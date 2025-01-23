@@ -17,6 +17,11 @@
 			color: var(--secondary-color);
 		}
 
+		.indent {
+			text-indent: 2em;
+			/* Adjust the value (e.g., 2em) to control the size of the indentation */
+		}
+
 		.accent-bg {
 			background-color: var(--primary-color);
 			color: var(--secondary-color);
@@ -36,12 +41,6 @@
 			position: sticky;
 			top: 0;
 			overflow-y: auto;
-		}
-
-		@media (max-width: 768px) {
-			.sidebar {
-				display: none;
-			}
 		}
 
 		.sidebar a {
@@ -76,6 +75,32 @@
 			margin: 0 auto;
 			object-fit: contain;
 			/* Prevents distortion */
+		}
+
+		.character-card {
+			width: 300px;
+			flex-shrink: 0;
+			float: right;
+			margin-left: 10%;
+		}
+		
+		@media (max-width: 768px) {
+			.sidebar {
+				display: none;
+			}
+
+			.character-card {
+				float: none;
+				/* Remove the float */
+				margin: 20px auto;
+				/* Center the card */
+				display: block;
+				/* Ensure it's treated as a block-level element */
+				width: 90%;
+				/* Adjust the width to fit smaller screens */
+				max-width: 300px;
+				/* Prevent it from becoming too wide */
+			}
 		}
 	</style>
 </head>
@@ -120,39 +145,51 @@
 
 					<!-- Details Tab -->
 					<div class="tab-pane fade show active" id="details" role="tabpanel">
-						<section id="basic-info">
-							<h3>Basic Information</h3>
-							<ul>
-								<li><strong>Name: </strong><span class="character-name"></span></li>
-								<li><strong>Pronouns:</strong> <span id="charcter-pronouns"></span></li>
-								<li><strong>Species:</strong> <span id="character-species"></span></li>
-								<li><strong>Role/Occupation:</strong> <span id="character-role"></span></li>
-							</ul>
-						</section>
+
+
+						<div class="character-card " style="width: 300px; border-left: 1px solid #000000;">
+							<div class="card " style="background-color: #343a40; color:black">
+								<img id="character-icon" class="card-img-top mx-auto" src="#" alt="Character Image"
+									style="width: 40%; height: auto; object-fit: cover; border-radius: 50%;">
+								<div class="card-body">
+									<h5 class="card-title"><span class="character-name"></span></h5>
+									<p class="card-text">
+										<strong>Age:</strong> <span id="character-age"></span><br>
+										<strong>Pronouns:</strong> <span id="character-pronouns"></span><br>
+										<strong>Species:</strong> <span id="character-species"></span><br>
+										<strong>Role:</strong> <span id="character-role"></span><br>
+										<strong>Fur/Skin Color:</strong> <span id="character-fur-color"></span><br>
+										<strong>Eye Color:</strong> <span id="character-eye-color"></span><br>
+										<hr>
+										<strong>Likes:</strong> <span id="character-likes"></span><br>
+										<strong>Dislikes:</strong> <span id="character-dislikes"></span><br>
+
+
+									</p>
+								</div>
+							</div>
+						</div>
+
+
 
 						<section id="appearance">
 							<h3>Appearance</h3>
-							<ul>
-								<li><strong>Fur/Skin Color:</strong> <span id="character-fur-color"></span></li>
-								<li><strong>Eye Color:</strong> <span id="character-eye-color"></span></li>
-								<li><strong>Distinct Features:</strong> <span id="charcter-distinct-features"></span>
-								</li>
-							</ul>
+							<hr>
+							<p id="character-appearance" class="indent"></p>
+
 						</section>
 
 						<section id="personality">
 							<h3>Personality</h3>
-							<ul>
-								<li><strong>General Traits:</strong> <span id="character-traits"></span></li>
-								<li><strong>Likes:</strong> <span id="character-likes"></span></li>
-								<li><strong>Dislikes:</strong> <span id="character-dislikes"></span></li>
-								<li><strong>Fears:</strong> <span id="character-fears"></span></li>
-							</ul>
+							<hr>
+							<p id="character-personality" class="indent"></p>
+
 						</section>
 
 						<section id="backstory">
 							<h3>Backstory</h3>
-							<p id="character-backstory"></p>
+							<hr>
+							<p id="character-backstory" class="indent"></p>
 						</section>
 					</div>
 

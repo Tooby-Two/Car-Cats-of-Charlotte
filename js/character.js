@@ -74,16 +74,29 @@ $(document).ready(function () {
                 $('.character-name').text(data.name);
                 $('#character-designer').html(data.designer);
                 $('#main-character-image').attr('src', data.gallery?.[0]?.full);
-                $('#character-details').html(data.details);
+                $('#character-age').html(data.age);
+                $('#character-pronouns').html(data.pronouns);
+                $('#character-species').html(data.species);
+                $('#character-role').html(data.role);
+                $('#character-fur-color').html(data.furColor);
+                $('#character-eye-color').html(data.eyeColor);
+                $('#character-likes').html(data.likes);
+                $('#character-dislikes').html(data.dislikes);
+
                 $('#character-appearance').html(data.appearance);
                 $('#character-personality').html(data.personality);
+
+
                 $('#character-backstory').html(data.backstory);
                 $('#uniqueContent').html(data.uniqueContent);
+                $('#character-icon').attr('src', data.icon);
+
 
                 document.documentElement.style.setProperty('--primary-color', data.color);
                 document.documentElement.style.setProperty('--secondary-color', data.colorSecondary);
 
                 $('.sidebar').css('background-image', `url(${data.sidebarImage})`);
+
 
                 // Populate the gallery
                 if (data.gallery && data.gallery.length > 0) {
