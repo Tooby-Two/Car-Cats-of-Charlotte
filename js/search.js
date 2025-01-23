@@ -1,6 +1,6 @@
 $(document).ready(function () {
     const characterFolders = ['characters/car_cats', 'characters/jefferyverse', 'characters/other','characters/ecliptica']; // List of folders where characters are stored
-    const characters = ['Nova','Volt','Gruff','Cherry','Vaporwavezz','Ignis','SolarFlare', 'Hunter','Lajoie','SVK','ET', 'Interstellar', 'Nolan','Roy','Moonie', 'Heim','Reddick', 'Bubba', 'Creed', 'Jeffery', 'Raiden', 'Magma', 'Willow', 'Arthur']; // List of character names
+    const characters = ['Drennix','Nova','Volt','Gruff','Cherry','Vaporwavezz','Ignis','SolarFlare', 'Hunter','Lajoie','SVK','ET', 'Interstellar', 'Nolan','Roy','Moonie', 'Heim','Reddick', 'Bubba', 'Creed', 'Jeffery', 'Raiden', 'Magma', 'Willow', 'Arthur']; // List of character names
     const characterList = $('#characterList'); // Element where character cards will be displayed
 
     // Load all character data

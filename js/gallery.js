@@ -7,6 +7,8 @@ $(document).ready(function () {
         "Jeffery": "jefferyverse",
         "Creed": "car_cats",
         "Bubba": "car_cats",
+        "Lajoie": "car_cats",
+        "Drennix": "car_cats",
         "Raiden": "other",
         "Magma": "other",
         "Willow": "other",
@@ -17,7 +19,6 @@ $(document).ready(function () {
         "Interstellar": "other",
         "ET": "other",
         "SVK": "car_cats",
-        "Lajoie": "car_cats",
         "Hunter": "other",
         "SolarFlare": "other",
         "Ignis": "other",
@@ -44,7 +45,7 @@ $(document).ready(function () {
 
     // Function to load images from each character's HTML file in the specified folder
     function loadCharacterImagesFromFolder(folder, onComplete) {
-        const characterNames = ['Nova','Volt','Gruff','Cherry','Vaporwavezz','Ignis','SolarFlare','Hunter','Lajoie','SVK','Interstellar','ET','Nolan','Roy','Moonie','Heim','Creed', 'Jeffery', 'Bubba', 'Raiden', 'Magma', 'Willow', 'Arthur'];
+        const characterNames = ['Drennix','Nova','Volt','Gruff','Cherry','Vaporwavezz','Ignis','SolarFlare','Hunter','Lajoie','SVK','Interstellar','ET','Nolan','Roy','Moonie','Heim','Creed', 'Jeffery', 'Bubba', 'Raiden', 'Magma', 'Willow', 'Arthur'];
 
         characterNames.forEach((character) => {
             const characterFile = `characters/${folder}/${character}.html`;

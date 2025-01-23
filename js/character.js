@@ -11,6 +11,7 @@ $(document).ready(function () {
         "Heim": "car_cats",
         "Creed": "car_cats",
         "Bubba": "car_cats",
+        "Drennix": "car_cats",
         "Raiden": "other",
         "Magma": "other",
         "Willow": "other",
