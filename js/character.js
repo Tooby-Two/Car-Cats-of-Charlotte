@@ -152,7 +152,7 @@ $(document).ready(function () {
                 const folder = tagToCharacterMapping[tag]; // Get the folder from the mapping
                 const iconPath = `images/icons/${tag.toLowerCase()}_icon.png`; // Modify this path to your icon image location
                 characterLinks += `
-                    <a href="_character-template.html?name=${tag}" class="btn btn-primary mt-3">
+                    <a href="_character-template.html?name=${tag}" class="character-link btn btn-primary mt-3">
                         <img src="${iconPath}" alt="${tag} Icon" class="character-icon me-2">
                         View ${tag}
                     </a>`;

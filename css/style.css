@@ -166,17 +166,18 @@ a:hover {
 }
 
 #lightboxContent {
+  position: relative;
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  max-width: 90%; /* Ensures the content area isn't too wide */
+  max-height: 80vh; /* Limit the height to 80% of the viewport */
+  padding-top: 20px;
 }
 
 #lightboxImage {
-  max-width: 90%;
-  max-height: 80vh;
+  max-width: 100%;
+  max-height: 60vh; /* Image takes up 60% of the screen */
   margin: 0 auto;
+  display: block;
 }
 
 #lightboxCredit {
@@ -186,7 +187,6 @@ a:hover {
   text-align: center;
 }
 
-
 #lightboxClose {
   position: absolute;
   top: 20px;
@@ -195,6 +195,14 @@ a:hover {
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
+  z-index: 1100; /* Ensure close button stays on top */
+}
+
+.character-link {
+  display: inline-block;
+  white-space: nowrap; /* Prevent text wrapping inside the button */
+  margin: 10px; /* Add some space between buttons */
+  flex: 0 0 auto; /* Prevent button from stretching */
 }
 
 .character-icon {
@@ -202,4 +210,17 @@ a:hover {
   height: 50px; /* Ensure the icon maintains aspect ratio */
   vertical-align: middle; /* Align the icon with the text */
 }
+
+/* Additional styling to ensure responsiveness */
+@media (max-width: 768px) {
+  #lightboxContent {
+    padding: 10px;
+  }
+
+  .character-link {
+    margin: 5px;
+  }
+}
+
+
 
