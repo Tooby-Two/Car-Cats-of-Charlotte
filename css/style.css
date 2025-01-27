@@ -14,7 +14,7 @@ body {
   
   /* Optional: Style links, buttons, etc., specifically for dark mode */
   body[data-theme="dark"] a {
-    color: #1e90ff;
+    color: #ffffff;
   }
   
   a {
@@ -136,9 +136,14 @@ a:hover {
 }
 
 .card {
-  border: 1px solid #383838;
+  border: 1px solid #000000;
   border-radius: 5px;
-  background-color: #3d3d3d;;
+  background-color: #c8c8c8;;
+}
+
+body[data-theme="dark"] .card {
+  background-color: #242424;
+  color: white;
 }
 
 .card img {
@@ -146,11 +151,16 @@ a:hover {
   object-fit:contain;
 }
 
+body[data-theme="dark"] .card-title {
+  color:white;
+}
+
 .card-title {
   font-size: 1.2rem;
   font-weight: bold;
-  color:white;
+  color:rgb(0, 0, 0);
 }
+
 
 #lightboxOverlay {
   position: fixed;

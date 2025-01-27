@@ -12,11 +12,6 @@
 			--primary-color: #000;
 		}
 
-		body {
-			background-color: var(--primary-color);
-			color: var(--secondary-color);
-		}
-
 		.indent {
 			text-indent: 2em;
 			/* Adjust the value (e.g., 2em) to control the size of the indentation */
@@ -41,7 +36,7 @@
 			position: sticky;
 			top: 0;
 			overflow-y: auto;
-			background-size:120vh;
+			background-size:cover;
 		}
 
 		.sidebar a {
@@ -82,7 +77,8 @@
 			width: 300px;
 			flex-shrink: 0;
 			float: right;
-			margin-left: 10%;
+			margin-left: 5%;
+			margin-bottom: 4%;
 		}
 		
 		@media (max-width: 768px) {
@@ -97,12 +93,14 @@
 				/* Center the card */
 				display: block;
 				/* Ensure it's treated as a block-level element */
-				width: 90%;
+				width: 100%;
 				/* Adjust the width to fit smaller screens */
 				max-width: 300px;
 				/* Prevent it from becoming too wide */
 			}
 		}
+
+		
 	</style>
 </head>
 
@@ -149,7 +147,7 @@
 
 
 						<div class="character-card " style="width: 300px; border-left: 1px solid #000000;">
-							<div class="card " style="background-color: #343a40; color:black">
+							<div class="card">
 								<img id="character-icon" class="card-img-top mx-auto" src="#" alt="Character Image"
 									style="width: 40%; height: auto; object-fit: cover; border-radius: 50%;">
 								<div class="card-body">
@@ -164,8 +162,11 @@
 										<hr>
 										<strong>Likes:</strong> <span id="character-likes"></span><br>
 										<strong>Dislikes:</strong> <span id="character-dislikes"></span><br>
-
-
+										<hr>
+										<!--Image I'm trying to add-->
+										<h5 style="font-weight: bold;">Reference Image</h5>
+										<img id="character-reference" class="gallery-thumb gallery-item card-img-top mx-auto" src="#" data-full="#" alt="Character Reference Image">
+										
 									</p>
 								</div>
 							</div>
@@ -192,6 +193,11 @@
 							<hr>
 							<p id="character-backstory" class="indent"></p>
 						</section>
+
+						<section id="uniqueContent" style="clear:both;"></section>
+
+						</section>
+
 					</div>
 
 					<!-- Gallery Tab -->

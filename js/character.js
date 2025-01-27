@@ -90,6 +90,10 @@ $(document).ready(function () {
                 $('#character-backstory').html(data.backstory);
                 $('#uniqueContent').html(data.uniqueContent);
                 $('#character-icon').attr('src', data.icon);
+                $('#character-reference').attr('src', data.gallery?.[1]?.thumb);
+                $('#character-reference').attr('data-full', data.gallery?.[1]?.full);
+                $('#character-reference').attr('data-credit', data.gallery?.[1]?.credit);
+
 
 
                 document.documentElement.style.setProperty('--primary-color', data.color);

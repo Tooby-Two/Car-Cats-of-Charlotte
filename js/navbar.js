@@ -17,7 +17,10 @@ $(document).ready(function() {
           if (savedTheme) {
               body.className = savedTheme; // Apply saved theme
               if (darkModeToggle) {
-                  darkModeToggle.checked = savedTheme.includes('bg-dark'); // Update toggle state
+                  darkModeToggle.checked = savedTheme.includes('bg-dark');                  // Update toggle state
+              }
+              if (savedTheme.includes('bg-dark')){
+                document.body.setAttribute('data-theme', "dark");
               }
           }
 
@@ -27,9 +30,12 @@ $(document).ready(function() {
                   if (darkModeToggle.checked) {
                       body.className = 'bg-dark text-light'; // Dark mode
                       localStorage.setItem('theme', 'bg-dark text-light');
+                      document.body.setAttribute('data-theme', "dark");
                   } else {
                       body.className = 'bg-light text-dark'; // Light mode
                       localStorage.setItem('theme', 'bg-light text-dark');
+                      localStorage.setItem('data-theme', 'light');
+                      document.body.setAttribute('data-theme', "light");
                   }
               });
           }
