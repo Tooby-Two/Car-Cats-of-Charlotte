@@ -73,7 +73,7 @@ $(document).ready(function () {
             
             if (data) {
 
-                document.title = `${data.name} - Character Details`;
+                document.title = `Tooby_Two - ${data.name} - Character Details`;
                 $('.character-name').text(data.name);
                 $('#character-designer').html(data.designer);
                 $('#main-character-image').attr('src', data.gallery?.[0]?.full);
