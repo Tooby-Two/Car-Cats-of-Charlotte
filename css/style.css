@@ -149,6 +149,7 @@ body[data-theme="dark"] .card {
 .card img {
   max-height: 200px;
   object-fit:contain;
+  aspect-ratio: 1/1;
 }
 
 body[data-theme="dark"] .card-title {

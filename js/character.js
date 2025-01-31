@@ -30,7 +30,10 @@ $(document).ready(function () {
         "Cherry": "other",
         "Gruff": "other",
         "Nova": "ecliptica",
-        "Volt": "ecliptica"
+        "Volt": "ecliptica",
+        "Dragon": "other",
+        "Icicle": "other",
+        "Rheem":"car_cats"
         // Add other characters and their corresponding folder paths
     };
 
