@@ -33,7 +33,9 @@ $(document).ready(function () {
         "Volt": "ecliptica",
         "Dragon": "other",
         "Icicle": "other",
-        "Rheem":"car_cats"
+        "Allmendinger": "car_cats",
+        "Rheem": "car_cats",
+        "Patchwork": "other"
         // Add other characters and their corresponding folder paths
     };
 
@@ -70,7 +72,7 @@ $(document).ready(function () {
         $.get(characterFile, function (response) {
             const characterData = $(response).filter('#character-data').html();
             const data = JSON.parse(characterData);
-            
+
             if (data) {
 
                 document.title = `Tooby_Two - ${data.name} - Character Details`;
@@ -128,6 +130,46 @@ $(document).ready(function () {
                         galleryContainer.append(galleryItem);
                     });
                 }
+
+                // Populate character links if they exist
+                if (data.links && data.links.length > 0) {
+                    const linksContainer = $('#character-links'); // Make sure you have a div with this ID in your HTML
+                    linksContainer.empty(); // Clear previous content
+
+                    data.links.forEach(link => {
+                        const linkHTML = `
+                            <div class="character-link-container d-flex align-items-center justify-content-center">
+                            <!-- Main Character -->
+                                <div class="character-main text-center">
+                                    <img src="${data.gallery?.[0]?.thumb}" alt="${data.name}" class="character-img">
+                                    <div class="speech-bubble left">
+                                        <p>"${link.thought || "..."}"</p>
+                                    </div>
+                                </div>
+
+                                <!-- Linked Character -->
+                                <div class="character-linked text-center">
+                                    <a href="_character-template.html?name=${link.name}">
+                                    <img src="${link.image}" alt="${link.name}" class="character-img">
+                                    </a>
+                                    <div class="speech-bubble right">
+                                        <p>"${link.quote}"</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Relationship Summary -->
+                            <div class="relationship-summary text-center">
+                                <p>${link.summary}</p>
+                            </div>
+                            `;
+                        linksContainer.append(linkHTML);
+                    });
+                } else {
+                    $('#character-links').html('<p>No links available.</p>');
+                }
+
+
             } else {
                 $('.character-name').text('Character not found');
                 $('#character-details').html('<p>No details available for this character.</p>');

@@ -235,3 +235,50 @@ body[data-theme="dark"] .card-title {
 
 
 
+.character-link-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 30px;
+  margin: 20px 0;
+}
+
+.character-main, .character-linked {
+  position: relative;
+}
+
+.character-img {
+  width: 150px; /* Adjust size as needed */
+  height: auto;
+  border-radius: 50%;
+  border: 3px solid var(--primary-color);
+}
+
+.speech-bubble {
+  max-width: 200px;
+  padding: 10px 15px;
+  background: var(--primary-color);
+  color: var(--secondary-color);
+  border-radius: 10px;
+  position: relative;
+  top: 100%;
+  font-size: 14px;
+  text-align: center;
+}
+
+.speech-bubble.left {
+  left: 10%;
+  transform: translateX(-50%);
+}
+
+.speech-bubble.right {
+  right: 10%;
+  transform: translateX(50%);
+}
+
+.relationship-summary {
+  margin-top: 20px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}

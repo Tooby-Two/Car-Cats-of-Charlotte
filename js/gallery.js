@@ -29,7 +29,9 @@ $(document).ready(function () {
         "Nova": "Ecliptica",
         "Volt": "Ecliptica",
         "Dragon": "other",
-        "Icicle":"other"
+        "Icicle":"other",
+        "Patchwork":"other",
+        "Allmendinger":"car_cats",
     };
 
     $('#lightboxOverlay').hide();
@@ -48,7 +50,7 @@ $(document).ready(function () {
 
     // Function to load images from each character's HTML file in the specified folder
     function loadCharacterImagesFromFolder(folder, onComplete) {
-        const characterNames = ['Rheem','Icicle','Dragon','Drennix','Nova','Volt','Gruff','Cherry','Vaporwavezz','Ignis','SolarFlare','Hunter','Lajoie','SVK','Interstellar','ET','Nolan','Roy','Moonie','Heim','Creed', 'Jeffery', 'Bubba', 'Raiden', 'Magma', 'Willow', 'Arthur'];
+        const characterNames = ['Allmendinger','Patchwork','Rheem','Icicle','Dragon','Drennix','Nova','Volt','Gruff','Cherry','Vaporwavezz','Ignis','SolarFlare','Hunter','Lajoie','SVK','Interstellar','ET','Nolan','Roy','Moonie','Heim','Creed', 'Jeffery', 'Bubba', 'Raiden', 'Magma', 'Willow', 'Arthur'];
 
         characterNames.forEach((character) => {
             const characterFile = `characters/${folder}/${character}.html`;
