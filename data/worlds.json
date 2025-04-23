@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Car Cats of Charlotte",
+    "tagline": "Cats based off of NASCAR drivers and sponsors.",
+    "description": "",
+    "thumbnail": "images/carcats/CreedHeimSVK.png",
+    "featured": true,
+    "new": true,
+    "link": "car_cats.html",
+    "gallery": "gallery.html?world=car_cats",
+    "tags": [
+      "NASCAR",
+      "Cats",
+      "Supernatural"
+    ],
+    "colors": {
+      "primary": "#e20000",
+      "secondary": "#374f6b"
+    },
+    "stats": {
+      "characters": 9
+    },
+    "featuredCharacters": [
+      {
+        "name": "Reddick",
+        "icon": "images/icons/reddick_icon.png"
+      },
+      {
+        "name": "Bubba",
+        "icon": "images/icons/bubba_icon.png"
+      },
+      {
+        "name": "Creed",
+        "icon": "images/icons/creed_icon.png"
+      },
+      {
+        "name": "Heim",
+        "icon": "images/icons/heim_icon.png"
+      }
+    ]
+  }
+]

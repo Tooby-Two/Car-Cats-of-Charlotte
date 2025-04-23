@@ -1,284 +1,336 @@
-  
   /* Default Light Mode (Fallback) */
-body {
+  body {
     background-color: white;
     color: black;
     font-family: Arial, sans-serif;
   }
-  
+
   /* Dark Mode */
   body[data-theme="dark"] {
     background-color: #121212;
     color: white;
   }
-  
+
   /* Optional: Style links, buttons, etc., specifically for dark mode */
   body[data-theme="dark"] a {
     color: #ffffff;
   }
-  
+
   a {
     color: inherit;
     text-decoration: none;
-}
-
-a:hover {
-    color:#00A0C6; 
-    text-decoration:none; 
-    cursor:pointer;  
-}
-
-/* Lightbox overlay */
-.lightbox-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: none; /* Hidden by default */
-  justify-content: center;
-  align-items: center;
-  z-index: 1050; /* Ensure it's above everything else */
-}
-
-/* Lightbox image */
-.lightbox-image {
-  max-width: 90%;
-  max-height: 90%;
-  min-width: 30%;
-  min-height: 30%;
-  border-radius: 5px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-}
-
-/* Lightbox close button */
-.lightbox-close {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  font-size: 30px;
-  font-weight: bold;
-  color: white;
-  cursor: pointer;
-}
-
-.gallery-thumb {
-  width: 100%; /* Ensures the image takes the full width of the parent */
-  aspect-ratio: 1 / 1; /* Maintain square aspect ratio */
-  object-fit: cover; /* Crop and focus on the center of the image */
-}
-
-#mainGallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Adjust the min size as needed */
-  gap: 5px; /* Space between items */
-}
-
-#indivCharacterGallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjust the min size as needed */
-  gap: 15px; /* Space between items */
-}
-
-@media (max-width: 768px) {
-  #indivCharacterGallery {
-    grid-template-columns: repeat(2, 1fr); /* Two columns for smaller screens */
   }
+
+  a:hover {
+    color: #00A0C6;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  /* Custom dropdown background color */
+  .dropdown-menu {
+    background-color: #2c2c2c;
+    /* Darker grey */
+  }
+
+  /* Lightbox overlay */
+  .lightbox-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+    /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    z-index: 1050;
+    /* Ensure it's above everything else */
+  }
+
+  /* Lightbox image */
+  .lightbox-image {
+    max-width: 90%;
+    max-height: 90%;
+    min-width: 30%;
+    min-height: 30%;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Lightbox close button */
+  .lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+  }
+
+  .gallery-thumb {
+    width: 100%;
+    /* Ensures the image takes the full width of the parent */
+    aspect-ratio: 1 / 1;
+    /* Maintain square aspect ratio */
+    object-fit: cover;
+    /* Crop and focus on the center of the image */
+  }
+
   #mainGallery {
-    grid-template-columns: repeat(2, 1fr); /* Two columns for smaller screens */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    /* Adjust the min size as needed */
+    gap: 5px;
+    /* Space between items */
   }
-}
+
+  #indivCharacterGallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    /* Adjust the min size as needed */
+    gap: 15px;
+    /* Space between items */
+  }
+
+  @media (max-width: 768px) {
+    #indivCharacterGallery {
+      grid-template-columns: repeat(2, 1fr);
+      /* Two columns for smaller screens */
+    }
+
+    #mainGallery {
+      grid-template-columns: repeat(2, 1fr);
+      /* Two columns for smaller screens */
+    }
+  }
 
 
-.gallery-item {
-  text-align: center;
-  cursor:pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width:80%;
-  position:relative;
-}
+  .gallery-item {
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    position: relative;
+  }
 
-.gallery-item:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transform: scale(1.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+  .gallery-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
 
-.gallery-caption {
-  margin-top: 5px;
-  font-size: 0.9rem;
-  color: #555; /* Adjust color as needed */
-  font-style: italic;
-}
+  .gallery-caption {
+    margin-top: 5px;
+    font-size: 0.9rem;
+    color: #555;
+    /* Adjust color as needed */
+    font-style: italic;
+  }
 
-/* Styling for the search bar */
-#searchBar {
-  max-width: 400px;
-  margin: 0 auto;
-}
+  /* Styling for the search bar */
+  #searchBar {
+    max-width: 400px;
+    margin: 0 auto;
+  }
 
-.gallery-tags {
-  text-align: center;
-}
+  .gallery-tags {
+    text-align: center;
+  }
 
-.badge {
-  font-size: 0.8rem;
-  padding: 5px 10px;
-  cursor: default;
-}
+  .badge {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+    cursor: default;
+  }
 
-/* Styling for character cards */
-.character-item {
-  display: block;
-}
+  /* Styling for character cards */
+  .character-item {
+    display: block;
+  }
 
-.card {
-  border: 1px solid #000000;
-  border-radius: 5px;
-  background-color: #c8c8c8;;
-}
+  .card {
+    border: 1px solid #000000;
+    border-radius: 5px;
+    background-color: #c8c8c8;
+    ;
+  }
 
-body[data-theme="dark"] .card {
-  background-color: #242424;
-  color: white;
-}
+  body[data-theme="dark"] .card {
+    background-color: #242424;
+    color: white;
+  }
 
-.card img {
-  max-height: 200px;
-  object-fit:contain;
-  aspect-ratio: 1/1;
-}
+  .card img {
+    max-height: 200px;
+    object-fit: contain;
+    aspect-ratio: 1/1;
+  }
 
-body[data-theme="dark"] .card-title {
-  color:white;
-}
+  body[data-theme="dark"] .card-title {
+    color: white;
+  }
 
-.card-title {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color:rgb(0, 0, 0);
-}
+  .card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+  }
 
 
-#lightboxOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
+  #lightboxOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
 
-#lightboxContent {
-  position: relative;
-  text-align: center;
-  max-width: 90%; /* Ensures the content area isn't too wide */
-  max-height: 80vh; /* Limit the height to 80% of the viewport */
-  padding-top: 20px;
-}
-
-#lightboxImage {
-  max-width: 100%;
-  max-height: 60vh; /* Image takes up 60% of the screen */
-  margin: 0 auto;
-  display: block;
-}
-
-#lightboxCredit {
-  font-size: 14px;
-  color: #ccc;
-  margin-top: 10px;
-  text-align: center;
-}
-
-#lightboxClose {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background: #828282;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  z-index: 1100; /* Ensure close button stays on top */
-}
-
-.character-link {
-  display: inline-block;
-  white-space: nowrap; /* Prevent text wrapping inside the button */
-  margin: 10px; /* Add some space between buttons */
-  flex: 0 0 auto; /* Prevent button from stretching */
-}
-
-.character-icon {
-  width: 50px;  /* Adjust size of the icon */
-  height: 50px; /* Ensure the icon maintains aspect ratio */
-  vertical-align: middle; /* Align the icon with the text */
-}
-
-/* Additional styling to ensure responsiveness */
-@media (max-width: 768px) {
   #lightboxContent {
-    padding: 10px;
+    position: relative;
+    text-align: center;
+    max-width: 90%;
+    /* Ensures the content area isn't too wide */
+    max-height: 80vh;
+    /* Limit the height to 80% of the viewport */
+    padding-top: 20px;
+  }
+
+  #lightboxImage {
+    max-width: 100%;
+    max-height: 60vh;
+    /* Image takes up 60% of the screen */
+    margin: 0 auto;
+    display: block;
+  }
+
+  #lightboxCredit {
+    font-size: 14px;
+    color: #ccc;
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  #lightboxClose {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: #828282;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 1100;
+    /* Ensure close button stays on top */
   }
 
   .character-link {
-    margin: 5px;
+    display: inline-block;
+    white-space: nowrap;
+    /* Prevent text wrapping inside the button */
+    margin: 10px;
+    /* Add some space between buttons */
+    flex: 0 0 auto;
+    /* Prevent button from stretching */
   }
-}
+
+  .character-icon {
+    width: 50px;
+    /* Adjust size of the icon */
+    height: 50px;
+    /* Ensure the icon maintains aspect ratio */
+    vertical-align: middle;
+    /* Align the icon with the text */
+  }
+
+  /* Additional styling to ensure responsiveness */
+  @media (max-width: 768px) {
+    #lightboxContent {
+      padding: 10px;
+    }
+
+    .character-link {
+      margin: 5px;
+    }
+
+    .character-link-container {
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .speech-bubble {
+      font-size: 12px;
+      padding: 8px 12px;
+      top: 120%;
+      /* Push it further down to avoid overlap */
+    }
+  }
 
 
 
-.character-link-container {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 30px;
-  margin: 20px 0;
-}
+  .character-link-container {
+    display: flex;
+    align-items: center;
+    /* Align images at the same horizontal level */
+    justify-content: center;
+    gap: 30px;
+    margin: 20px 0;
+  }
 
-.character-main, .character-linked {
-  position: relative;
-}
 
-.character-img {
-  width: 150px; /* Adjust size as needed */
-  height: auto;
-  border-radius: 50%;
-  border: 3px solid var(--primary-color);
-}
+  .character-main,
+  .character-linked {
+    display: flex;
+    flex-direction: column;
+    /* Ensures images stay above text */
+    align-items: center;
+    /* Centers the image above the speech bubble */
+  }
 
-.speech-bubble {
-  max-width: 200px;
-  padding: 10px 15px;
-  background: var(--primary-color);
-  color: var(--secondary-color);
-  border-radius: 10px;
-  position: relative;
-  top: 100%;
-  font-size: 14px;
-  text-align: center;
-}
 
-.speech-bubble.left {
-  left: 10%;
-  transform: translateX(-50%);
-}
+  .character-img {
+    width: 150px;
+    /* Adjust size as needed */
+    height: auto;
+    border-radius: 50%;
+    border: 3px solid var(--primary-color);
+  }
 
-.speech-bubble.right {
-  right: 10%;
-  transform: translateX(50%);
-}
+  .speech-bubble {
+    max-width: 300px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    position: relative;
+    top: 100%;
+    font-size: 14px;
+    text-align: center;
+  }
 
-.relationship-summary {
-  margin-top: 20px;
-  padding: 15px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-}
+  .speech-bubble.left {
+    left: 50%;
+    transform: translateX(-50%);
+
+    background: var(--primary-color);
+    color: var(--secondary-color);
+  }
+
+  .speech-bubble.right {
+    right: 50%;
+    transform: translateX(50%);
+
+  }
+
+  .relationship-summary {
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+  }

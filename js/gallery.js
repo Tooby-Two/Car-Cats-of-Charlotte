@@ -1,44 +1,59 @@
 $(document).ready(function () {
-    const folders = ['car_cats', 'jefferyverse', 'other','ecliptica']; // Folder names
+    const folders = ['car_cats', 'jefferyverse', 'other', 'ecliptica', 'cbcs']; // Folder names
     const galleryContainer = $('#mainGallery');
-    const tagToCharacterMapping = {
-        "Reddick": "car_cats",
-        "Heim": "car_cats",
-        "Jeffery": "jefferyverse",
-        "Creed": "car_cats",
-        "Bubba": "car_cats",
-        "Lajoie": "car_cats",
-        "Drennix": "car_cats",
-        "Raiden": "other",
-        "Magma": "other",
-        "Willow": "other",
-        "Arthur": "other",
-        "Moonie": "other",
-        "Roy": "other",
-        "Nolan": "other",
-        "Interstellar": "other",
-        "ET": "other",
-        "SVK": "car_cats",
-        "Rheem":"car_cats",
-        "Hunter": "other",
-        "SolarFlare": "other",
-        "Ignis": "other",
-        "Vaporwavezz": "other",
-        "Cherry": "other",
-        "Gruff": "other",
-        "Nova": "Ecliptica",
-        "Volt": "Ecliptica",
-        "Dragon": "other",
-        "Icicle":"other",
-        "Patchwork":"other",
-        "Allmendinger":"car_cats",
+    const loadingIndicator = $('<div id="loadingIndicator" class="text-center my-5"><div class="spinner-border text-primary" role="status"></div><p>Loading gallery...</p></div>');
+
+    const urlParams = new URLSearchParams(window.location.search);
+    var worldName = urlParams.get('world');
+
+    const validFolders = ['car_cats', 'jefferyverse', 'other', 'ecliptica', 'cbcs'];
+    const worldNamesPretty = {
+        car_cats: 'Car Cats',
+        jefferyverse: 'Jefferyverse',
+        other: 'Other',
+        ecliptica: 'Ecliptica',
+        cbcs: 'CBCS'
+    };
+
+    function generateWorldButtons(currentWorld) {
+        const filterContainer = $('#worldFilters');
+    
+        // Add the "All" button
+        const allButton = $(`
+            <a href="gallery.html" class="btn btn-sm mx-1 ${!currentWorld ? 'btn-primary' : 'btn-outline-primary'}" id="allButton">
+                All
+            </a>
+        `);
+        filterContainer.append(allButton);
+    
+        // Add buttons for each world
+        validFolders.forEach(world => {
+            const button = $(`
+                <a href="?world=${world}" class="btn btn-sm mx-1 ${world === currentWorld ? 'btn-primary' : 'btn-outline-primary'}">
+                    ${worldNamesPretty[world] || world}
+                </a>
+            `);
+            filterContainer.append(button);
+        });
+    }
+
+    generateWorldButtons(worldName);
+
+
+    // Add loading indicator
+    galleryContainer.append(loadingIndicator);
+
+    let tagToCharacterMapping = {};
+    let allImages = [];
+    const uniqueImages = new Set(); // Use a Set to track unique image URLs
+    let characterLoadStatus = {
+        total: 0,
+        loaded: 0,
+        successful: 0,
+        failed: 0
     };
 
     $('#lightboxOverlay').hide();
-
-    let allImages = [];
-    const uniqueImages = new Set(); // Use a Set to track unique image URLs
-    let imagesLoaded = 0;
 
     // Function to shuffle an array
     function shuffleArray(array) {
@@ -48,42 +63,143 @@ $(document).ready(function () {
         }
     }
 
-    // Function to load images from each character's HTML file in the specified folder
-    function loadCharacterImagesFromFolder(folder, onComplete) {
-        const characterNames = ['Allmendinger','Patchwork','Rheem','Icicle','Dragon','Drennix','Nova','Volt','Gruff','Cherry','Vaporwavezz','Ignis','SolarFlare','Hunter','Lajoie','SVK','Interstellar','ET','Nolan','Roy','Moonie','Heim','Creed', 'Jeffery', 'Bubba', 'Raiden', 'Magma', 'Willow', 'Arthur'];
+    // Function to update the loading status
+    function updateLoadingStatus() {
+        const percent = Math.round((characterLoadStatus.loaded / characterLoadStatus.total) * 100);
+        $('#loadingIndicator').html(`
+            <div class="progress mb-3" style="height: 20px;">
+                <div class="progress-bar" role="progressbar" style="width: ${percent}%;" 
+                     aria-valuenow="${percent}" aria-valuemin="0" aria-valuemax="100">${percent}%</div>
+            </div>
+            <p>Loaded ${characterLoadStatus.loaded} of ${characterLoadStatus.total} characters</p>
+            <p class="text-success">Successful: ${characterLoadStatus.successful}</p>
+            <p class="text-danger">Failed: ${characterLoadStatus.failed}</p>
+        `);
+    }
 
-        characterNames.forEach((character) => {
-            const characterFile = `characters/${folder}/${character}.html`;
-
-            $.get(characterFile, function (response) {
-                const characterData = $(response).filter('#character-data').html();
-                const data = JSON.parse(characterData);
-
-                if (data && data.gallery && data.gallery.length > 0) {
-                    data.gallery.forEach((img) => {
-                        if (!uniqueImages.has(img.full)) {
-                            uniqueImages.add(img.full);
-                            allImages.push(img);
-                        }
-                    });
-                }
-                imagesLoaded++;
-                if (imagesLoaded === folders.length * characterNames.length) {
-                    onComplete(); // Call the callback when all images are loaded
-                }
-            }).fail(function () {
-                console.error(`Failed to load ${characterFile}`);
-                imagesLoaded++;
-                if (imagesLoaded === folders.length * characterNames.length) {
-                    onComplete();
+    // Function to check if a file exists
+    function checkFileExists(url) {
+        return new Promise((resolve) => {
+            $.ajax({
+                url: url,
+                type: 'HEAD',
+                success: function () {
+                    resolve(true);
+                },
+                error: function () {
+                    resolve(false);
                 }
             });
         });
     }
 
+    // Function to load images from each character's HTML file in the specified folder
+    function loadCharacterImagesFromFolder(folder, onComplete, characterNames) {
+        let loadedCount = 0;
+        const totalToLoad = characterNames.length;
+
+        // Track which files were successfully processed
+        const loadReport = {
+            successful: [],
+            failed: []
+        };
+
+        const processNextCharacter = (index) => {
+            if (index >= characterNames.length) {
+                // All characters processed
+                console.log(`Gallery load report for ${folder} - Success: ${loadReport.successful.length}, Failed: ${loadReport.failed.length}`);
+                if (loadReport.failed.length > 0) {
+                    console.log("Failed characters:", loadReport.failed);
+                }
+                onComplete();
+                return;
+            }
+
+            const character = characterNames[index];
+            const characterFile = `characters/${folder}/${character}.html`;
+
+            // First check if the file exists
+            checkFileExists(characterFile).then(exists => {
+                if (!exists) {
+                    // File doesn't exist, skip processing
+                    loadReport.failed.push(`${character} (file not found)`);
+                    characterLoadStatus.failed++;
+                    characterLoadStatus.loaded++;
+                    updateLoadingStatus();
+
+                    // Process next character
+                    processNextCharacter(index + 1);
+                    return;
+                }
+
+                // File exists, try to process it
+                $.get(characterFile)
+                    .done(function (response) {
+                        try {
+                            const characterData = $(response).filter('#character-data').html();
+                            if (!characterData) {
+                                console.warn(`Character data not found in ${characterFile}`);
+                                loadReport.failed.push(`${character} (no data section)`);
+                                characterLoadStatus.failed++;
+                            } else {
+                                const data = JSON.parse(characterData);
+                                if (data && data.gallery && data.gallery.length > 0) {
+                                    data.gallery.forEach((img) => {
+                                        // Add folder info to the image object if it's not there
+                                        if (!img.folder) {
+                                            img.folder = folder;
+                                        }
+
+                                        if (!uniqueImages.has(img.full)) {
+                                            uniqueImages.add(img.full);
+                                            allImages.push(img);
+                                        }
+                                    });
+                                    loadReport.successful.push(character);
+                                    characterLoadStatus.successful++;
+                                } else {
+                                    loadReport.failed.push(`${character} (no gallery)`);
+                                    characterLoadStatus.failed++;
+                                }
+                            }
+                        } catch (e) {
+                            console.error(`Error processing ${characterFile}:`, e);
+                            loadReport.failed.push(`${character} (${e.message})`);
+                            characterLoadStatus.failed++;
+                        }
+                    })
+                    .fail(function () {
+                        loadReport.failed.push(character);
+                        console.warn(`Failed to load ${characterFile}`);
+                        characterLoadStatus.failed++;
+                    })
+                    .always(function () {
+                        characterLoadStatus.loaded++;
+                        updateLoadingStatus();
+
+                        // Process the next character
+                        processNextCharacter(index + 1);
+                    });
+            });
+        };
+
+        // Start processing characters
+        processNextCharacter(0);
+    }
+
     // Shuffle and display images
     function displayImages() {
         shuffleArray(allImages); // Shuffle the images array
+
+        // Remove loading indicator
+        $('#loadingIndicator').remove();
+
+
+        if (allImages.length === 0) {
+            galleryContainer.append('<div class="alert alert-warning">No images found. Please check your character files.</div>');
+            return;
+        }
+
         allImages.forEach((img) => {
             const tagsHTML = img.tags.map(tag => `<span class="badge bg-secondary">${tag}</span>`).join(' ');
 
@@ -94,10 +210,10 @@ $(document).ready(function () {
                              class="img-thumbnail bg-dark gallery-thumb" 
                              alt="${img.tags}"
                              data-full="${img.full}" 
-                             data-credit="${img.credit}"
-                             data-folder="${img.folder}">
+                             data-credit="${img.credit || ''}"
+                             data-folder="${img.folder || ''}">
                         <div class="gallery-caption">
-                            ${img.caption}
+                            ${img.caption || ''}
                             <div class="gallery-tags mt-2">${tagsHTML}</div>
                         </div>
                     </div>
@@ -105,58 +221,122 @@ $(document).ready(function () {
             galleryContainer.append(galleryItem);
         });
     }
+    
 
-    // Loop through each folder to load images
-    folders.forEach((folder) => {
-        loadCharacterImagesFromFolder(folder, displayImages);
-    });
+    // Main execution starts here
+    $.getJSON('data/tagToCharacterMapping.json')
+        .done(function (data) {
+            tagToCharacterMapping = data;
+            charactersByFolder = {};
+
+
+            // Sort characters into folders
+            for (const [character, folder] of Object.entries(tagToCharacterMapping)) {
+                if (!folders.includes(folder)) continue; // Skip invalid folder
+                if (!charactersByFolder[folder]) charactersByFolder[folder] = [];
+                charactersByFolder[folder].push(character);
+            }
+
+            // If worldName is specified, filter to only that folder
+            if (worldName && folders.includes(worldName)) {
+                const filteredCharacters = {};
+                filteredCharacters[worldName] = charactersByFolder[worldName] || [];
+                charactersByFolder = filteredCharacters;
+            }
+
+            // Count total characters
+            characterLoadStatus.total = Object.values(charactersByFolder).reduce((sum, list) => sum + list.length, 0);
+            updateLoadingStatus();
+
+            // Process each folder one by one
+            const processFolders = (folderIndex) => {
+                if (folderIndex >= folders.length) {
+                    // All folders processed, display images
+                    displayImages();
+                    return;
+                }
+
+                const folder = folders[folderIndex];
+                const characterList = charactersByFolder[folder] || [];
+
+                if (characterList.length === 0) {
+                    // Skip empty folders
+                    processFolders(folderIndex + 1);
+                    return;
+                }
+
+                // Process this folder's characters
+                loadCharacterImagesFromFolder(folder, function () {
+                    // When this folder is done, process the next one
+                    processFolders(folderIndex + 1);
+                }, characterList);
+            };
+
+            // Start processing folders
+            processFolders(0);
+        })
+        .fail(function (jqXHR, textStatus, errorThrown) {
+            console.error("Failed to load tagToCharacterMapping.json:", textStatus, errorThrown);
+            galleryContainer.html('<div class="alert alert-danger">Failed to load character mapping data. Please check your configuration.</div>');
+        });
 
     // Lightbox functionality
     $(document).on('click', '.gallery-thumb', function () {
-        const fullImageSrc = $(this).attr('src').replace('_thumb', '');
-        const credit = $(this).data('credit');
-        const tags = $(this).attr('alt').split(",");  // Assuming alt contains tags like "Reddick,Jeffery"
-        
+        const fullImageSrc = $(this).data('full') || $(this).attr('src').replace('_thumb', '');
+        const credit = $(this).data('credit') || '';
+        const tags = $(this).attr('alt').split(',');
+
         // Update lightbox content
         $('#lightboxImage').attr('src', fullImageSrc);
-        $('#lightboxCredit').html(credit).show();
-        
+        $('#lightboxCredit').html(credit).toggle(credit !== '');
+
+        // Clear previous character links
+        $('#lightboxContent').find('.character-links').remove();
+
+        // Create a container for character links
+        const characterLinksContainer = $('<div class="character-links mt-3"></div>');
+
         // Create buttons for each character based on the tags
-        let characterLinks = '';
         tags.forEach(tag => {
-            if (tagToCharacterMapping[tag]) { // Check if the tag is mapped to a character
-                const folder = tagToCharacterMapping[tag]; // Get the folder from the mapping
-                const iconPath = `images/icons/${tag.toLowerCase()}_icon.png`; // Modify this path to your icon image location
-                characterLinks += `
-                    <a href="_character-template.html?name=${tag}" class="btn btn-primary mt-3">
-                        <img src="${iconPath}" alt="${tag} Icon" class="character-icon me-2">
-                        View ${tag}
-                    </a>`;
+            const trimmedTag = tag.trim();
+            if (tagToCharacterMapping[trimmedTag]) {
+                const folder = tagToCharacterMapping[trimmedTag];
+                const iconPath = `images/icons/${trimmedTag.toLowerCase()}_icon.png`;
+
+                const characterLink = $(`
+                    <a href="_character-template.html?name=${trimmedTag}" class="btn btn-primary me-2 mb-2">
+                        <img src="${iconPath}" alt="${trimmedTag} Icon" class="character-icon me-2" onerror="this.style.display='none'">
+                        View ${trimmedTag}
+                    </a>`);
+
+                characterLinksContainer.append(characterLink);
             }
         });
-        
+
         // Append buttons to lightbox content
-        $('#lightboxContent').append(characterLinks);
-        
+        $('#lightboxContent').append(characterLinksContainer);
         $('#lightboxOverlay').fadeIn();
     });
-    
-    
+
     // Close lightbox when clicking outside of the content area
-    $('#lightboxOverlay').on('click', function () {
-        $('#lightboxOverlay').fadeOut();
-        $('#lightboxContent').find('a').remove(); // Remove the appended character link when closing the lightbox
+    $('#lightboxOverlay').on('click', function (e) {
+        if ($(e.target).is('#lightboxOverlay')) {
+            $('#lightboxOverlay').fadeOut();
+        }
     });
-    
+
     $('#lightboxClose').on('click', function () {
         $('#lightboxOverlay').fadeOut();
-        $('#lightboxContent').find('a').remove(); // Remove the appended character link when closing the lightbox
     });
-    
 
     // Implementing the search functionality
     $('#searchBar').on('input', function () {
         const searchQuery = $(this).val().toLowerCase();
+
+        if (searchQuery.length === 0) {
+            $('.gallery-item').show();
+            return;
+        }
 
         $('.gallery-item').each(function () {
             const tags = $(this).data('tags').toLowerCase();

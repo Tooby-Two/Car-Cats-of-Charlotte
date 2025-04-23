@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Cats of Charlotte</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+		:root {
+			--primary-color: #000;
+		}
+
+		.indent {
+			text-indent: 2em;
+			/* Adjust the value (e.g., 2em) to control the size of the indentation */
+		}
+
+		.sidebar {
+			width: 100px;
+			height: 100vh;
+			background-color: #343a40;
+			color: white;
+			position: sticky;
+			top: 0;
+			overflow-y: auto;
+			background-size:cover;
+		}
+
+		.sidebar a {
+			color: white;
+			text-decoration: none;
+			display: block;
+			padding: 10px;
+			border-radius: 5px;
+			transition: background-color 0.1s;
+		}
+
+		.sidebar a:hover {
+			background-color: #495057;
+		}
+
+		.content {
+			flex: 1;
+			padding: 20px;
+		}
+
+		.main-layout {
+			display: flex;
+			flex-wrap: nowrap;
+		}
+		
+		@media (max-width: 768px) {
+			.sidebar {
+				display: none;
+			}
+		}
+
+        .world-header {
+            background-color: #343a40;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+		
+	</style>
+</head>
+
+<body>
+    <!-- Placeholder for the Navbar -->
+    <div id="navbar-container"></div>
+
+    <!-- Main Layout with Sidebars -->
+    <div class="main-layout">
+        <!-- Left Sidebar -->
+        <div class="sidebar">
+        </div>
+
+        <!-- Main Content -->
+        <div class="content content-main">
+            <!-- World Header -->
+            <div class="world-header">
+                <h1>Car Cats of Charlotte</h1>
+                <p>Cats based off of NASCAR schemes and drivers populate a supernatural world.</p>
+            </div>
+
+            <!-- Tabs Navigation -->
+            <ul class="nav nav-tabs my-4" id="worldTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="gallery-tab" data-bs-toggle="tab" data-bs-target="#gallery"
+                        type="button" role="tab" aria-controls="gallery" aria-selected="true">
+                        Gallery
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="characters-tab" data-bs-toggle="tab" data-bs-target="#characters"
+                        type="button" role="tab" aria-controls="characters" aria-selected="false">
+                        Characters
+                    </button>
+                </li>
+            </ul>
+
+            <!-- Tabs Content -->
+            <div class="tab-content" id="worldTabsContent">
+                <!-- Gallery Tab -->
+                <div class="tab-pane fade show active" id="gallery" role="tabpanel" aria-labelledby="gallery-tab">
+                    <div class="world-gallery row" id="indivCharacterGallery">
+                        <!-- Gallery images will be dynamically loaded here -->
+                    </div>
+                </div>
+
+                <!-- Characters Tab -->
+                <div class="tab-pane fade" id="characters" role="tabpanel" aria-labelledby="characters-tab">
+                    <div class="character-list row">
+                        <!-- Character cards will be dynamically loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lightbox -->
+        <div id="lightboxOverlay">
+            <div id="lightboxContent">
+                <img id="lightboxImage" src="" alt="">
+                <div id="lightboxCredit"></div>
+                <button id="lightboxClose">X</button>
+            </div>
+        </div>
+
+        <!-- Right Sidebar -->
+        <div class="sidebar">
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/car_cats.js"></script>
+</body>
+
+</html>

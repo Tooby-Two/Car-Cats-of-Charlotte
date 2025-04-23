@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tooby_Two - Worlds</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .world-card {
+      background-color: #1c1c1c;
+      color: white;
+      border: 2px solid #333;
+      border-radius: 20px;
+      transition: transform 0.3s ease;
+      height: 100%;
+    }
+
+    .world-card:hover {
+      transform: scale(1.02);
+    }
+
+    .world-card img {
+      border-radius: 18px 18px 0 0;
+    }
+
+    .badge {
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <div id="navbar-container"></div>
+
+  <!-- Main Layout -->
+  <div class="main-layout">
+    <!-- Left Sidebar -->
+    <div class="sidebar"></div>
+
+    <!-- Main Content -->
+    <div class="content content-main">
+        <div class="container my-5">
+            <h1 class="text-center mb-4">Gallery</h1>
+        <div id="worldList" class="row justify-content-center"></div>
+      </div>
+    </div>
+
+    <!-- Right Sidebar -->
+    <div class="sidebar"></div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="js/worldIndex.js"></script>
+  <script src="js/navbar.js"></script>
+</body>
+
+</html>

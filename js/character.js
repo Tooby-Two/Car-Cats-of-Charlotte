@@ -1,241 +1,347 @@
 $(document).ready(function () {
-    const folders = ['car_cats', 'jefferyverse', 'other', 'ecliptica']; // Folder names to search
+    const folders = ['car_cats', 'jefferyverse', 'other', 'ecliptica', 'cbcs']; // Folder names to search
     const galleryContainer = $('#mainGallery');
     const urlParams = new URLSearchParams(window.location.search);
     const characterName = urlParams.get('name');
+    
+    // Show loading indicator
+    const loadingIndicator = $('<div id="loadingIndicator" class="text-center my-5"><div class="spinner-border text-primary" role="status"></div><p>Loading character data...</p></div>');
+    $('#character-details').before(loadingIndicator);
+    
     $('#lightboxOverlay').hide();
+    let tagToCharacterMapping = {};
 
-    const tagToCharacterMapping = {
-        "Reddick": "car_cats",
-        "Jeffery": "jefferyverse",
-        "Heim": "car_cats",
-        "Creed": "car_cats",
-        "Bubba": "car_cats",
-        "Drennix": "car_cats",
-        "Raiden": "other",
-        "Magma": "other",
-        "Willow": "other",
-        "Arthur": "other",
-        "Moonie": "other",
-        "Roy": "other",
-        "Nolan": "other",
-        "ET": "other",
-        "Interstellar": "other",
-        "SVK": "car_cats",
-        "Lajoie": "car_cats",
-        "Hunter": "other",
-        "SolarFlare": "other",
-        "Ignis": "other",
-        "Vaporwavezz": "other",
-        "Cherry": "other",
-        "Gruff": "other",
-        "Nova": "ecliptica",
-        "Volt": "ecliptica",
-        "Dragon": "other",
-        "Icicle": "other",
-        "Allmendinger": "car_cats",
-        "Rheem": "car_cats",
-        "Patchwork": "other"
-        // Add other characters and their corresponding folder paths
-    };
+    // Function to load tag to character mapping asynchronously
+    function loadTagMapping() {
+        return $.getJSON('data/tagToCharacterMapping.json')
+            .then(function(data) {
+                tagToCharacterMapping = data;
+                return data;
+            })
+            .fail(function(jqXHR, textStatus, errorThrown) {
+                console.error("Failed to load tagToCharacterMapping.json:", textStatus, errorThrown);
+                return {};
+            });
+    }
 
-    // Function to search for character in multiple folders
-    const searchCharacterInFolders = (name) => {
-        let characterFile = '';
-        let found = false;
-
-        // Iterate through folders to find the character file
-        for (const folder of folders) {
-            characterFile = `characters/${folder}/${name}.html`;
+    // Function to check if a file exists
+    function checkFileExists(url) {
+        return new Promise((resolve) => {
             $.ajax({
-                url: characterFile,
-                type: 'HEAD', // Send a HEAD request to check if the file exists
-                async: false, // Make it synchronous so it doesn't continue until the file is found
-                success: function () {
-                    found = true;
+                url: url,
+                type: 'HEAD',
+                timeout: 2000, // Set a reasonable timeout
+                success: function() {
+                    resolve(true);
                 },
-                error: function () {
-                    // Do nothing on error; just continue to check other folders
+                error: function() {
+                    resolve(false);
+                }
+            });
+        });
+    }
+
+    // Function to find character file in folders - uses promises for better async handling
+    async function findCharacterFile(name) {
+        if (!name) return null;
+        
+        // First, check if we know which folder this character belongs to from the mapping
+        await loadTagMapping();
+        const folder = tagToCharacterMapping[name];
+        
+        if (folder && folders.includes(folder)) {
+            // If we know the folder, check that specific location first
+            const specificPath = `characters/${folder}/${name}.html`;
+            const exists = await checkFileExists(specificPath);
+            if (exists) return specificPath;
+        }
+        
+        // If not found in the specific folder or no folder info available, check all folders
+        for (const folder of folders) {
+            const path = `characters/${folder}/${name}.html`;
+            const exists = await checkFileExists(path);
+            if (exists) return path;
+        }
+        
+        return null; // Not found in any folder
+    }
+
+    // Function to load character data
+    function loadCharacterData(file) {
+        return $.get(file)
+            .then(function(response) {
+                try {
+                    const characterData = $(response).filter('#character-data').html();
+                    if (!characterData) {
+                        console.warn(`Character data section not found in ${file}`);
+                        return null;
+                    }
+                    return JSON.parse(characterData);
+                } catch (e) {
+                    console.error(`Error parsing character data from ${file}:`, e);
+                    return null;
+                }
+            })
+            .fail(function() {
+                console.error(`Failed to load character file: ${file}`);
+                return null;
+            });
+    }
+
+    // Function to display character data on the page
+    function displayCharacterData(data) {
+        if (!data) {
+            displayCharacterNotFound();
+            return;
+        }
+
+        document.title = `${data.name || 'Character'}`;
+        $('.character-name').text(data.name || 'Unnamed Character');
+        
+        // Set basic info with fallbacks for missing data
+        $('#character-designer').html(data.designer || 'Unknown');
+        $('#main-character-image').attr('src', data.gallery?.[0]?.full || 'images/placeholder.png');
+        $('#character-age').html(data.age || 'Unknown');
+        $('#character-pronouns').html(data.pronouns || 'Not specified');
+        $('#character-species').html(data.species || 'Unknown');
+        $('#character-role').html(data.role || 'N/A');
+        $('#character-fur-color').html(data.furColor || 'N/A');
+        $('#character-eye-color').html(data.eyeColor || 'N/A');
+        $('#character-likes').html(data.likes || 'N/A');
+        $('#character-dislikes').html(data.dislikes || 'N/A');
+
+        // Set descriptive content
+        $('#character-appearance').html(data.appearance || 'No appearance description available.');
+        $('#character-personality').html(data.personality || 'No personality description available.');
+        $('#character-backstory').html(data.backstory || 'No backstory available.');
+        $('#uniqueContent').html(data.uniqueContent || '');
+        
+        // Set images and references with error handling
+        $('#character-icon').attr('src', data.icon || 'images/default_icon.png')
+            .on('error', function() {
+                $(this).attr('src', 'images/default_icon.png');
+            });
+            
+        if (data.gallery && data.gallery.length > 1) {
+            $('#character-reference').attr('src', data.gallery[1].thumb || data.gallery[0].thumb)
+                .attr('data-full', data.gallery[1].full || data.gallery[0].full)
+                .attr('data-credit', data.gallery[1].credit || '');
+        }
+
+        // Set theme colors
+        document.documentElement.style.setProperty('--primary-color', data.color || '#007bff');
+        document.documentElement.style.setProperty('--secondary-color', data.colorSecondary || '#6c757d');
+
+        // Set sidebar image if available
+        if (data.sidebarImage) {
+            $('.sidebar').css('background-image', `url(${data.sidebarImage})`);
+        }
+
+        // Populate gallery
+        populateGallery(data.gallery);
+        
+        // Populate character links
+        populateCharacterLinks(data);
+    }
+
+    // Function to display an error when character is not found
+    function displayCharacterNotFound() {
+        $('.character-name').text('Character Not Found');
+        $('#character-details').html(`
+            <div class="alert alert-warning">
+                <h4>Character "${characterName}" was not found</h4>
+                <p>We couldn't find details for this character. Please check the name and try again.</p>
+                <a href="gallery.html" class="btn btn-primary">View Gallery</a>
+            </div>
+        `);
+    }
+
+    // Function to populate the gallery
+    function populateGallery(gallery) {
+        const galleryContainer = $('#indivCharacterGallery');
+        galleryContainer.empty();
+        
+        if (!gallery || gallery.length === 0) {
+            galleryContainer.html('<p>No gallery images available.</p>');
+            return;
+        }
+        
+        gallery.forEach((img) => {
+            if (!img || !img.thumb || !img.full) return; // Skip invalid entries
+            
+            // Ensure tags is an array
+            const tags = Array.isArray(img.tags) ? img.tags : [characterName];
+            const tagsHTML = tags.map(tag => `<span class="badge bg-secondary">${tag}</span>`).join(' ');
+
+            const galleryItem = `
+                <div class="col-5 col-sm-4 col-md-3 mb-4 gallery-item" data-tags="${tags.join(',')}">
+                    <div class="gallery-item-inner">
+                        <img src="${img.thumb}" 
+                             class="img-thumbnail bg-dark gallery-thumb" 
+                             alt="${tags.join(',')}"
+                             data-full="${img.full}" 
+                             data-credit="${img.credit || ''}">
+                        <div class="gallery-caption">
+                            ${img.caption || ''}
+                            <div class="gallery-tags mt-2">${tagsHTML}</div>
+                        </div>
+                    </div>
+                </div>`;
+            galleryContainer.append(galleryItem);
+        });
+    }
+
+    // Function to populate character links
+    function populateCharacterLinks(data) {
+        const linksContainer = $('#character-links');
+        linksContainer.empty();
+        
+        if (!data.links || data.links.length === 0) {
+            linksContainer.html('<p>No character links available.</p>');
+            return;
+        }
+        
+        data.links.forEach(link => {
+            if (!link || !link.name) return; // Skip invalid entries
+            
+            const linkHTML = `
+                <div class="character-link-container d-flex align-items-center justify-content-center">
+                <!-- Main Character -->
+                    <div class="character-main text-center">
+                        <img src="${data.gallery?.[0]?.thumb || 'images/placeholder_thumb.png'}" alt="${data.name}" class="character-img">
+                        <div class="speech-bubble left">
+                            <p>"${link.thought || "..."}"</p>
+                        </div>
+                    </div>
+
+                    <!-- Linked Character -->
+                    <div class="character-linked text-center">
+                        <a href="_character-template.html?name=${link.name}">
+                        <img src="${link.image || 'images/placeholder_thumb.png'}" alt="${link.name}" class="character-img">
+                        </a>
+                        <div class="speech-bubble right" style="background-color: ${link.primaryColor || '#007bff'}; color: ${link.secondaryColor || '#ffffff'};">
+                            <p>"${link.quote || "..."}"</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Relationship Summary -->
+                <div class="relationship-summary text-center">
+                    <p>${link.summary || `${data.name} knows ${link.name}.`}</p>
+                </div>
+                `;
+            linksContainer.append(linkHTML);
+        });
+    }
+
+    // Enhanced lightbox functionality
+    function setupLightbox() {
+        $(document).on('click', '.gallery-thumb', function() {
+            const fullImageSrc = $(this).data('full') || $(this).attr('src').replace('_thumb', '');
+            const credit = $(this).data('credit') || '';
+            const tagsStr = $(this).attr('alt') || '';
+            const tags = tagsStr ? tagsStr.split(',').map(tag => tag.trim()) : [];
+
+            // Update lightbox content
+            $('#lightboxImage').attr('src', fullImageSrc);
+            $('#lightboxCredit').html(credit).toggle(credit !== '');
+
+            // Clear previous character links
+            $('#lightboxContent').find('.character-links').remove();
+            
+            // Create a container for character links
+            const characterLinksContainer = $('<div class="character-links mt-3 d-flex flex-wrap"></div>');
+
+            // Create buttons for each character based on the tags
+            tags.forEach(tag => {
+                if (tagToCharacterMapping[tag]) {
+                    const folder = tagToCharacterMapping[tag];
+                    const iconPath = `images/icons/${tag.toLowerCase()}_icon.png`;
+                    
+                    const characterLink = $(`
+                        <a href="_character-template.html?name=${tag}" class="btn btn-primary me-2 mb-2">
+                            <img src="${iconPath}" alt="${tag} Icon" class="character-icon me-2" onerror="this.style.display='none'">
+                            View ${tag}
+                        </a>`);
+                        
+                    characterLinksContainer.append(characterLink);
                 }
             });
 
-            if (found) break; // Exit the loop once the file is found
-        }
-
-        return found ? characterFile : null; // Return the file path if found, otherwise null
-    };
-
-    const characterFile = searchCharacterInFolders(characterName); // Search through folders for the character file
-
-    if (characterFile) {
-        // If the character file is found, load the content
-        $.get(characterFile, function (response) {
-            const characterData = $(response).filter('#character-data').html();
-            const data = JSON.parse(characterData);
-
-            if (data) {
-
-                document.title = `Tooby_Two - ${data.name} - Character Details`;
-                $('.character-name').text(data.name);
-                $('#character-designer').html(data.designer);
-                $('#main-character-image').attr('src', data.gallery?.[0]?.full);
-                $('#character-age').html(data.age);
-                $('#character-pronouns').html(data.pronouns);
-                $('#character-species').html(data.species);
-                $('#character-role').html(data.role);
-                $('#character-fur-color').html(data.furColor);
-                $('#character-eye-color').html(data.eyeColor);
-                $('#character-likes').html(data.likes);
-                $('#character-dislikes').html(data.dislikes);
-
-                $('#character-appearance').html(data.appearance);
-                $('#character-personality').html(data.personality);
-
-
-                $('#character-backstory').html(data.backstory);
-                $('#uniqueContent').html(data.uniqueContent);
-                $('#character-icon').attr('src', data.icon);
-                $('#character-reference').attr('src', data.gallery?.[1]?.thumb);
-                $('#character-reference').attr('data-full', data.gallery?.[1]?.full);
-                $('#character-reference').attr('data-credit', data.gallery?.[1]?.credit);
-
-
-
-                document.documentElement.style.setProperty('--primary-color', data.color);
-                document.documentElement.style.setProperty('--secondary-color', data.colorSecondary);
-
-                $('.sidebar').css('background-image', `url(${data.sidebarImage})`);
-
-
-                // Populate the gallery
-                if (data.gallery && data.gallery.length > 0) {
-                    const galleryContainer = $('#indivCharacterGallery');
-                    data.gallery.forEach((img) => {
-                        const tagsHTML = img.tags.map(tag => `<span class="badge bg-secondary">${tag}</span>`).join(' ');
-
-                        const galleryItem = `
-                            <div class="col-5 col-sm-4 col-md-3 mb-4 gallery-item" data-tags="${img.tags.join(',')}">
-                                <div class="gallery-item-inner">
-                                    <img src="${img.thumb}" 
-                                         class="img-thumbnail bg-dark gallery-thumb" 
-                                         alt="${img.tags.join(',')}"
-                                         data-full="${img.full}" 
-                                         data-credit="${img.credit}">
-                                    <div class="gallery-caption">
-                                        ${img.caption}
-                                        <div class="gallery-tags mt-2">${tagsHTML}</div>
-                                    </div>
-                                </div>
-                            </div>`;
-                        galleryContainer.append(galleryItem);
-                    });
-                }
-
-                // Populate character links if they exist
-                if (data.links && data.links.length > 0) {
-                    const linksContainer = $('#character-links'); // Make sure you have a div with this ID in your HTML
-                    linksContainer.empty(); // Clear previous content
-
-                    data.links.forEach(link => {
-                        const linkHTML = `
-                            <div class="character-link-container d-flex align-items-center justify-content-center">
-                            <!-- Main Character -->
-                                <div class="character-main text-center">
-                                    <img src="${data.gallery?.[0]?.thumb}" alt="${data.name}" class="character-img">
-                                    <div class="speech-bubble left">
-                                        <p>"${link.thought || "..."}"</p>
-                                    </div>
-                                </div>
-
-                                <!-- Linked Character -->
-                                <div class="character-linked text-center">
-                                    <a href="_character-template.html?name=${link.name}">
-                                    <img src="${link.image}" alt="${link.name}" class="character-img">
-                                    </a>
-                                    <div class="speech-bubble right">
-                                        <p>"${link.quote}"</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Relationship Summary -->
-                            <div class="relationship-summary text-center">
-                                <p>${link.summary}</p>
-                            </div>
-                            `;
-                        linksContainer.append(linkHTML);
-                    });
-                } else {
-                    $('#character-links').html('<p>No links available.</p>');
-                }
-
-
-            } else {
-                $('.character-name').text('Character not found');
-                $('#character-details').html('<p>No details available for this character.</p>');
+            // Append buttons to lightbox content if there are any
+            if (characterLinksContainer.children().length > 0) {
+                $('#lightboxContent').append(characterLinksContainer);
             }
-        }).fail(function () {
-            $('.character-name').text('Character not found');
-            $('#character-details').html('<p>No details available for this character.</p>');
+            
+            $('#lightboxOverlay').fadeIn();
         });
-    } else {
-        // If no character file is found, show an error
-        $('.character-name').text('Character not found');
-        $('#character-details').html('<p>No details available for this character.</p>');
+
+        // Close lightbox when clicking outside of the content area
+        $('#lightboxOverlay').on('click', function(e) {
+            if ($(e.target).is('#lightboxOverlay')) {
+                $('#lightboxOverlay').fadeOut();
+                $('#lightboxContent').find('.character-links').remove();
+            }
+        });
+
+        $('#lightboxClose').on('click', function() {
+            $('#lightboxOverlay').fadeOut();
+            $('#lightboxContent').find('.character-links').remove();
+        });
     }
 
-    // Lightbox functionality
-    $(document).on('click', '.gallery-thumb', function () {
-        const fullImageSrc = $(this).data('full');
-        const credit = $(this).data('credit');
-        const tags = $(this).attr('alt').split(",");  // Assuming alt contains tags like "Reddick,Jeffery"
+    // Setup search functionality
+    function setupSearch() {
+        $('#searchBar').on('input', function() {
+            const searchQuery = $(this).val().toLowerCase();
 
-        // Update lightbox content
-        $('#lightboxImage').attr('src', fullImageSrc);
-        $('#lightboxCredit').html(credit).show();
-
-        // Create buttons for each character based on the tags
-        let characterLinks = '';
-        tags.forEach(tag => {
-            if (tagToCharacterMapping[tag]) { // Check if the tag is mapped to a character
-                const folder = tagToCharacterMapping[tag]; // Get the folder from the mapping
-                const iconPath = `images/icons/${tag.toLowerCase()}_icon.png`; // Modify this path to your icon image location
-                characterLinks += `
-                    <a href="_character-template.html?name=${tag}" class="character-link btn btn-primary mt-3">
-                        <img src="${iconPath}" alt="${tag} Icon" class="character-icon me-2">
-                        View ${tag}
-                    </a>`;
+            if (searchQuery.length === 0) {
+                $('.gallery-item').show();
+                return;
             }
+
+            $('.gallery-item').each(function() {
+                const tags = $(this).data('tags')?.toLowerCase() || '';
+                if (tags.includes(searchQuery)) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
         });
+    }
 
-        // Append buttons to lightbox content
-        $('#lightboxContent').append(characterLinks);
-
-        $('#lightboxOverlay').fadeIn();
-    });
-
-    // Close lightbox when clicking outside of the content area
-    $('#lightboxOverlay').on('click', function () {
-        $('#lightboxOverlay').fadeOut();
-        $('#lightboxContent').find('a').remove(); // Remove the appended character link when closing the lightbox
-    });
-
-    $('#lightboxClose').on('click', function () {
-        $('#lightboxOverlay').fadeOut();
-        $('#lightboxContent').find('a').remove(); // Remove the appended character link when closing the lightbox
-    });
-
-    // Implementing the search functionality
-    $('#searchBar').on('input', function () {
-        const searchQuery = $(this).val().toLowerCase();
-
-        $('.gallery-item').each(function () {
-            const tags = $(this).data('tags').toLowerCase();
-            if (tags.includes(searchQuery)) {
-                $(this).show();
-            } else {
-                $(this).hide();
+    // Main execution flow
+    async function init() {
+        try {
+            setupLightbox();
+            setupSearch();
+            
+            if (!characterName) {
+                // No character specified
+                $('#loadingIndicator').remove();
+                displayCharacterNotFound();
+                return;
             }
-        });
-    });
+            
+            const characterFile = await findCharacterFile(characterName);
+            
+            if (!characterFile) {
+                $('#loadingIndicator').remove();
+                displayCharacterNotFound();
+                return;
+            }
+            
+            const characterData = await loadCharacterData(characterFile);
+            $('#loadingIndicator').remove();
+            displayCharacterData(characterData);
+        } catch (error) {
+            console.error("Error initializing character page:", error);
+            $('#loadingIndicator').remove();
+            displayCharacterNotFound();
+        }
+    }
+
+    // Start the initialization process
+    init();
 });
