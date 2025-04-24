@@ -95,96 +95,52 @@ $(document).ready(function () {
 
     // Function to load images from each character's HTML file in the specified folder
     function loadCharacterImagesFromFolder(folder, onComplete, characterNames) {
-        let loadedCount = 0;
-        const totalToLoad = characterNames.length;
-
-        // Track which files were successfully processed
-        const loadReport = {
-            successful: [],
-            failed: []
-        };
-
-        const processNextCharacter = (index) => {
-            if (index >= characterNames.length) {
-                // All characters processed
-                console.log(`Gallery load report for ${folder} - Success: ${loadReport.successful.length}, Failed: ${loadReport.failed.length}`);
-                if (loadReport.failed.length > 0) {
-                    console.log("Failed characters:", loadReport.failed);
-                }
-                onComplete();
-                return;
-            }
-
-            const character = characterNames[index];
+        const loadPromises = characterNames.map(character => {
             const characterFile = `characters/${folder}/${character}.html`;
 
-            // First check if the file exists
-            checkFileExists(characterFile).then(exists => {
+            return checkFileExists(characterFile).then(exists => {
                 if (!exists) {
-                    // File doesn't exist, skip processing
-                    loadReport.failed.push(`${character} (file not found)`);
-                    characterLoadStatus.failed++;
-                    characterLoadStatus.loaded++;
-                    updateLoadingStatus();
-
-                    // Process next character
-                    processNextCharacter(index + 1);
-                    return;
+                    console.warn(`File not found: ${characterFile}`);
+                    return null; // Skip this character
                 }
 
-                // File exists, try to process it
-                $.get(characterFile)
-                    .done(function (response) {
-                        try {
-                            const characterData = $(response).filter('#character-data').html();
-                            if (!characterData) {
-                                console.warn(`Character data not found in ${characterFile}`);
-                                loadReport.failed.push(`${character} (no data section)`);
-                                characterLoadStatus.failed++;
-                            } else {
-                                const data = JSON.parse(characterData);
-                                if (data && data.gallery && data.gallery.length > 0) {
-                                    data.gallery.forEach((img) => {
-                                        // Add folder info to the image object if it's not there
-                                        if (!img.folder) {
-                                            img.folder = folder;
-                                        }
+                return $.get(characterFile).then(response => {
+                    const characterData = $(response).filter('#character-data').html();
+                    if (!characterData) {
+                        console.warn(`Character data not found in ${characterFile}`);
+                        return null; // Skip this character
+                    }
 
-                                        if (!uniqueImages.has(img.full)) {
-                                            uniqueImages.add(img.full);
-                                            allImages.push(img);
-                                        }
-                                    });
-                                    loadReport.successful.push(character);
-                                    characterLoadStatus.successful++;
-                                } else {
-                                    loadReport.failed.push(`${character} (no gallery)`);
-                                    characterLoadStatus.failed++;
-                                }
-                            }
-                        } catch (e) {
-                            console.error(`Error processing ${characterFile}:`, e);
-                            loadReport.failed.push(`${character} (${e.message})`);
-                            characterLoadStatus.failed++;
-                        }
-                    })
-                    .fail(function () {
-                        loadReport.failed.push(character);
-                        console.warn(`Failed to load ${characterFile}`);
-                        characterLoadStatus.failed++;
-                    })
-                    .always(function () {
-                        characterLoadStatus.loaded++;
-                        updateLoadingStatus();
+                    const data = JSON.parse(characterData);
+                    if (data && data.gallery && data.gallery.length > 0) {
+                        return data.gallery.map(img => {
+                            if (!img.folder) img.folder = folder;
+                            return img;
+                        });
+                    }
 
-                        // Process the next character
-                        processNextCharacter(index + 1);
-                    });
+                    return null; // No gallery for this character
+                }).catch(err => {
+                    console.error(`Error loading ${characterFile}:`, err);
+                    return null; // Skip this character
+                });
             });
-        };
+        });
 
-        // Start processing characters
-        processNextCharacter(0);
+        Promise.all(loadPromises).then(results => {
+            results.forEach(images => {
+                if (images) {
+                    images.forEach(img => {
+                        if (!uniqueImages.has(img.full)) {
+                            uniqueImages.add(img.full);
+                            allImages.push(img);
+                        }
+                    });
+                }
+            });
+
+            onComplete(); // Call the completion callback
+        });
     }
 
     // Shuffle and display images
