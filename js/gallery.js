@@ -40,18 +40,9 @@ $(document).ready(function () {
     generateWorldButtons(worldName);
 
 
-    // Add loading indicator
-    galleryContainer.append(loadingIndicator);
-
     let tagToCharacterMapping = {};
     let allImages = [];
     const uniqueImages = new Set(); // Use a Set to track unique image URLs
-    let characterLoadStatus = {
-        total: 0,
-        loaded: 0,
-        successful: 0,
-        failed: 0
-    };
 
     $('#lightboxOverlay').hide();
 
@@ -145,20 +136,16 @@ $(document).ready(function () {
 
     // Shuffle and display images
     function displayImages() {
-        shuffleArray(allImages); // Shuffle the images array
-
-        // Remove loading indicator
-        $('#loadingIndicator').remove();
-
-
         if (allImages.length === 0) {
             galleryContainer.append('<div class="alert alert-warning">No images found. Please check your character files.</div>');
             return;
         }
-
+    
+        shuffleArray(allImages); // Shuffle the images array
+    
         allImages.forEach((img) => {
             const tagsHTML = img.tags.map(tag => `<span class="badge bg-secondary">${tag}</span>`).join(' ');
-
+    
             const galleryItem = `
                 <div class="col-5 col-sm-4 col-md-3 mb-4 gallery-item" data-tags="${img.tags.join(',')}">
                     <div class="gallery-item-inner">
@@ -200,9 +187,6 @@ $(document).ready(function () {
                 charactersByFolder = filteredCharacters;
             }
 
-            // Count total characters
-            characterLoadStatus.total = Object.values(charactersByFolder).reduce((sum, list) => sum + list.length, 0);
-            updateLoadingStatus();
 
             // Process each folder one by one
             const processFolders = (folderIndex) => {
