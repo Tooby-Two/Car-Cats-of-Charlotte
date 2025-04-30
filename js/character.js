@@ -130,7 +130,7 @@ $(document).ready(function () {
 
         // Set theme colors
         document.documentElement.style.setProperty('--primary-color', data.color || '#007bff');
-        document.documentElement.style.setProperty('--secondary-color', data.colorSecondary || '#6c757d');
+        document.documentElement.style.setProperty('--secondary-color', data.colorSecondary || 'white');
 
         // Set sidebar image if available
         if (data.sidebarImage) {
