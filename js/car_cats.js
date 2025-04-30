@@ -166,7 +166,7 @@ $(document).ready(function () {
             $('#lightboxContent').find('.character-links').remove();
 
             // Create a container for character links
-            const characterLinksContainer = $('<div class="character-links mt-3 d-flex flex-wrap"></div>');
+            const characterLinksContainer = $('<div class="character-links mt-3"></div>');
 
             // Create buttons for each character based on the tags
             tags.forEach(tag => {

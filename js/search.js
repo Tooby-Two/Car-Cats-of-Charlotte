@@ -38,7 +38,6 @@ $(document).ready(function () {
     generateWorldButtons(worldName);
 
     // Load all character data dynamically using the JSON mapping
-    // Load all character data dynamically using the JSON mapping
 const loadCharacters = () => {
     characterList.empty(); // Clear the list
 

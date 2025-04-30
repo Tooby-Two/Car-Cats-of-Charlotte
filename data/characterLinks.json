@@ -1,0 +1,25 @@
+{
+    "relationships": [
+        {
+            "characters": ["Reddick", "Bubba"],
+            "primaryCharacter": "Reddick",
+            "thought": "I owe my life to Bubba, my friend, my buddy! The fact that he knows the dangers of hiding me, yet so adamantly insists on being with me, it really means a lot to me. He's the goofiest cat I know, too! (not that I know any others...) One day, he'll show me around the city, without this threat looming above our heads...",
+            "quote": "When I first found Reddick, all I could think of was how I could help. I'm a natural helper cat, ya know? Don't blame me for not knowing his secrets right when I got him! And now, he's my best bud. We do (almost) everything together... except for leaving the forest. I go and grab supplies in the nearby suburb, and he stays back home and keeps everything tidy. I feel bad for him, but it's for the best, unfortunately. It helps he's a big McDonalds fan too!",
+            "summary": "When Reddick escaped from the Charlotte Government Facility, he lost consciousness inside the thick forests of Charlotte. Bubba, who was investigating the noises outside of his cabin, came across an unconscious Reddick and took him home. When Reddick woke, Bubba offered him shelter from Drennix. Since then, Bubba and Reddick have been the best of friends, doing almost everything together. In particular, both cats enjoy McDonalds, and often wear McDonalds merchandise."
+        },
+        {
+            "characters": ["Reddick", "Drennix"],
+            "primaryCharacter": "Reddick",
+            "thought": "I hate him. I hate him with every fiber of my being. My life... everything I am... it was all irreversibly changed by this lunatic! I don't know how they let him stay in the position he is in! Oh, how much I wanted to escape from him for YEARS...",
+            "quote": "...My precious creation. He's not ready for the outside world. I know that. He knows that. His powers are not yet stable... I don't know why, but a few more tests should iron that out. I will say, he showed incredible confidence trying to escape, but no matter. I will retrieve him.",
+            "summary": "After the capture of Ricky by the Charlotte police, Drennix personally asked Mayor Jimmie for permission to perform experiments to fully understand the supernatural powers of Were-Cats. When this was approved, Drennix took Reddick, who was just a kitten, and made Reddick his primary test subject. For 8 long years, Reddick was injected large amounts of energy inside his tiny body, irreversibly changing him and giving him lightning powers. Drennix oversaw these experiments, which would be dubbed 'The Beast Experiments'. One fateful day, an unknown assailant infiltrated the CGF, allowing Reddick to make his escape. Ever since, Drennix has sent out robotic cats to hunt down Reddick, as Reddick hides within the Charlotte woods."
+        },
+        {
+            "characters": ["Kai", "Rheem"],
+            "primaryCharacter": "Kai",
+            "thought": "",
+            "quote": "",
+            "summary": ""
+        }
+    ]
+}
