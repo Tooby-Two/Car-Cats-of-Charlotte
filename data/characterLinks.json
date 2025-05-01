@@ -19,7 +19,14 @@
             "primaryCharacter": "Kai",
             "thought": "",
             "quote": "",
-            "summary": ""
+            "summary": "Kai and Rheem are partners."
+        },
+        {
+            "characters": ["Raiden", "Jetstream"],
+            "primaryCharacter": "Raiden",
+            "thought": "",
+            "quote": "",
+            "summary": "Raiden and Jetstream are sworn rivals with a mutual respect for each other. When they first met, Jetstream cut off Raiden's right arm, which Raiden replaced with a robotic arm."
         }
     ]
 }
