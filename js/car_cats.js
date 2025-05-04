@@ -413,17 +413,14 @@ $(document).ready(function () {
         }
     }
 
-    loadLocations();
-
-    populateWorldCharacterLinks(worldName);
-
-    // Call the loadTimeline function when the page is ready
-    loadTimeline();
-
     // Call the setupLightbox function
     setupLightbox();
 
     // Load content when the page is ready
     loadGallery();
     loadCharacters();
+    loadTimeline();
+    loadLocations();
+    populateWorldCharacterLinks(worldName);
+
 });
