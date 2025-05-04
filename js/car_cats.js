@@ -30,32 +30,32 @@ $(document).ready(function () {
             const characterFiles = Object.entries(mapping)
                 .filter(([character, folder]) => folder === worldName)
                 .map(([character, folder]) => `characters/${folder}/${character}.html`);
-    
+
             galleryContainer.empty();
-    
+
             if (characterFiles.length === 0) {
                 galleryContainer.append('<p class="text-muted">No images available for this world.</p>');
                 return;
             }
-    
+
             const uniqueImages = new Set(); // Use a Set to track unique image URLs
             const images = []; // Array to store all unique images
-    
+
             characterFiles.forEach(file => {
                 $.get(file, function (response) {
                     const characterData = $(response).filter('#character-data').html();
-    
+
                     try {
                         const data = JSON.parse(characterData);
-    
+
                         if (data && data.gallery) {
                             data.gallery.forEach((img) => {
                                 if (!img || !img.thumb || !img.full) return; // Skip invalid entries
-    
+
                                 if (uniqueImages.has(img.full)) {
                                     return; // Skip duplicate images
                                 }
-    
+
                                 uniqueImages.add(img.full); // Add the image URL to the Set
                                 images.push(img); // Add the image to the array
                             });
@@ -67,17 +67,17 @@ $(document).ready(function () {
                     console.warn(`⚠️ Failed to load character file: ${file}`);
                 });
             });
-    
+
             // Wait for all files to be processed
             setTimeout(() => {
                 // Shuffle the images array
                 shuffleArray(images);
-    
+
                 // Append shuffled images to the gallery
                 images.forEach((img) => {
                     const tags = Array.isArray(img.tags) ? img.tags : [];
                     const tagsHTML = tags.map(tag => `<span class="badge bg-secondary">${tag}</span>`).join(' ');
-    
+
                     const galleryItem = `
                         <div class="col-5 col-sm-4 col-md-3 mb-4 gallery-item" data-tags="${tags.join(',')}">
                             <div class="gallery-item-inner">
@@ -97,6 +97,14 @@ $(document).ready(function () {
             }, 500); // Adjust timeout as needed to ensure all files are processed
         }).fail(function () {
             galleryContainer.append('<p class="text-danger">Failed to load gallery images.</p>');
+        });
+    }
+
+    // Initialize tooltips for character icons
+    function initializeTooltips() {
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+            new bootstrap.Tooltip(tooltipTriggerEl);
         });
     }
 
@@ -206,6 +214,125 @@ $(document).ready(function () {
             $('#lightboxContent').find('.character-links').remove();
         });
     }
+
+    function loadTimeline() {
+        $.getJSON('data/worlds.json', function (worlds) {
+            const currentWorld = worlds.find(world => world.name === "Car Cats of Charlotte");
+            if (!currentWorld || !currentWorld.timeline) {
+                console.error("Timeline data not found for the current world.");
+                return;
+            }
+
+            const timelineData = currentWorld.timeline;
+            const timelineContainer = $('.timeline');
+            const eventTitle = $('#event-title');
+            const eventDescription = $('#event-description');
+            const eventDate = $('#event-date');
+            const eventLocation = $('#event-location');
+            const eventCharacters = $('#event-characters');
+
+            timelineContainer.empty();
+
+            timelineData.forEach(event => {
+                const timelineEvent = $(`
+                    <div class="timeline-event" data-id="${event.id}">
+                        <img src="${event.image || ''}" alt="${event.title}">
+                        <p>${event.title}</p>
+                    </div>
+                `);
+
+                timelineEvent.on('click', function () {
+                    eventTitle.text(event.title);
+                    eventDescription.text(event.description);
+                    eventDate.text(event.date || 'Unknown Date');
+                    eventLocation.text(event.location || 'Unknown Location');
+
+                    eventCharacters.empty();
+                    if (event.characters && event.characters.length > 0) {
+                        event.characters.forEach(character => {
+                            const characterIcon = $(`
+                                <a href="_character-template.html?name=${character.name}" class="me-2">
+                                    <img src="${character.icon}" alt="${character.name}" class="character-icon" 
+                                         title="${character.name}" data-bs-toggle="tooltip">
+                                </a>
+                            `);
+                            eventCharacters.append(characterIcon);
+                        });
+
+                        // Initialize tooltips for the newly added icons
+                        initializeTooltips();
+                    } else {
+                        eventCharacters.html('<p>No characters linked to this event.</p>');
+                    }
+                });
+
+                timelineContainer.append(timelineEvent);
+            });
+
+            if (timelineData.length > 0) {
+                const firstEvent = timelineData[0];
+                eventTitle.text(firstEvent.title);
+                eventDescription.text(firstEvent.description);
+                eventDate.text(firstEvent.date || 'Unknown Date');
+                eventLocation.text(firstEvent.location || 'Unknown Location');
+
+                eventCharacters.empty();
+                if (firstEvent.characters && firstEvent.characters.length > 0) {
+                    firstEvent.characters.forEach(character => {
+                        const characterIcon = $(`
+                            <a href="_character-template.html?name=${character.name}" class="me-2">
+                                <img src="${character.icon}" alt="${character.name}" class="character-icon" 
+                                     title="${character.name}" data-bs-toggle="tooltip">
+                            </a>
+                        `);
+                        eventCharacters.append(characterIcon);
+                    });
+
+                    // Initialize tooltips for the first event's icons
+                    initializeTooltips();
+                } else {
+                    eventCharacters.html('<p>No characters linked to this event.</p>');
+                }
+            }
+        }).fail(function () {
+            console.error("Failed to load worlds.json.");
+        });
+    }
+
+    function loadLocations() {
+        $.getJSON('data/worlds.json', function (worlds) {
+            const currentWorld = worlds.find(world => world.name === "Car Cats of Charlotte");
+            if (!currentWorld || !currentWorld.locations) {
+                console.error("Locations data not found for the current world.");
+                return;
+            }
+
+            const locationsContainer = $('.location-list');
+            locationsContainer.empty();
+
+            currentWorld.locations.forEach(location => {
+                const locationCard = $(`
+                    <div class="location-card d-flex align-items-center">
+                        <div class="location-text flex-grow-1">
+                            <h3>${location.name}</h3>
+                            <p>${location.description}</p>
+                        </div>
+                        <div class="location-image">
+                            <img src="${location.image}" alt="${location.name}" class="img-fluid rounded">
+                        </div>
+                    </div>
+                `);
+                locationsContainer.append(locationCard);
+            });
+        }).fail(function () {
+            console.error("Failed to load worlds.json.");
+        });
+    }
+
+    loadLocations();
+
+    // Call the loadTimeline function when the page is ready
+    loadTimeline();
 
     // Call the setupLightbox function
     setupLightbox();

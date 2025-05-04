@@ -121,11 +121,26 @@ $(document).ready(function () {
                 $(this).attr('src', 'images/default_icon.png');
             });
 
-        if (data.gallery && data.gallery.length > 1) {
-            $('#character-reference').attr('src', data.gallery[1].thumb || data.gallery[0].thumb)
-                .attr('data-full', data.gallery[1].full || data.gallery[0].full)
-                .attr('data-credit', data.gallery[1].credit || '');
+        // Handle reference images
+        const referenceContainer = $('#character-reference-container');
+        referenceContainer.empty(); // Clear existing content
+
+        if (data.referenceImages && data.referenceImages.length > 0) {
+            data.referenceImages.forEach(ref => {
+                const referenceImage = $(`
+                <div class="reference-image">
+                    <img src="${ref.thumb}" class="gallery-thumb gallery-item card-img-top mx-auto" 
+                         data-full="${ref.full}" alt="${ref.caption}">
+                    <p class="text-center">${ref.caption || ''}</p>
+                    <p class="text-center text-muted">${ref.credit || ''}</p>
+                </div>
+            `);
+                referenceContainer.append(referenceImage);
+            });
+        } else {
+            referenceContainer.html('<p>No reference images available.</p>');
         }
+        
 
         // Set theme colors
         document.documentElement.style.setProperty('--primary-color', data.color || '#007bff');
@@ -196,29 +211,29 @@ $(document).ready(function () {
                 console.error("Failed to load characterLinks.json:", error);
                 return [];
             });
-    
+
         // Fetch gallery and color data for both characters in each relationship
         const updatedRelationships = await Promise.all(
             relationships.map(async rel => {
                 const otherCharacter = rel.characters.find(name => name !== characterName);
                 if (!otherCharacter) return rel;
-    
+
                 // Load gallery and color data for the other character
                 const otherCharacterFile = await findCharacterFile(otherCharacter);
                 if (!otherCharacterFile) return rel;
-    
+
                 const otherCharacterData = await loadCharacterData(otherCharacterFile);
                 if (otherCharacterData) {
                     // Use the first gallery image as the thumbnail
                     if (otherCharacterData.gallery && otherCharacterData.gallery.length > 0) {
                         rel.otherCharacterThumb = otherCharacterData.gallery[0].thumb;
                     }
-    
+
                     // Use the primary and secondary colors from the other character's file
                     rel.otherCharacterPrimaryColor = otherCharacterData.color || '#007bff';
                     rel.otherCharacterSecondaryColor = otherCharacterData.colorSecondary || '#ffffff';
                 }
-    
+
                 // Load the current character's color data
                 const currentCharacterFile = await findCharacterFile(characterName);
                 if (currentCharacterFile) {
@@ -228,11 +243,11 @@ $(document).ready(function () {
                         rel.currentCharacterSecondaryColor = currentCharacterData.colorSecondary || '#ffffff';
                     }
                 }
-    
+
                 return rel;
             })
         );
-    
+
         return updatedRelationships;
     }
 
@@ -240,32 +255,32 @@ $(document).ready(function () {
     function populateCharacterLinks(relationships, characterName, currentCharacterData) {
         const linksContainer = $('#character-links');
         linksContainer.empty();
-    
+
         if (!relationships || relationships.length === 0) {
             linksContainer.html('<p>No character links available.</p>');
             return;
         }
-    
+
         // Get the current character's thumbnail from their gallery
         const currentCharacterThumb = currentCharacterData?.gallery?.[0]?.thumb || 'images/placeholder_thumb.png';
-    
+
         relationships.forEach(rel => {
             const otherCharacter = rel.characters.find(name => name !== characterName); // Find the other character
             if (!otherCharacter) return; // Skip if no other character is found
-    
+
             // Always use the current character's colors for the left side
             const leftPrimaryColor = rel.currentCharacterPrimaryColor;
             const leftSecondaryColor = rel.currentCharacterSecondaryColor;
-    
+
             // Always use the other character's colors for the right side
             const rightPrimaryColor = rel.otherCharacterPrimaryColor;
             const rightSecondaryColor = rel.otherCharacterSecondaryColor;
-    
+
             // Determine which character is the speaker
             const isCurrentCharacterSpeaker = rel.primaryCharacter === characterName;
             const speakerThought = isCurrentCharacterSpeaker ? rel.thought : rel.quote;
             const listenerThought = isCurrentCharacterSpeaker ? rel.quote : rel.thought;
-    
+
             const linkHTML = `
                 <div class="character-link-container d-flex align-items-center justify-content-center">
                     <!-- Main Character -->
@@ -378,29 +393,29 @@ $(document).ready(function () {
         try {
             setupLightbox();
             setupSearch();
-    
+
             if (!characterName) {
                 $('#loadingIndicator').remove();
                 displayCharacterNotFound();
                 return;
             }
-    
+
             const characterFile = await findCharacterFile(characterName);
-    
+
             if (!characterFile) {
                 $('#loadingIndicator').remove();
                 displayCharacterNotFound();
                 return;
             }
-    
+
             const characterData = await loadCharacterData(characterFile);
             $('#loadingIndicator').remove();
             displayCharacterData(characterData);
-    
+
             // Load and populate character relationships
             const relationships = await loadCharacterRelationships(characterName);
             populateCharacterLinks(relationships, characterName, characterData);
-    
+
         } catch (error) {
             console.error("Error initializing character page:", error);
             $('#loadingIndicator').remove();

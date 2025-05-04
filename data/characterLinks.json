@@ -27,6 +27,34 @@
             "thought": "",
             "quote": "",
             "summary": "Raiden and Jetstream are sworn rivals with a mutual respect for each other. When they first met, Jetstream cut off Raiden's right arm, which Raiden replaced with a robotic arm."
+        },
+        {
+            "characters": ["Kellogg", "Kyle"],
+            "primaryCharacter": "Kyle",
+            "thought": "",
+            "quote": "",
+            "summary": "Kyle and Kellogg are siblings. Kellogg is the older brother, and Kyle is the younger brother."
+        },
+        {
+            "characters": ["Lajoie", "Allmendinger"],
+            "primaryCharacter": "Lajoie",
+            "thought": "Little Dinger! He's a sweet little guy! He wouldn't hurt a fly, and I love him for that. I wish that he didn't have to go through the things that he went through. Seems to have taken a toll on him... But I'll support him no matter what!",
+            "quote": "Lajoie's my big bro! He's a real inspiration to me. I wish I could be at the level he is. I really appreciate the time he spends with me as well. We've been through a lot together, and if there's anybody I can trust, it's Lajoie. Sure, he does get really irritating at times, and he has changed a lot since our younger days. I don't see him very often anymore because of his career, unfortunately.",
+            "summary": "Lajoie and Allmendinger are siblings. Lajoie is the older brother, and Allmendinger is the younger brother."
+        },
+        {
+            "characters": ["Lajoie", "Kligercat"],
+            "primaryCharacter": "Lajoie",
+            "thought": "Spike was a great friend! He was really the standout cat in our group (which is saying a lot, because I was in it!). He was extremely outgoing and loved talking to everybody and getting everybody involved. Then Ricky turned... and Spike turned his back on us. He was still an outgoing personality, but he didn't talk to us, didn't go to any of our meetings... I was really concerned for him. Seems like he's doing alright today though, his smile on TV really is infectious. I have the means to contact him again, but I don't know if he wants that... he must have distanced himself for a reason.",
+            "quote": "Lajoie is a cool cat! I fondly remember our time together when we were younger. I was closer to his brother than I was to him, but I spent a lot hours playing with him. I broadcast a lot of his events too, seeing him on the news a lot when he plays concerts in the area. But... I just can't talk to him anymore. It's better this way, anyway.",
+            "summary": "Lajoie and Kligercat are former friends. After the transformation of Ricky, Kligercat distanced himself from Lajoie and Allmendinger. Lajoie was concerned for Kligercat, but Kligercat did not respond to any of Lajoie's attempts to contact him. Lajoie has since moved on, but still thinks about Kligercat from time to time."
+        },
+        {
+            "characters": ["Kligercat", "Allmendinger"],
+            "primaryCharacter": "Kligercat",
+            "thought": "...The Dinger... I... I don't know. He was always close to my heart. It's not worth thinking about now, though. It's... better this way. He's doing better now.",
+            "quote": "Kligercat respected me when others did not. He included me in his ragtag group with my brother. We got into a lot of mischief... but I loved it. I miss it. Why did he have to shut us all out?",
+            "summary": "Kligercat and Allmendinger are former friends. After the transformation of Ricky, Kligercat distanced himself from Lajoie and Allmendinger. Allmendinger and Kligercat both blame themselves for the transformation of Ricky, and have not spoken to each other since."
         }
     ]
 }
