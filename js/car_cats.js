@@ -30,54 +30,50 @@ $(document).ready(function () {
             const characterFiles = Object.entries(mapping)
                 .filter(([character, folder]) => folder === worldName)
                 .map(([character, folder]) => `characters/${folder}/${character}.html`);
-
+    
             galleryContainer.empty();
-
+    
             if (characterFiles.length === 0) {
                 galleryContainer.append('<p class="text-muted">No images available for this world.</p>');
                 return;
             }
-
+    
             const uniqueImages = new Set(); // Use a Set to track unique image URLs
             const images = []; // Array to store all unique images
-
-            characterFiles.forEach(file => {
-                $.get(file, function (response) {
+    
+            // Fetch all character files in parallel
+            const fetchPromises = characterFiles.map(file =>
+                $.get(file).then(response => {
                     const characterData = $(response).filter('#character-data').html();
-
                     try {
                         const data = JSON.parse(characterData);
-
                         if (data && data.gallery) {
-                            data.gallery.forEach((img) => {
+                            data.gallery.forEach(img => {
                                 if (!img || !img.thumb || !img.full) return; // Skip invalid entries
-
-                                if (uniqueImages.has(img.full)) {
-                                    return; // Skip duplicate images
+                                if (!uniqueImages.has(img.full)) {
+                                    uniqueImages.add(img.full); // Add the image URL to the Set
+                                    images.push(img); // Add the image to the array
                                 }
-
-                                uniqueImages.add(img.full); // Add the image URL to the Set
-                                images.push(img); // Add the image to the array
                             });
                         }
                     } catch (err) {
                         console.error(`❌ Error parsing gallery data from ${file}:`, err);
                     }
-                }).fail(function () {
+                }).fail(() => {
                     console.warn(`⚠️ Failed to load character file: ${file}`);
-                });
-            });
-
+                })
+            );
+    
             // Wait for all files to be processed
-            setTimeout(() => {
+            Promise.all(fetchPromises).then(() => {
                 // Shuffle the images array
                 shuffleArray(images);
-
+    
                 // Append shuffled images to the gallery
-                images.forEach((img) => {
+                images.forEach(img => {
                     const tags = Array.isArray(img.tags) ? img.tags : [];
                     const tagsHTML = tags.map(tag => `<span class="badge bg-secondary">${tag}</span>`).join(' ');
-
+    
                     const galleryItem = `
                         <div class="col-5 col-sm-4 col-md-3 mb-4 gallery-item" data-tags="${tags.join(',')}">
                             <div class="gallery-item-inner">
@@ -94,9 +90,12 @@ $(document).ready(function () {
                         </div>`;
                     galleryContainer.append(galleryItem);
                 });
-            }, 500); // Adjust timeout as needed to ensure all files are processed
-        }).fail(function () {
-            galleryContainer.append('<p class="text-danger">Failed to load gallery images.</p>');
+            }).catch(err => {
+                console.error('❌ Error loading gallery:', err);
+                galleryContainer.append('<p class="text-danger">Failed to load gallery images.</p>');
+            });
+        }).fail(() => {
+            galleryContainer.append('<p class="text-danger">Failed to load tagToCharacterMapping.json.</p>');
         });
     }
 
