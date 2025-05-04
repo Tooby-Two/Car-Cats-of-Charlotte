@@ -140,7 +140,7 @@ $(document).ready(function () {
         } else {
             referenceContainer.html('<p>No reference images available.</p>');
         }
-        
+
 
         // Set theme colors
         document.documentElement.style.setProperty('--primary-color', data.color || '#007bff');
@@ -282,31 +282,31 @@ $(document).ready(function () {
             const listenerThought = isCurrentCharacterSpeaker ? rel.quote : rel.thought;
 
             const linkHTML = `
-                <div class="character-link-container d-flex align-items-center justify-content-center">
-                    <!-- Main Character -->
-                    <div class="character-main text-center">
-                        <img src="${currentCharacterThumb}" alt="${characterName}" class="character-img">
-                        <div class="speech-bubble left" style="background-color: ${leftPrimaryColor}; color: ${leftSecondaryColor};">
-                            <p>"${speakerThought || "..."}"</p>
-                        </div>
-                    </div>
-    
-                    <!-- Linked Character -->
-                    <div class="character-linked text-center">
-                        <a href="_character-template.html?name=${otherCharacter}">
-                            <img src="${rel.otherCharacterThumb || 'images/placeholder_thumb.png'}" alt="${otherCharacter}" class="character-img">
-                        </a>
-                        <div class="speech-bubble right" style="background-color: ${rightPrimaryColor}; color: ${rightSecondaryColor};">
-                            <p>"${listenerThought || "..."}"</p>
-                        </div>
-                    </div>
-                </div>
-    
-                <!-- Relationship Summary -->
-                <div class="relationship-summary text-center">
-                    <p>${rel.summary || `${characterName} knows ${otherCharacter}.`}</p>
-                </div>
-            `;
+    <div class="character-link-container d-flex align-items-center justify-content-center">
+        <!-- Main Character -->
+        <div class="character-main text-center">
+            <img src="${currentCharacterThumb}" alt="${characterName}" class="character-img">
+            <div class="speech-bubble left scrollable-bubble" style="background-color: ${leftPrimaryColor}; color: ${leftSecondaryColor};">
+                <p>"${speakerThought || "..."}"</p>
+            </div>
+        </div>
+
+        <!-- Linked Character -->
+        <div class="character-linked text-center">
+            <a href="_character-template.html?name=${otherCharacter}">
+                <img src="${rel.otherCharacterThumb || 'images/placeholder_thumb.png'}" alt="${otherCharacter}" class="character-img">
+            </a>
+            <div class="speech-bubble right scrollable-bubble" style="background-color: ${rightPrimaryColor}; color: ${rightSecondaryColor};">
+                <p>"${listenerThought || "..."}"</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Relationship Summary -->
+    <div class="relationship-summary text-center">
+        <p>${rel.summary || `${characterName} knows ${otherCharacter}.`}</p>
+    </div>
+`;
             linksContainer.append(linkHTML);
         });
     }

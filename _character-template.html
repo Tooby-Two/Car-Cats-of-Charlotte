@@ -36,7 +36,7 @@
 			position: sticky;
 			top: 0;
 			overflow-y: auto;
-			background-size:cover;
+			background-size: cover;
 		}
 
 		.sidebar a {
@@ -80,7 +80,7 @@
 			margin-left: 5%;
 			margin-bottom: 4%;
 		}
-		
+
 		@media (max-width: 768px) {
 			.sidebar {
 				display: none;
@@ -100,7 +100,36 @@
 			}
 		}
 
-		
+		.scrollable-bubble {
+			max-height: 100px;
+			/* Set a fixed height for the thought bubble */
+			overflow-y: auto;
+			/* Enable vertical scrolling */
+			padding: 10px;
+			/* Add padding for better readability */
+			border-radius: 10px;
+			/* Keep the rounded bubble shape */
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+			/* Optional: Add a subtle shadow */
+		}
+
+		/* Optional: Customize scrollbar appearance */
+		.scrollable-bubble::-webkit-scrollbar {
+			width: 8px;
+			/* Width of the scrollbar */
+		}
+
+		.scrollable-bubble::-webkit-scrollbar-thumb {
+			background-color: rgba(0, 0, 0, 0.2);
+			/* Color of the scrollbar thumb */
+			border-radius: 4px;
+			/* Rounded edges for the scrollbar thumb */
+		}
+
+		.scrollable-bubble::-webkit-scrollbar-thumb:hover {
+			background-color: rgba(0, 0, 0, 0.4);
+			/* Darker color on hover */
+		}
 	</style>
 </head>
 
@@ -164,10 +193,11 @@
 										<strong>Dislikes:</strong> <span id="character-dislikes"></span><br>
 										<hr>
 										<!--Image I'm trying to add-->
-										<h5 style="font-weight: bold;">Reference Image</h5>
-										<div id="character-reference-container" class="d-flex flex-wrap justify-content-center">
-											<!-- Reference images will be dynamically loaded here -->
-										</div>										
+									<h5 style="font-weight: bold;">Reference Image</h5>
+									<div id="character-reference-container"
+										class="d-flex flex-wrap justify-content-center">
+										<!-- Reference images will be dynamically loaded here -->
+									</div>
 									</p>
 								</div>
 							</div>

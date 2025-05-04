@@ -329,7 +329,93 @@ $(document).ready(function () {
         });
     }
 
+    function populateWorldCharacterLinks(worldName) {
+        $.getJSON('data/characterLinks.json', async function (data) {
+            const linksContainer = $('#character-links');
+            linksContainer.empty();
+    
+            // Filter relationships by the current world
+            const relationships = data.relationships.filter(rel => rel.world === worldName);
+    
+            if (!relationships || relationships.length === 0) {
+                linksContainer.html('<p>No character links available for this world.</p>');
+                return;
+            }
+    
+            for (const rel of relationships) {
+                const [character1, character2] = rel.characters;
+    
+                // Fetch data for both characters
+                const character1Data = await fetchCharacterData(character1);
+                const character2Data = await fetchCharacterData(character2);
+    
+                // Use the first gallery image or fallback to placeholder
+                const character1Image = character1Data?.gallery?.[0]?.thumb || 'images/placeholder_thumb.png';
+                const character2Image = character2Data?.gallery?.[0]?.thumb || 'images/placeholder_thumb.png';
+    
+                // Use primary and secondary colors or fallback to defaults
+                const character1PrimaryColor = character1Data?.color || '#007bff';
+                const character1SecondaryColor = character1Data?.colorSecondary || '#ffffff';
+                const character2PrimaryColor = character2Data?.color || '#007bff';
+                const character2SecondaryColor = character2Data?.colorSecondary || '#ffffff';
+    
+                // Determine which character is the speaker
+                const primaryCharacter = rel.primaryCharacter;
+                const speakerThought = primaryCharacter === character1 ? rel.thought : rel.quote;
+                const listenerThought = primaryCharacter === character1 ? rel.quote : rel.thought;
+    
+                const linkHTML = `
+                    <div class="character-link-container d-flex align-items-center justify-content-center">
+                        <!-- First Character -->
+                        <div class="character-main text-center">
+                            <a href="_character-template.html?name=${character1}">
+                                <img src="${character1Image}" alt="${character1}" class="character-img">
+                            </a>
+                            <div class="speech-bubble left scrollable-bubble" style="background-color: ${character1PrimaryColor}; color: ${character1SecondaryColor};">
+                                <p>"${speakerThought || "..."}"</p>
+                            </div>
+                        </div>
+    
+                        <!-- Second Character -->
+                        <div class="character-linked text-center">
+                            <a href="_character-template.html?name=${character2}">
+                                <img src="${character2Image}" alt="${character2}" class="character-img">
+                            </a>
+                            <div class="speech-bubble right scrollable-bubble" style="background-color: ${character2PrimaryColor}; color: ${character2SecondaryColor};">
+                                <p>"${listenerThought || "..."}"</p>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <!-- Relationship Summary -->
+                    <div class="relationship-summary text-center">
+                        <p>${rel.summary || `${character1} knows ${character2}.`}</p>
+                    </div>
+                `;
+                linksContainer.append(linkHTML);
+            }
+        }).fail(function () {
+            console.error("Failed to load characterLinks.json.");
+            $('#character-links').html('<p>Error loading character links.</p>');
+        });
+    }
+
+    async function fetchCharacterData(characterName) {
+        const characterFile = `characters/car_cats/${characterName}.html`; // Adjust the folder path as needed
+    
+        try {
+            const response = await $.get(characterFile);
+            const characterData = $(response).filter('#character-data').html();
+            return JSON.parse(characterData);
+        } catch (error) {
+            console.error(`Failed to fetch data for ${characterName}:`, error);
+            return null;
+        }
+    }
+
     loadLocations();
+
+    populateWorldCharacterLinks(worldName);
 
     // Call the loadTimeline function when the page is ready
     loadTimeline();

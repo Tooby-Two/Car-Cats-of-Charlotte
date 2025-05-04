@@ -180,6 +180,52 @@
             background-color: #222222;
             color: white;
         }
+
+        .character-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ddd;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .character-img:hover {
+            transform: scale(1.1);
+            border-color: var(--primary-color);
+        }
+
+        .speech-bubble {
+            max-width: 300px;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: #e9ecef;
+            color: #000;
+            overflow-y: auto;
+            max-height: 100px;
+        }
+
+        body[data-theme="dark"] .speech-bubble {
+            background-color: #444;
+            color: white;
+        }
+
+        .scrollable-bubble {
+            overflow-y: auto;
+        }
+
+        .scrollable-bubble::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .scrollable-bubble::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+        }
+
+        .scrollable-bubble::-webkit-scrollbar-thumb:hover {
+            background-color: rgba(0, 0, 0, 0.4);
+        }
     </style>
 </head>
 
@@ -197,6 +243,7 @@
         <div class="content content-main">
             <!-- World Header -->
             <div class="world-header">
+                <img src="images/carcats/CreedHeimSVK.png" alt="Car Cats of Charlotte" class="img-fluid mb-3">
                 <h1>Car Cats of Charlotte</h1>
                 <p>Cats based off of NASCAR schemes and drivers populate a supernatural world.</p>
             </div>
@@ -219,6 +266,12 @@
                     <button class="nav-link" id="characters-tab" data-bs-toggle="tab" data-bs-target="#characters"
                         type="button" role="tab" aria-controls="characters" aria-selected="false">
                         Characters
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="links-tab" data-bs-toggle="tab" data-bs-target="#links" type="button"
+                        role="tab" aria-controls="links" aria-selected="false">
+                        Links
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
@@ -277,6 +330,7 @@
 
                 <!-- Gallery Tab -->
                 <div class="tab-pane fade show" id="gallery" role="tabpanel" aria-labelledby="gallery-tab">
+                    <h2>Gallery</h2>
                     <div class="world-gallery row" id="indivCharacterGallery">
                         <!-- Gallery images will be dynamically loaded here -->
                     </div>
@@ -284,13 +338,25 @@
 
                 <!-- Characters Tab -->
                 <div class="tab-pane fade" id="characters" role="tabpanel" aria-labelledby="characters-tab">
+                    <h2>Characters</h2>
                     <div class="character-list row">
                         <!-- Character cards will be dynamically loaded here -->
                     </div>
                 </div>
 
+                <!-- Links Tab -->
+                <div class="tab-pane fade" id="links" role="tabpanel" aria-labelledby="links-tab">
+                    <div class="links-container">
+                        <h2>Character Links</h2>
+                        <div id="character-links" class="d-flex flex-column gap-4">
+                            <!-- Character links will be dynamically loaded here -->
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Timeline Tab -->
                 <div class="tab-pane fade" id="timeline" role="tabpanel" aria-labelledby="timeline-tab">
+                    <h2>Timeline</h2>
                     <div class="timeline-container">
                         <div class="timeline">
                             <!-- Timeline events will be dynamically loaded here -->

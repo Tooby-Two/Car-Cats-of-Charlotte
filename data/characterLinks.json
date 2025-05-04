@@ -1,6 +1,7 @@
 {
     "relationships": [
         {
+            "world": "car_cats",
             "characters": ["Reddick", "Bubba"],
             "primaryCharacter": "Reddick",
             "thought": "I owe my life to Bubba, my friend, my buddy! The fact that he knows the dangers of hiding me, yet so adamantly insists on being with me, it really means a lot to me. He's the goofiest cat I know, too! (not that I know any others...) One day, he'll show me around the city, without this threat looming above our heads...",
@@ -8,6 +9,7 @@
             "summary": "When Reddick escaped from the Charlotte Government Facility, he lost consciousness inside the thick forests of Charlotte. Bubba, who was investigating the noises outside of his cabin, came across an unconscious Reddick and took him home. When Reddick woke, Bubba offered him shelter from Drennix. Since then, Bubba and Reddick have been the best of friends, doing almost everything together. In particular, both cats enjoy McDonalds, and often wear McDonalds merchandise."
         },
         {
+            "world": "car_cats",
             "characters": ["Reddick", "Drennix"],
             "primaryCharacter": "Reddick",
             "thought": "I hate him. I hate him with every fiber of my being. My life... everything I am... it was all irreversibly changed by this lunatic! I don't know how they let him stay in the position he is in! Oh, how much I wanted to escape from him for YEARS...",
@@ -15,6 +17,7 @@
             "summary": "After the capture of Ricky by the Charlotte police, Drennix personally asked Mayor Jimmie for permission to perform experiments to fully understand the supernatural powers of Were-Cats. When this was approved, Drennix took Reddick, who was just a kitten, and made Reddick his primary test subject. For 8 long years, Reddick was injected large amounts of energy inside his tiny body, irreversibly changing him and giving him lightning powers. Drennix oversaw these experiments, which would be dubbed 'The Beast Experiments'. One fateful day, an unknown assailant infiltrated the CGF, allowing Reddick to make his escape. Ever since, Drennix has sent out robotic cats to hunt down Reddick, as Reddick hides within the Charlotte woods."
         },
         {
+            "world": "car_cats",
             "characters": ["Kai", "Rheem"],
             "primaryCharacter": "Kai",
             "thought": "",
@@ -29,6 +32,7 @@
             "summary": "Raiden and Jetstream are sworn rivals with a mutual respect for each other. When they first met, Jetstream cut off Raiden's right arm, which Raiden replaced with a robotic arm."
         },
         {
+            "world": "car_cats",
             "characters": ["Kellogg", "Kyle"],
             "primaryCharacter": "Kyle",
             "thought": "",
@@ -36,6 +40,7 @@
             "summary": "Kyle and Kellogg are siblings. Kellogg is the older brother, and Kyle is the younger brother."
         },
         {
+            "world": "car_cats",
             "characters": ["Lajoie", "Allmendinger"],
             "primaryCharacter": "Lajoie",
             "thought": "Little Dinger! He's a sweet little guy! He wouldn't hurt a fly, and I love him for that. I wish that he didn't have to go through the things that he went through. Seems to have taken a toll on him... But I'll support him no matter what!",
@@ -43,6 +48,7 @@
             "summary": "Lajoie and Allmendinger are siblings. Lajoie is the older brother, and Allmendinger is the younger brother."
         },
         {
+            "world": "car_cats",
             "characters": ["Lajoie", "Kligercat"],
             "primaryCharacter": "Lajoie",
             "thought": "Spike was a great friend! He was really the standout cat in our group (which is saying a lot, because I was in it!). He was extremely outgoing and loved talking to everybody and getting everybody involved. Then Ricky turned... and Spike turned his back on us. He was still an outgoing personality, but he didn't talk to us, didn't go to any of our meetings... I was really concerned for him. Seems like he's doing alright today though, his smile on TV really is infectious. I have the means to contact him again, but I don't know if he wants that... he must have distanced himself for a reason.",
@@ -50,11 +56,36 @@
             "summary": "Lajoie and Kligercat are former friends. After the transformation of Ricky, Kligercat distanced himself from Lajoie and Allmendinger. Lajoie was concerned for Kligercat, but Kligercat did not respond to any of Lajoie's attempts to contact him. Lajoie has since moved on, but still thinks about Kligercat from time to time."
         },
         {
+            "world": "car_cats",
             "characters": ["Kligercat", "Allmendinger"],
             "primaryCharacter": "Kligercat",
             "thought": "...The Dinger... I... I don't know. He was always close to my heart. It's not worth thinking about now, though. It's... better this way. He's doing better now.",
             "quote": "Kligercat respected me when others did not. He included me in his ragtag group with my brother. We got into a lot of mischief... but I loved it. I miss it. Why did he have to shut us all out?",
             "summary": "Kligercat and Allmendinger are former friends. After the transformation of Ricky, Kligercat distanced himself from Lajoie and Allmendinger. Allmendinger and Kligercat both blame themselves for the transformation of Ricky, and have not spoken to each other since."
+        },
+        {
+            "world": "car_cats",
+            "characters": ["Creed", "Heim"],
+            "primaryCharacter": "Creed",
+            "thought": "Do people genuinely like Heim? Just curious.",
+            "quote": "Pitiful. Couldn't hurt a squirrel if he tried. Needs those stupid things on his eyes at all times. I thought you were supposed to be the 'best', but all I see is somebody who isn't worth my time or energy.",
+            "summary": "Creed and Heim are classmates. Heim bullies Creed constantly, due to Creed's lack of friends and inability to defend himself. Creed tries to brush off Heim's comments, but Heim's words have a massive impact on Creed's self-esteem."
+        },
+        {
+            "world": "car_cats",
+            "characters": ["Creed", "SVK"],
+            "primaryCharacter": "Creed",
+            "thought": "I have so much gratitude for SVK! He stood up for me when nobody else would. He's been such a great friend too! I admire his playfulness and his contagious smile. It's hard to believe that he's new to this town!",
+            "quote": "When I first moved here, it was quite a shock. Everybody here is so different to my own home. It makes me happy that there are so many people like Creed here that make me feel welcome! I feel so bad that he gets picked on so much, he really doesn't deserve it. I try to help him out as much as I can. I hope that he can find a way to stand up for himself, but until then, I'm here for him.",
+            "summary": "Creed and SVK are best friends. SVK moved to Charlotte from a different city, and met Creed when he was being bullied by Heim. SVK stood up for Creed, and the two have been inseparable ever since."
+        },
+        {
+            "world": "car_cats",
+            "characters": ["Heim", "SVK"],
+            "primaryCharacter": "Heim",
+            "thought": "I don't want to talk about it.",
+            "quote": "Ooooo, I love talking about Heim! Let's reminisce this one time, about when I first got here... I was walking around Charlotte, near the forests, and I overheard some commotion off of the path. I went to investigate, and I saw Heim shoving around some kid! I was absolutely appalled. I ran up to them, and stepped between the two. 'You got some nerve putting hands on somebody like that.' I said. Heim growled at me, saying something along the lines of 'So you're the new cat on the block, huh? Think you're the shit too?' I just sat there and smiled, like I always do, y'know?. But then he put one of his nails to my throat, hissing about how smug I was being! Needless to say, all that grooming he does sure does cover up that scar on his chest he got that day. Haha!",
+            "summary": "Heim and SVK first met one day when Heim was bullying Creed. SVK stepped in for Creed. After a brief confrontation that ended with Heim getting scratched by SVK, Heim ran away. Heim has a grudge against SVK, hoping that one day, he would get what's coming to him."
         }
     ]
 }

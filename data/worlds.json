@@ -43,7 +43,7 @@
         "id": 1,
         "title": "Ricky's Transformation",
         "description": "10 years ago, after Kligercat heard a rumor about a mystical sight deep in the woods, Lajoie, Allmendinger, Ricky, and Kligercat went to investigate. Instead of finding what they came for, a Were-Cat appeared and attacked the group. In the struggle, Ricky was bitten by the Were-Cat. The Were-Cat fled, and Allmendinger takes it upon himself to transport Ricky back to the suburbs of Charlotte. Exposed to the moonlight, Ricky became enraged, attacking Allmendinger, who runs away. Ricky then went on a rampage within the suburbs, injuring and almost killing many Car Cats. Ricky is eventually subdued by the Charlotte police force. After transforming back to normal during the day, Ricky is set to be executed by the Charlotte government. However, Drennix, a government scientist and recently promoted military general, conviences Mayor Johnson to allow him to perform experiments on Ricky instead. Mayor Johnson reluctantly agrees, and Drennix takes Ricky to the Charlotte Government Facility. The Charlotte government issues a statement to the public that Ricky was executed after the rampage. Ricky's friends are devastated. Kligercat is haunted by his decision to go into the woods, and Allmendinger regrets bringing Ricky back to the suburbs. The group breaks up as a result.",
-        "image": "images/timeline/beginning.jpg",
+        "image": "",
         "date": "???",
         "location": "Suburbs, Charlotte, NC",
         "characters": [
@@ -73,7 +73,7 @@
         "id": 2,
         "title": "The Beast Experiments",
         "description": "For around 7 years, Dennix performed experiments on Reddick, a small  Car Cat with similar stature to Ricky, to try to artifically create his own Were-Cat-like creature. He injected Reddick with massive amounts of electric radiation into Reddick's body, which caused Reddick's fur to turn black and glowing green scars to appear on his body. Reddick gained many supernatural abilities, such as reaching intense speeds and transforming into a lightning bolt. These abilities would be studied by Drennix. Reddick could use these abilities at will, but it took massive amounts of energy out of Reddick, causing him to collapse afterwards.",
-        "image": "images/timeline/first_race.jpg",
+        "image": "",
         "date": "???",
         "location": "Charlotte Government Facility, Charlotte, NC",
         "characters": [
@@ -91,7 +91,7 @@
         "id": 3,
         "title": "The Security Breach",
         "description": "An unknown intruder made their way into the CGF undetected and deactivated all security measures within the facility. Their identity and goal unknown, it is likely that this intruder was a vampire, able to hide in the shadows with ease. As sirens blared and the lights turned blood red, Reddick and Ricky flee their cells. Ricky makes a break for Drennix, looking to seek revenge, and Reddick turns tail and escapes the facility, using his newfound powers to escape Drennix's grasp. Ricky's condition after this event is unknown. It is unclear whether he was captured by Drennix again, or if he managed to escape on his own. After escaping the CGF and running for a while, Reddick collpases from exhaustion, and a curious and worried Bubba picks him up and carries him back to his cabin in the woods where Reddick continues to stay to this day, hidden from the government.",
-        "image": "images/timeline/first_race.jpg",
+        "image": "",
         "date": "???",
         "location": "Charlotte Government Facility, Charlotte, NC",
         "characters": [
@@ -118,32 +118,32 @@
       {
         "name": "Downtown Charlotte",
         "description": " The City of Charlotte is a bustling skyline of giant skyscrapers and many attractions to visit, as well as plenty job opportunities that are so appealing to outsiders. Some of the main jobs include office jobs, shipping and exporting, banking, and general consumer service jobs like working at a local store. This is also where the main government for the city-state opperates as well. The main government building lies directly at the center of the city, overseeing all of the activities within the city and its surrounding area.",
-        "image": "images/locations/downtown_charlotte.jpg"
+        "image": ""
       },
       {
         "name": "Charlotte Government Facility",
         "description": "The Charlotte Government Facility, nicknamed the CGF, is a massive concrete building located to the northern edge of the forests of Charlotte. The CGF is a secret base of opperations, built for the purpose of containing secret government projects. These projects are usually focused on studying the supernatural energies that surround Charlotte and the world as a whole. The CGF made discoveries such as hammer space possible. Due to commands from a high-up scientist, the CGF have focused it's efforts on a new task- studying how supernatural energy can infuse itself within Car Cats, granting them immense powers and abilities. In particular, the CGF studies the biology of Were-Cats, and how their bodies possess 'unnatural' abilties, and trying to replicate those effects on normal Car Cats via implanting energy. ",
-        "image": "images/locations/charlotte_government_facility.jpg"
+        "image": ""
       },
       {
         "name": "Suburbs of Charlotte",
         "description": " The suburbs of Charlotte, located mainly to the north of the city, hosts a large collection of Car Cats and their families. Many Car Cats live entirely in the suburbs, not going into the city at all, since all of their work lies near their homes. Although, many cats take the public transportation system to get to the main city, where their work may be, or potentially just going to the city to hang out. The suburbs are the home of many of the main characters of the story, including many of the younger Car Cats still going to school.",
-        "image": "images/locations/suburbs_charlotte.jpg"
+        "image": ""
       },
       {
         "name": "Charlotte Woods",
         "description": "The forests of Charlotte are dense and packed with wildlife. Located West of the main city and suburbs, the forest calls out to many Car Cats and their instinctual urges. However, it is best they don't travel too far, as they might meet some very unhappy Were-Cats.The forests are patrolled by the Were-Cats, both hunting for food and making sure no Car Cat comes close to their home, resting deep in the woods. The further into the woods you travel, the more likely you are to engage with a Were-Cat. Knowing the woods are riddled with Were-Cats, Car Cats are taught not to travel into the forests at all. ",
-        "image": "images/locations/charlotte_woods.jpg"
+        "image": ""
       },
       {
         "name": "Cabin in the Woods",
         "description": "A rather unassuming wooden cabin lies in the middle of the woods. The cabin had been abandonded for years, but has recently been inhabited by one friendly panther wishing to escape from the city. Not much is known about the origins or history of this cabin, and few know of it's existence. The biggest question is how a singular Car Cat can live that deep in the woods and not have any problems with the Were-Cat population. Is it that the Were-Cats see the inhabitants as friends? Do the Were-Cats not even know the cabin is populated? Or do the Were-Cats choose to not ingage for other reasons?",
-        "image": "images/locations/charlotte_woods.jpg"
+        "image": ""
       },
       {
         "name": "The Were-Cat Society",
         "description": " The Were-Cat society is a small clearing far east inside the forests of Charlotte. This is the main home of all the Were-Cats living in Charlotte. Without this home, the Were-Cats cannot hope to survive. Instead of bustling skyscrapers and beautiful homes, Were-Cats have built dens within the rocks and trees of the forest. Their superior strength makes building homes quite easy, but they do not have the materials neccessary to fully build out their homes. In addition, they believe that the homes of Car Cats are a sign of their lavish and lazy lifestyles, and that primative homes like the ones they build help motivate Were-Cats to get up and work. The Were-Cat society used to live much closer to the Car Cat society. However, multiple events have caused the Were-Cats to move further east. The Were-Cat society is unknown to any average Car Cat, but it is unclear whether the government of Charlotte knows of it's existence. ",
-        "image": "images/locations/charlotte_woods.jpg"
+        "image": ""
       }
     ]
   }
