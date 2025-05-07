@@ -86,6 +86,38 @@
             "thought": "I don't want to talk about it.",
             "quote": "Ooooo, I love talking about Heim! Let's reminisce this one time, about when I first got here... I was walking around Charlotte, near the forests, and I overheard some commotion off of the path. I went to investigate, and I saw Heim shoving around some kid! I was absolutely appalled. I ran up to them, and stepped between the two. 'You got some nerve putting hands on somebody like that.' I said. Heim growled at me, saying something along the lines of 'So you're the new cat on the block, huh? Think you're the shit too?' I just sat there and smiled, like I always do, y'know?. But then he put one of his nails to my throat, hissing about how smug I was being! Needless to say, all that grooming he does sure does cover up that scar on his chest he got that day. Haha!",
             "summary": "Heim and SVK first met one day when Heim was bullying Creed. SVK stepped in for Creed. After a brief confrontation that ended with Heim getting scratched by SVK, Heim ran away. Heim has a grudge against SVK, hoping that one day, he would get what's coming to him."
+        },
+        {
+            "world": "car_cats",
+            "characters": ["Jeff", "William"],
+            "primaryCharacter": "Jeff",
+            "thought": "",
+            "quote": "",
+            "summary": "Jeff is William's father."
+        },
+        {
+            "world": "car_cats",
+            "characters": ["Rosso", "Worldwide"],
+            "primaryCharacter": "Rosso",
+            "thought": "",
+            "quote": "",
+            "summary": "Rosso and Worldwide are twin brothers."
+        },
+        {
+            "world": "car_cats",
+            "characters": ["Rosso", "Mayer"],
+            "primaryCharacter": "Rosso",
+            "thought": "",
+            "quote": "",
+            "summary": "Rosso and Mayer are brothers. Rosso is the older brother."
+        },
+        {
+            "world": "car_cats",
+            "characters": ["Worldwide", "Mayer"],
+            "primaryCharacter": "Worldwide",
+            "thought": "",
+            "quote": "",
+            "summary": "Worldwide and Mayer are brothers. Worldwide is the older brother."
         }
     ]
 }
