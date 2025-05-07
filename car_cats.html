@@ -226,6 +226,22 @@
         .scrollable-bubble::-webkit-scrollbar-thumb:hover {
             background-color: rgba(0, 0, 0, 0.4);
         }
+
+        .world-header img {
+            max-width: 100%;
+            /* Ensure the image doesn't exceed the container width */
+            height: auto;
+            /* Maintain the aspect ratio */
+            max-height: 300px;
+            /* Limit the vertical size */
+            object-fit: contain;
+            /* Ensure the image fits within the specified dimensions */
+            margin: 0 auto;
+            /* Center the image horizontally */
+            display: block;
+            /* Ensure the image behaves like a block element */
+        }
+        
     </style>
 </head>
 
