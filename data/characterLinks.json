@@ -110,6 +110,14 @@
             "thought": "",
             "quote": "",
             "summary": "Wexley and Mayer are brothers. Wexley is the older brother."
+        },
+        {
+            "world": "car_cats",
+            "characters": ["Jeff", "William"],
+            "primaryCharacter": "Jeff",
+            "thought": "",
+            "quote": "",
+            "summary": "Jeff is William's father."
         }
     ]
 }
