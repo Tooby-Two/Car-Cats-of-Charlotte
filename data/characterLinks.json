@@ -89,11 +89,11 @@
         },
         {
             "world": "car_cats",
-            "characters": ["Rosso", "Worldwide"],
+            "characters": ["Rosso", "Wexley"],
             "primaryCharacter": "Rosso",
             "thought": "",
             "quote": "",
-            "summary": "Rosso and Worldwide are twin brothers."
+            "summary": "Rosso and Wexley are twin brothers."
         },
         {
             "world": "car_cats",
@@ -105,11 +105,11 @@
         },
         {
             "world": "car_cats",
-            "characters": ["Worldwide", "Mayer"],
-            "primaryCharacter": "Worldwide",
+            "characters": ["Wexley", "Mayer"],
+            "primaryCharacter": "Wexley",
             "thought": "",
             "quote": "",
-            "summary": "Worldwide and Mayer are brothers. Worldwide is the older brother."
+            "summary": "Wexley and Mayer are brothers. Wexley is the older brother."
         }
     ]
 }
