@@ -1,0 +1,9 @@
+
+        {
+            "world": "car_cats",
+            "characters": ["Jeff", "William"],
+            "primaryCharacter": "Jeff",
+            "thought": "",
+            "quote": "",
+            "summary": "Jeff is William's father."
+        },

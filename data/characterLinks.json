@@ -89,14 +89,6 @@
         },
         {
             "world": "car_cats",
-            "characters": ["Jeff", "William"],
-            "primaryCharacter": "Jeff",
-            "thought": "",
-            "quote": "",
-            "summary": "Jeff is William's father."
-        },
-        {
-            "world": "car_cats",
             "characters": ["Rosso", "Worldwide"],
             "primaryCharacter": "Rosso",
             "thought": "",
