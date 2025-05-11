@@ -132,7 +132,7 @@ $(document).ready(function () {
                     <img src="${ref.thumb}" class="gallery-thumb gallery-item card-img-top mx-auto" 
                          data-full="${ref.full}" alt="${ref.caption}">
                     <p class="text-center">${ref.caption || ''}</p>
-                    <p class="text-center text-muted">${ref.credit || ''}</p>
+                    <p class="text-center">${ref.credit || ''}</p>
                 </div>
             `);
                 referenceContainer.append(referenceImage);
