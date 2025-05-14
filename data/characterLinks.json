@@ -126,6 +126,14 @@
             "thought": "I respect him. Deeply. He understands the weight of what we have endured, the battles we've fought, and the scars we bear. But hiding in the forests of Charlotte? That's not survival- it's surrender. I've seen what those city cats have done. We have lost so much because of them. I don't want patience, I want justice! I must serve him because I must, but I'm preparing for the day when I can finally take my revenge on those who have wronged us.",
             "quote": "Reaper is an invaluable asset to the Were-Cat society. His skills are unmatched, and his contributions are highly appreciated by everyone. Though Reaper doesn't understand the situation we find ourselves in. He sees our exile as weakness, but I see it as a chance to regroup and prepare for the next battle. I've buried too many of our kind already to risk losing more.",
             "summary": "Reaper reports to Kaiross as a Scout for the Were-Cat society. Kaiross and Reaper show mutual respect for each other, but Kaiross is concerned about Reaper's desire for revenge against the Car Cats of Charlotte, and those who drove them into hiding. Reaper is frustrated with Kaiross's patience, and wishes to confront the Car Cats directly."
+        },
+        {
+            "world": "car_cats",
+            "characters": ["SVK", "Zilisch"],
+            "primaryCharacter": "SVK",
+            "thought": "",
+            "quote": "",
+            "summary": "Zilisch is SVK's younger cousin."
         }
     ]
 }
