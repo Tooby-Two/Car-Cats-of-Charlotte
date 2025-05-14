@@ -20,9 +20,9 @@
             "world": "car_cats",
             "characters": ["Kai", "Rheem"],
             "primaryCharacter": "Kai",
-            "thought": "",
-            "quote": "",
-            "summary": "Kai and Rheem are partners."
+            "thought": "Every time Rheem shows up, the whole world seems to light up. He's not like anybody I've ever met before... he's calm, fluid, and so gentle. When he swims up from the water, I forget about my training, my next race... everything. He has taught me that life is so much more than personal bests... it's about the moments we share with each other. I want to tell him how I feel, but what if it ruins what we have?",
+            "quote": "Kai doesn't realize how long I had been watching him from the waves... meeting him was a dream come true! I thought he'd be cold, unapproachable, and too weirded out by me... but he wasn't! He was so friendly, and we really clicked together. I absolutely love spending time with him... every second makes me feel so special. But if I share my feelings with him, it might ruin everything... I don't want to lose him...",
+            "summary": "Kai and Rheem are best friends. Rheem had been watching Kai from the water for a long time before they met. Rheem was nervous to meet Kai, but when they did, they clicked instantly. They both have feelings for each other, but are too afraid to share them. Rheem teaches Kai that life is more than just racing, and Kai teaches Rheem how to be more confident in himself. They both love spending time with each other, and are often seen swimming together in the waters of Daytona."
         },
         {
             "characters": ["Raiden", "Jetstream"],
@@ -118,6 +118,14 @@
             "thought": "",
             "quote": "",
             "summary": "Jeff is William's father."
+        },
+        {
+            "world": "car_cats",
+            "characters": ["Reaper", "Kaiross"],
+            "primaryCharacter": "Reaper",
+            "thought": "I respect him. Deeply. He understands the weight of what we have endured, the battles we've fought, and the scars we bear. But hiding in the forests of Charlotte? That's not survival- it's surrender. I've seen what those city cats have done. We have lost so much because of them. I don't want patience, I want justice! I must serve him because I must, but I'm preparing for the day when I can finally take my revenge on those who have wronged us.",
+            "quote": "Reaper is an invaluable asset to the Were-Cat society. His skills are unmatched, and his contributions are highly appreciated by everyone. Though Reaper doesn't understand the situation we find ourselves in. He sees our exile as weakness, but I see it as a chance to regroup and prepare for the next battle. I've buried too many of our kind already to risk losing more.",
+            "summary": "Reaper reports to Kaiross as a Scout for the Were-Cat society. Kaiross and Reaper show mutual respect for each other, but Kaiross is concerned about Reaper's desire for revenge against the Car Cats of Charlotte, and those who drove them into hiding. Reaper is frustrated with Kaiross's patience, and wishes to confront the Car Cats directly."
         }
     ]
 }
