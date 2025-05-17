@@ -68,7 +68,7 @@
             "characters": ["Creed", "Heim"],
             "primaryCharacter": "Creed",
             "thought": "Do people genuinely like Heim? Just curious.",
-            "quote": "Pitiful. Couldn't hurt a squirrel if he tried. Needs those stupid things on his eyes at all times. I thought you were supposed to be the 'best', but all I see is somebody who isn't worth my time or energy.",
+            "quote": "Creed annoys me. Always acting so polite, so soft. Like that's going to get him anywhere. This world is cruel, and he needs to learn that. I push him around because someone has to toughen him up. But... sometimes, when I see him just sitting there after everyone's walked off, I feel this weird... twist in my stomach. I don't get it. Maybe I hate how he keeps being nice no matter what. Or maybe I hate that part of me that wonders if I'm being cruel just to prove I'm not weak.",
             "summary": "Creed and Heim are classmates. Heim bullies Creed constantly, due to Creed's lack of friends and inability to defend himself. Creed tries to brush off Heim's comments, but Heim's words have a massive impact on Creed's self-esteem."
         },
         {
@@ -134,6 +134,62 @@
             "thought": "",
             "quote": "",
             "summary": "Zilisch is SVK's younger cousin."
+        },
+        {
+            "world": "car_cats",
+            "characters": ["Chase", "William"],
+            "primaryCharacter": "Chase",
+            "thought": "",
+            "quote": "",
+            "summary": "Chase and William are friends."
+        },
+        {
+            "world": "car_cats",
+            "characters": ["Chase", "Alex"],
+            "primaryCharacter": "Chase",
+            "thought": "",
+            "quote": "",
+            "summary": "Chase and Alex are friends."
+        },
+        {
+            "world": "car_cats",
+            "characters": ["Chase", "Kai"],
+            "primaryCharacter": "Chase",
+            "thought": "",
+            "quote": "",
+            "summary": "Chase and Kai are friends."
+        },
+        {
+            "world": "car_cats",
+            "characters": ["Alex", "William"],
+            "primaryCharacter": "Alex",
+            "thought": "",
+            "quote": "",
+            "summary": "Alex and William are friends."
+        },
+        {
+            "world": "car_cats",
+            "characters": ["Alex", "Kai"],
+            "primaryCharacter": "Alex",
+            "thought": "",
+            "quote": "",
+            "summary": "Alex and Kai are friends."
+        },
+        {
+            "world": "car_cats",
+            "characters": ["Kai", "William"],
+            "primaryCharacter": "Kai",
+            "thought": "",
+            "quote": "",
+            "summary": "Kai and William are friends."
+        },
+        {
+            "world": "ecliptica",
+            "characters": ["Nova", "Volt"],
+            "primaryCharacter": "Nova",
+            "thought": "",
+            "quote": "",
+            "summary": ""
         }
     ]
 }
