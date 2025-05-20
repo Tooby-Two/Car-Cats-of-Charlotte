@@ -1,7 +1,6 @@
 $(document).ready(function () {
     const folders = ['car_cats', 'jefferyverse', 'other', 'ecliptica', 'cbcs']; // Folder names
     const galleryContainer = $('#mainGallery');
-    const loadingIndicator = $('<div id="loadingIndicator" class="text-center my-5"><div class="spinner-border text-primary" role="status"></div><p>Loading gallery...</p></div>');
 
     const urlParams = new URLSearchParams(window.location.search);
     var worldName = urlParams.get('world');
@@ -17,7 +16,7 @@ $(document).ready(function () {
 
     function generateWorldButtons(currentWorld) {
         const filterContainer = $('#worldFilters');
-    
+
         // Add the "All" button
         const allButton = $(`
             <a href="gallery.html" class="btn btn-sm mx-1 ${!currentWorld ? 'btn-primary' : 'btn-outline-primary'}" id="allButton">
@@ -25,7 +24,7 @@ $(document).ready(function () {
             </a>
         `);
         filterContainer.append(allButton);
-    
+
         // Add buttons for each world
         validFolders.forEach(world => {
             const button = $(`
@@ -87,7 +86,14 @@ $(document).ready(function () {
     // Function to load images from each character's HTML file in the specified folder
     function loadCharacterImagesFromFolder(folder, onComplete, characterNames) {
         const loadPromises = characterNames.map(character => {
-            const characterFile = `characters/${folder}/${character}.html`;
+            const characterInfo = tagToCharacterMapping[character];
+            if (!characterInfo) {
+                console.warn(`Character ${character} not found in tagToCharacterMapping.json.`);
+                return null;
+            }
+
+            const subfolder = characterInfo.subfolder ? `/${characterInfo.subfolder}` : '';
+            const characterFile = `characters/${folder}${subfolder}/${character}.html`;
 
             return checkFileExists(characterFile).then(exists => {
                 if (!exists) {
@@ -140,12 +146,12 @@ $(document).ready(function () {
             galleryContainer.append('<div class="alert alert-warning">No images found. Please check your character files.</div>');
             return;
         }
-    
+
         shuffleArray(allImages); // Shuffle the images array
-    
+
         allImages.forEach((img) => {
             const tagsHTML = img.tags.map(tag => `<span class="badge bg-secondary">${tag}</span>`).join(' ');
-    
+
             const galleryItem = `
                 <div class="col-5 col-sm-4 col-md-3 mb-4 gallery-item" data-tags="${img.tags.join(',')}">
                     <div class="gallery-item-inner">
@@ -164,7 +170,7 @@ $(document).ready(function () {
             galleryContainer.append(galleryItem);
         });
     }
-    
+
 
     // Main execution starts here
     $.getJSON('data/tagToCharacterMapping.json')
@@ -172,10 +178,11 @@ $(document).ready(function () {
             tagToCharacterMapping = data;
             charactersByFolder = {};
 
+            // Sort characters into folders and subfolders
+            for (const [character, info] of Object.entries(tagToCharacterMapping)) {
+                const folder = info.folder;
+                if (!folders.includes(folder)) continue; // Skip invalid folders
 
-            // Sort characters into folders
-            for (const [character, folder] of Object.entries(tagToCharacterMapping)) {
-                if (!folders.includes(folder)) continue; // Skip invalid folder
                 if (!charactersByFolder[folder]) charactersByFolder[folder] = [];
                 charactersByFolder[folder].push(character);
             }
@@ -186,7 +193,6 @@ $(document).ready(function () {
                 filteredCharacters[worldName] = charactersByFolder[worldName] || [];
                 charactersByFolder = filteredCharacters;
             }
-
 
             // Process each folder one by one
             const processFolders = (folderIndex) => {

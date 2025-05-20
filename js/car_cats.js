@@ -33,17 +33,17 @@ $(document).ready(function () {
                     const subfolder = info.subfolder ? `/${info.subfolder}` : '';
                     return `characters/${info.folder}${subfolder}/${character}.html`;
                 });
-    
+
             galleryContainer.empty();
-    
+
             if (characterFiles.length === 0) {
                 galleryContainer.append('<p class="text-muted">No images available for this world.</p>');
                 return;
             }
-    
+
             const uniqueImages = new Set(); // Use a Set to track unique image URLs
             const images = []; // Array to store all unique images
-    
+
             // Fetch all character files in parallel
             const fetchPromises = characterFiles.map(file =>
                 $.get(file).then(response => {
@@ -66,17 +66,17 @@ $(document).ready(function () {
                     console.warn(`⚠️ Failed to load character file: ${file}`);
                 })
             );
-    
+
             // Wait for all files to be processed
             Promise.all(fetchPromises).then(() => {
                 // Shuffle the images array
                 shuffleArray(images);
-    
+
                 // Append shuffled images to the gallery
                 images.forEach(img => {
                     const tags = Array.isArray(img.tags) ? img.tags : [];
                     const tagsHTML = tags.map(tag => `<span class="badge bg-secondary">${tag}</span>`).join(' ');
-    
+
                     const galleryItem = `
                         <div class="col-5 col-sm-4 col-md-3 mb-4 gallery-item" data-tags="${tags.join(',')}">
                             <div class="gallery-item-inner">
@@ -120,25 +120,25 @@ $(document).ready(function () {
                     const subfolder = info.subfolder ? `/${info.subfolder}` : '';
                     return `characters/${info.folder}${subfolder}/${character}.html`;
                 });
-    
+
             characterListContainer.empty(); // Clear existing content
-    
+
             if (characterFiles.length === 0) {
                 characterListContainer.append('<p class="text-muted">No characters available for this world.</p>');
                 return;
             }
-    
+
             characterFiles.forEach(file => {
                 $.get(file, function (response) {
                     // Extract the JSON data from the <script> tag with id="character-data"
                     const characterData = $(response).filter('#character-data').html();
-    
+
                     try {
                         const data = JSON.parse(characterData);
-    
+
                         if (data) {
                             const thumbnail = data.gallery?.[0]?.thumb || 'images/placeholder.png';
-    
+
                             const characterCard = `
                                 <div class="col-6 col-sm-4 col-md-3 mb-3">
                                     <div class="card">
@@ -222,13 +222,13 @@ $(document).ready(function () {
 
     function loadTimeline() {
         $.getJSON('data/worlds.json', function (worlds) {
-            const currentWorld = worlds.find(world => world.name === "Car Cats of Charlotte");
+            const currentWorld = worlds.find(world => world.name === "Car Cats");
             if (!currentWorld || !currentWorld.timeline) {
                 console.error("Timeline data not found for the current world.");
                 return;
             }
 
-            const timelineData = currentWorld.timeline;
+            const timelineData = currentWorld.timeline; // Include all events
             const timelineContainer = $('.timeline');
             const eventTitle = $('#event-title');
             const eventDescription = $('#event-description');
@@ -239,12 +239,10 @@ $(document).ready(function () {
             timelineContainer.empty();
 
             timelineData.forEach(event => {
-                const timelineEvent = $(`
-                    <div class="timeline-event" data-id="${event.id}">
-                        <img src="${event.image || ''}" alt="${event.title}">
-                        <p>${event.title}</p>
-                    </div>
-                `);
+                const timelineEvent = $(`<div class="timeline-event" data-id="${event.id}">
+                    <img src="${event.image || ''}" alt="${event.title}">
+                    <p>${event.title}</p>
+                </div>`);
 
                 timelineEvent.on('click', function () {
                     eventTitle.text(event.title);
@@ -255,16 +253,13 @@ $(document).ready(function () {
                     eventCharacters.empty();
                     if (event.characters && event.characters.length > 0) {
                         event.characters.forEach(character => {
-                            const characterIcon = $(`
-                                <a href="_character-template.html?name=${character.name}" class="me-2">
-                                    <img src="${character.icon}" alt="${character.name}" class="character-icon" 
-                                         title="${character.name}" data-bs-toggle="tooltip">
-                                </a>
-                            `);
+                            const characterIcon = $(`<a href="_character-template.html?name=${character.name}" class="me-2">
+                                <img src="${character.icon}" alt="${character.name}" class="character-icon" 
+                                     title="${character.name}" data-bs-toggle="tooltip">
+                            </a>`);
                             eventCharacters.append(characterIcon);
                         });
 
-                        // Initialize tooltips for the newly added icons
                         initializeTooltips();
                     } else {
                         eventCharacters.html('<p>No characters linked to this event.</p>');
@@ -284,16 +279,13 @@ $(document).ready(function () {
                 eventCharacters.empty();
                 if (firstEvent.characters && firstEvent.characters.length > 0) {
                     firstEvent.characters.forEach(character => {
-                        const characterIcon = $(`
-                            <a href="_character-template.html?name=${character.name}" class="me-2">
-                                <img src="${character.icon}" alt="${character.name}" class="character-icon" 
-                                     title="${character.name}" data-bs-toggle="tooltip">
-                            </a>
-                        `);
+                        const characterIcon = $(`<a href="_character-template.html?name=${character.name}" class="me-2">
+                            <img src="${character.icon}" alt="${character.name}" class="character-icon" 
+                                 title="${character.name}" data-bs-toggle="tooltip">
+                        </a>`);
                         eventCharacters.append(characterIcon);
                     });
 
-                    // Initialize tooltips for the first event's icons
                     initializeTooltips();
                 } else {
                     eventCharacters.html('<p>No characters linked to this event.</p>');
@@ -306,27 +298,26 @@ $(document).ready(function () {
 
     function loadLocations() {
         $.getJSON('data/worlds.json', function (worlds) {
-            const currentWorld = worlds.find(world => world.name === "Car Cats of Charlotte");
+            const currentWorld = worlds.find(world => world.name === "Car Cats");
             if (!currentWorld || !currentWorld.locations) {
                 console.error("Locations data not found for the current world.");
                 return;
             }
 
+            const locationsData = currentWorld.locations; // Include all locations
             const locationsContainer = $('.location-list');
             locationsContainer.empty();
 
-            currentWorld.locations.forEach(location => {
-                const locationCard = $(`
-                    <div class="location-card d-flex align-items-center">
-                        <div class="location-text flex-grow-1">
-                            <h3>${location.name}</h3>
-                            <p>${location.description}</p>
-                        </div>
-                        <div class="location-image">
-                            <img src="${location.image}" alt="${location.name}" class="img-fluid rounded">
-                        </div>
+            locationsData.forEach(location => {
+                const locationCard = $(`<div class="location-card d-flex align-items-center">
+                    <div class="location-text flex-grow-1">
+                        <h3>${location.name}</h3>
+                        <p>${location.description}</p>
                     </div>
-                `);
+                    <div class="location-image">
+                        <img src="${location.image}" alt="${location.name}" class="img-fluid rounded">
+                    </div>
+                </div>`);
                 locationsContainer.append(locationCard);
             });
         }).fail(function () {
@@ -338,58 +329,106 @@ $(document).ready(function () {
         $.getJSON('data/characterLinks.json', async function (data) {
             const linksContainer = $('#character-links');
             linksContainer.empty();
-
+    
             // Filter relationships by the current world
             const relationships = data.relationships.filter(rel => rel.world === worldName);
-
+    
             if (!relationships || relationships.length === 0) {
                 linksContainer.html('<p>No character links available for this world.</p>');
                 return;
             }
-
+    
             for (const rel of relationships) {
                 const [character1, character2] = rel.characters;
-
+    
                 // Fetch data for both characters
                 const character1Data = await fetchCharacterData(character1);
                 const character2Data = await fetchCharacterData(character2);
-
+    
                 // Use the first gallery image or fallback to placeholder
                 const character1Image = character1Data?.gallery?.[0]?.thumb || 'images/placeholder_thumb.png';
                 const character2Image = character2Data?.gallery?.[0]?.thumb || 'images/placeholder_thumb.png';
-
-                // Use primary and secondary colors or fallback to defaults
-                const character1PrimaryColor = character1Data?.color || '#007bff';
-                const character1SecondaryColor = character1Data?.colorSecondary || '#ffffff';
-                const character2PrimaryColor = character2Data?.color || '#007bff';
-                const character2SecondaryColor = character2Data?.colorSecondary || '#ffffff';
-
-                // Generate the HTML for the character link
-                const linkHTML = `
-                    <div class="character-link-container d-flex align-items-center justify-content-center">
-                        <!-- First Character -->
-                        <div class="character-main text-center">
-                            <a href="_character-template.html?name=${character1}">
-                                <img src="${character1Image}" alt="${character1}" class="character-img">
-                            </a>
-                            <div class="speech-bubble left scrollable-bubble" style="background-color: ${character1PrimaryColor}; color: ${character1SecondaryColor};">
-                                <p>"${rel.thought || '...'}</p>
-                            </div>
-                        </div>
     
-                        <!-- Second Character -->
-                        <div class="character-linked text-center">
-                            <a href="_character-template.html?name=${character2}">
-                                <img src="${character2Image}" alt="${character2}" class="character-img">
-                            </a>
-                            <div class="speech-bubble right scrollable-bubble" style="background-color: ${character2PrimaryColor}; color: ${character2SecondaryColor};">
-                                <p>"${rel.quote || '...'}</p>
+                // Create a unique ID for this relationship
+                const relationshipId = `rel-${character1.replace(/\s+/g, '-')}-${character2.replace(/\s+/g, '-')}`;
+    
+                // Generate the HTML for the character link with collapsible content
+                const linkHTML = `
+                    <div class="character-link-card mb-3">
+                        <!-- Visible header with character images and names -->
+                        <div class="card">
+                            <div class="card-header d-flex align-items-center" role="button" data-bs-toggle="collapse" data-bs-target="#${relationshipId}" aria-expanded="false" aria-controls="${relationshipId}">
+                                <div class="d-flex align-items-center me-auto">
+                                    <img src="${character1Image}" alt="${character1}" class="character-thumbnail me-2" style="border-color: ${character1Data?.color || '#007bff'};">
+                                    <span class="character-name">${character1}</span>
+                                </div>
+                                <div class="relationship-indicator mx-2">
+                                    <i class="bi bi-arrow-left-right"></i>
+                                </div>
+                                <div class="d-flex align-items-center ms-auto">
+                                    <span class="character-name">${character2}</span>
+                                    <img src="${character2Image}" alt="${character2}" class="character-thumbnail ms-2" style="border-color: ${character2Data?.color || '#007bff'};">
+                                </div>
+                                <i class="bi bi-chevron-down ms-3 toggle-icon"></i>
+                            </div>
+                            
+                            <!-- Collapsible content -->
+                            <div id="${relationshipId}" class="collapse">
+                                <div class="card-body">
+                                        <div class="row character-content">
+                                        <!-- First Character -->
+                                        <div class="col-md-6 text-center character-column">
+                                            <a href="_character-template.html?name=${character1}">
+                                                <img src="${character1Image}" alt="${character1}" class="character-img mb-2">
+                                                <h5>${character1}</h5>
+                                            </a>
+                                            <div class="speech-bubble scrollable-bubble" style="background-color: ${character1Data?.color || '#007bff'}; color: ${character1Data?.colorSecondary || '#ffffff'};">
+                                                <p>"${rel.thought || '...'}"</p>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Second Character -->
+                                        <div class="col-md-6 text-center character-column">
+                                            <a href="_character-template.html?name=${character2}">
+                                                <img src="${character2Image}" alt="${character2}" class="character-img mb-2">
+                                                <h5>${character2}</h5>
+                                            </a>
+                                            <div class="speech-bubble scrollable-bubble" style="background-color: ${character2Data?.color || '#007bff'}; color: ${character2Data?.colorSecondary || '#ffffff'};">
+                                                <p>"${rel.quote || '...'}"</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Relationship Summary Row -->
+                                    <div class="row mt-4">
+                                        <div class="col-12">
+                                            <div class="relationship-summary text-center p-3">
+                                                <p class="mb-0">${rel.summary || `${character1} knows ${character2}.`}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 `;
                 linksContainer.append(linkHTML);
             }
+    
+            // Add event handler for collapse toggle to rotate chevron icon
+            $('.card-header[data-bs-toggle="collapse"]').on('click', function() {
+                $(this).find('.toggle-icon').toggleClass('rotate-icon');
+            });
+            
+            // Add custom CSS to each speech bubble to match triangle color to background
+            $('.speech-bubble').each(function() {
+                const bgColor = $(this).css('background-color');
+                $(this).append(`<style>
+                    #${$(this).closest('.collapse').attr('id')} .speech-bubble[style*="background-color: ${bgColor}"]::after {
+                        border-bottom-color: ${bgColor};
+                    }
+                </style>`);
+            });
         }).fail(function () {
             console.error("Failed to load characterLinks.json.");
             $('#character-links').html('<p>Error loading character links.</p>');

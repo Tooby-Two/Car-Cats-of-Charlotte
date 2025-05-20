@@ -100,36 +100,122 @@
 			}
 		}
 
-		.scrollable-bubble {
-			max-height: 100px;
-			/* Set a fixed height for the thought bubble */
-			overflow-y: auto;
-			/* Enable vertical scrolling */
-			padding: 10px;
-			/* Add padding for better readability */
-			border-radius: 10px;
-			/* Keep the rounded bubble shape */
-			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-			/* Optional: Add a subtle shadow */
-		}
+		/* Add these CSS styles to your existing stylesheet */
 
-		/* Optional: Customize scrollbar appearance */
-		.scrollable-bubble::-webkit-scrollbar {
-			width: 8px;
-			/* Width of the scrollbar */
-		}
+        /* Character link card styling */
+        .character-link-card {
+            transition: all 0.3s ease;
+        }
 
-		.scrollable-bubble::-webkit-scrollbar-thumb {
-			background-color: rgba(0, 0, 0, 0.2);
-			/* Color of the scrollbar thumb */
-			border-radius: 4px;
-			/* Rounded edges for the scrollbar thumb */
-		}
+        .character-link-card .card-header {
+            cursor: pointer;
+            padding: 0.75rem;
+            transition: background-color 0.2s ease;
+        }
 
-		.scrollable-bubble::-webkit-scrollbar-thumb:hover {
-			background-color: rgba(0, 0, 0, 0.4);
-			/* Darker color on hover */
-		}
+        .character-link-card .card-header:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        /* Character thumbnails in the header */
+        .character-thumbnail {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #007bff;
+        }
+
+        /* Character content layout */
+        .character-content {
+            display: flex;
+            margin-bottom: 30px;
+        }
+
+        .character-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            padding-bottom: 120px;
+            /* Space for the speech bubble */
+        }
+
+        /* Character images in the expanded view */
+        .character-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #007bff;
+            transition: transform 0.3s ease;
+        }
+
+        .character-img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Speech bubbles */
+        .speech-bubble {
+            position: absolute;
+            bottom: 20px;
+            left: 10%;
+            right: 10%;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            max-height: 100px;
+            overflow-y: auto;
+        }
+
+        .speech-bubble::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            margin-left: -10px;
+            border-width: 0 10px 10px;
+            border-style: solid;
+            /* Border color will be set dynamically in JS to match background */
+        }
+
+        /* Scrollable content in speech bubbles */
+        .scrollable-bubble {
+            max-height: 100px;
+            overflow-y: auto;
+        }
+
+        /* Relationship indicator */
+        .relationship-indicator {
+            color: #6c757d;
+            font-size: 1.2rem;
+        }
+
+        /* Animation for the toggle icon */
+        .toggle-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .rotate-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Character names */
+        .character-name {
+            font-weight: bold;
+        }
+
+        /* Relationship summary styling */
+        .relationship-summary {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 0;
+            border-top: 1px solid #dee2e6;
+            clear: both;
+            position: relative;
+            z-index: 10;
+            /* Make sure it's above other elements */
+        }
 	</style>
 </head>
 

@@ -59,8 +59,7 @@
         }
 
         .world-header {
-            background-color: #343a40;
-            color: white;
+            background-color: #0000002e;
             padding: 20px;
             text-align: center;
         }
@@ -320,6 +319,7 @@
             flex-wrap: wrap;
             gap: 12px;
             margin-bottom: 15px;
+            justify-content: center;
         }
 
         .character {
@@ -336,7 +336,7 @@
             height: 64px;
         }
 
-        .character a:hover {
+        .character img:hover {
             transform: scale(1.05);
         }
 
@@ -424,11 +424,17 @@
                 <!-- Summary Tab -->
                 <div class="tab-pane fade show active" id="summary" role="tabpanel" aria-labelledby="summary-tab">
                     <div class="world-summary">
+
+                        <p style="text-align: center;"><span style="font-size: 24px;"><strong>Heavily inspired by <a href="https://toyhou.se/TROPICAL-REDBULL/characters/folder:4708290" id="">TROPICAL-REDBULL</a> and <a href="https://toyhou.se/Citrisz/characters/folder:4725604" id="">CITRISZ's</a> Car Cat designs! </strong></span>
+                            <strong><br></strong>
+                            <span style="font-size: 24px;"><strong>Please check them out!</strong></span>
+                        </p>
+
                         <h2>Summary</h2>
+
                         <p class="indent">
                             Car Cats are a unique species of feral cat. Evolved for high dexterity, intelligence, and
-                            communication, they live lives that mirror the complexity of human society—from racing and
-                            triathlons to music, politics, and supernatural legends.
+                            communication, they live lives that mirror the complexity of human society.
                         </p>
                         <p>
                             Instead of large nations, the world is shaped by powerful city-states—each with its own
@@ -439,34 +445,46 @@
                         <div class="row">
                             <!-- Charlotte Column -->
                             <div class="col city-column">
-                                <img src="images/charlotte-banner.jpg" alt="Charlotte Cityscape"
+                                <img src="" alt="Charlotte Image"
                                     class="img-fluid city-image">
                                 <h3>Charlotte</h3>
                                 <p>
                                     A tech-driven metropolis known for its sleek infrastructure, business power, and
-                                    deep connection to motorsports. Life here is fast-paced, sharp-edged, and
+                                    deep connection to supernatural technology. Life here is fast-paced, sharp-edged, and
                                     status-focused.
                                 </p>
                                 <h4>Main Characters</h4>
-                                <ul>
-                                    <li><strong>Creed</strong> – A multi-talented student unsure where he fits in a
-                                        competitive world.</li>
-                                    <li><strong>Heim</strong> – A fierce, fashion-forward cat dreaming of becoming a
-                                        werewolf hunter.</li>
-                                    <li><strong>SVK</strong> – A cheerful immigrant with surprising depth and
-                                        determination.</li>
-                                </ul>
-                                <a href="charlotte.html" class="btn btn-primary">Explore Charlotte</a>
+                                <div class="character-icons">
+                                    <a href="_character-template.html?name=Creed"class="character" data-bs-toggle="tooltip" title="Creed">
+                                        <img src="images/icons/creed_icon.png" 
+                                         alt="Creed">
+                                    </a>
+                                    <a href="_character-template.html?name=Heim"class="character" data-bs-toggle="tooltip" title="Heim">
+                                        <img src="images/icons/heim_icon.png" alt="Heim">
+                                    </a>
+                                    <a href="_character-template.html?name=SVK"class="character" data-bs-toggle="tooltip" title="SVK">
+                                        <img src="images/icons/svk_icon.png" alt="SVK">
+                                    </a>
+                                    <a href="_character-template.html?name=Reddick"class="character" data-bs-toggle="tooltip" title="Reddick">
+                                        <img src="images/icons/reddick_icon.png" alt="Reddick">
+                                    </a>
+                                    <a href="_character-template.html?name=Bubba"class="character" data-bs-toggle="tooltip" title="Bubba">
+                                        <img src="images/icons/bubba_icon.png" alt="Bubba">
+                                    </a>
+                                </div>
+                                <div class="text-center">
+                                    <a href="charlotte.html" class="btn btn-primary">Explore Charlotte</a>
+                                </div>
                             </div>
 
                             <!-- Daytona Column -->
                             <div class="col city-column">
-                                <img src="images/daytona-banner.jpg" alt="Daytona Beachfront"
+                                <img src="" alt="Daytona Image"
                                     class="img-fluid city-image">
                                 <h3>Daytona</h3>
                                 <p>
                                     A vibrant coastal city built on freedom, athleticism, and community. Canals run
-                                    through its heart, aquatic cats swim its waves, and triathlons bring the city
+                                    through its heart, aquatic cats swim in its waves, and triathlons bring the city
                                     together.
                                 </p>
                                 <h4>Main Characters</h4>
@@ -477,6 +495,9 @@
                                     </a>
                                     <a href="_character-template.html?name=Rheem"class="character" data-bs-toggle="tooltip" title="Rheem">
                                         <img src="images/icons/rheem_icon.png" alt="Rheem">
+                                    </a>
+                                    <a href="_character-template.html?name=William"class="character" data-bs-toggle="tooltip" title="William">
+                                        <img src="images/icons/william_icon.png" alt="William">
                                     </a>
                                 </div>
                                 <div class="text-center">

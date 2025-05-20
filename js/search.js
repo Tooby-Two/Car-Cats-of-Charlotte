@@ -38,58 +38,59 @@ $(document).ready(function () {
     generateWorldButtons(worldName);
 
     // Load all character data dynamically using the JSON mapping
-const loadCharacters = () => {
-    characterList.empty(); // Clear the list
-
-    $.getJSON('data/tagToCharacterMapping.json', function (mapping) {
-        // Filter characters by worldName if specified
-        if (worldName && validFolders.includes(worldName)) {
-            const filteredMapping = {};
-            Object.entries(mapping).forEach(([character, folder]) => {
-                if (folder === worldName) {
-                    filteredMapping[character] = folder;
-                }
-            });
-            mapping = filteredMapping; // Update mapping to only include filtered characters
-        }
-
-        // Load characters from the filtered mapping
-        Object.entries(mapping).forEach(([character, folder]) => {
-            const characterFile = `characters/${folder}/${character}.html`;
-
-            $.get(characterFile, function (response) {
-                const characterData = $(response).filter('#character-data').html();
-
-                try {
-                    const data = JSON.parse(characterData);
-
-                    if (data) {
-                        const thumbnail = data.gallery?.[0]?.thumb || 'images/placeholder.png';
-
-                        const characterCard = `
-                            <div class="col-6 col-sm-4 col-md-3 mb-3 character-item" data-name="${data.name.toLowerCase()}" data-traits="${data.traits.join(',').toLowerCase()}">
-                                <div class="card">
-                                    <img src="${thumbnail}" class="card-img-top" alt="${data.name}">
-                                    <div class="card-body">
-                                        <h5 class="card-title">${data.name}</h5>
-                                        <p class="card-text">${data.description}</p>
-                                        <a href="_character-template.html?name=${character}" class="btn btn-primary">View Details</a>
-                                    </div>
-                                </div>
-                            </div>`;
-                        characterList.append(characterCard);
+    const loadCharacters = () => {
+        characterList.empty(); // Clear the list
+    
+        $.getJSON('data/tagToCharacterMapping.json', function (mapping) {
+            // Filter characters by worldName if specified
+            if (worldName && validFolders.includes(worldName)) {
+                const filteredMapping = {};
+                Object.entries(mapping).forEach(([character, info]) => {
+                    if (info.folder === worldName) {
+                        filteredMapping[character] = info;
                     }
-                } catch (err) {
-                    console.error(`❌ Error parsing character data for ${character}:`, err);
-                }
-            }).fail(function () {
-                console.warn(`⚠️ Failed to load character file: ${characterFile}`);
+                });
+                mapping = filteredMapping; // Update mapping to only include filtered characters
+            }
+    
+            // Load characters from the filtered mapping
+            Object.entries(mapping).forEach(([character, info]) => {
+                const subfolder = info.subfolder ? `/${info.subfolder}` : '';
+                const characterFile = `characters/${info.folder}${subfolder}/${character}.html`;
+    
+                $.get(characterFile, function (response) {
+                    const characterData = $(response).filter('#character-data').html();
+    
+                    try {
+                        const data = JSON.parse(characterData);
+    
+                        if (data) {
+                            const thumbnail = data.gallery?.[0]?.thumb || 'images/placeholder.png';
+    
+                            const characterCard = `
+                                <div class="col-6 col-sm-4 col-md-3 mb-3 character-item" data-name="${data.name.toLowerCase()}" data-traits="${data.traits.join(',').toLowerCase()}">
+                                    <div class="card">
+                                        <img src="${thumbnail}" class="card-img-top" alt="${data.name}">
+                                        <div class="card-body">
+                                            <h5 class="card-title">${data.name}</h5>
+                                            <p class="card-text">${data.description}</p>
+                                            <a href="_character-template.html?name=${character}" class="btn btn-primary">View Details</a>
+                                        </div>
+                                    </div>
+                                </div>`;
+                            characterList.append(characterCard);
+                        }
+                    } catch (err) {
+                        console.error(`❌ Error parsing character data for ${character}:`, err);
+                    }
+                }).fail(function () {
+                    console.warn(`⚠️ Failed to load character file: ${characterFile}`);
+                });
             });
+        }).fail(function () {
+            console.error('❌ Failed to load tagToCharacterMapping.json');
         });
-    }).fail(function () {
-        console.error('❌ Failed to load tagToCharacterMapping.json');
-    });
-};
+    };
 
     // Filter characters on search
     $('#characterSearchBar').on('input', function () {

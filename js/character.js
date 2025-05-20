@@ -43,25 +43,25 @@ $(document).ready(function () {
     // Function to find character file in folders - uses promises for better async handling
     async function findCharacterFile(name) {
         if (!name) return null;
-
-        // First, check if we know which folder this character belongs to from the mapping
+    
+        // First, check if we know which folder and subfolder this character belongs to from the mapping
         await loadTagMapping();
-        const folder = tagToCharacterMapping[name];
-
-        if (folder && folders.includes(folder)) {
-            // If we know the folder, check that specific location first
-            const specificPath = `characters/${folder}/${name}.html`;
+        const info = tagToCharacterMapping[name];
+    
+        if (info) {
+            const subfolder = info.subfolder ? `/${info.subfolder}` : '';
+            const specificPath = `characters/${info.folder}${subfolder}/${name}.html`;
             const exists = await checkFileExists(specificPath);
             if (exists) return specificPath;
         }
-
+    
         // If not found in the specific folder or no folder info available, check all folders
         for (const folder of folders) {
             const path = `characters/${folder}/${name}.html`;
             const exists = await checkFileExists(path);
             if (exists) return path;
         }
-
+    
         return null; // Not found in any folder
     }
 
@@ -281,32 +281,69 @@ $(document).ready(function () {
             const speakerThought = isCurrentCharacterSpeaker ? rel.thought : rel.quote;
             const listenerThought = isCurrentCharacterSpeaker ? rel.quote : rel.thought;
 
+            // Create a unique ID for this relationship
+            const relationshipId = `rel-${characterName.replace(/\s+/g, '-')}-${otherCharacter.replace(/\s+/g, '-')}`;
+    
+            // Generate the HTML for the character link with collapsible content
             const linkHTML = `
-    <div class="character-link-container d-flex align-items-center justify-content-center">
-        <!-- Main Character -->
-        <div class="character-main text-center">
-            <img src="${currentCharacterThumb}" alt="${characterName}" class="character-img">
-            <div class="speech-bubble left scrollable-bubble" style="background-color: ${leftPrimaryColor}; color: ${leftSecondaryColor};">
-                <p>"${speakerThought || "..."}"</p>
-            </div>
-        </div>
-
-        <!-- Linked Character -->
-        <div class="character-linked text-center">
-            <a href="_character-template.html?name=${otherCharacter}">
-                <img src="${rel.otherCharacterThumb || 'images/placeholder_thumb.png'}" alt="${otherCharacter}" class="character-img">
-            </a>
-            <div class="speech-bubble right scrollable-bubble" style="background-color: ${rightPrimaryColor}; color: ${rightSecondaryColor};">
-                <p>"${listenerThought || "..."}"</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Relationship Summary -->
-    <div class="relationship-summary text-center">
-        <p>${rel.summary || `${characterName} knows ${otherCharacter}.`}</p>
-    </div>
-`;
+                <div class="character-link-card mb-3">
+                    <!-- Visible header with character images and names -->
+                    <div class="card">
+                        <div class="card-header d-flex align-items-center" role="button" data-bs-toggle="collapse" data-bs-target="#${relationshipId}" aria-expanded="false" aria-controls="${relationshipId}">
+                            <div class="d-flex align-items-center me-auto">
+                                <img src="${currentCharacterThumb}" alt="${characterName}" class="character-thumbnail me-2" style="border-color: ${leftPrimaryColor || '#007bff'};">
+                                <span class="character-name">${characterName}</span>
+                            </div>
+                            <div class="relationship-indicator mx-2">
+                                <i class="bi bi-arrow-left-right"></i>
+                            </div>
+                            <div class="d-flex align-items-center ms-auto">
+                                <span class="character-name">${otherCharacter}</span>
+                                <img src="${rel.otherCharacterThumb}" alt="${otherCharacter}" class="character-thumbnail ms-2" style="border-color: ${rightPrimaryColor || '#007bff'};">
+                            </div>
+                            <i class="bi bi-chevron-down ms-3 toggle-icon"></i>
+                        </div>
+                        
+                        <!-- Collapsible content -->
+                        <div id="${relationshipId}" class="collapse">
+                            <div class="card-body">
+                                    <div class="row character-content">
+                                    <!-- First Character -->
+                                    <div class="col-md-6 text-center character-column">
+                                        <a href="_character-template.html?name=${characterName}">
+                                            <img src="${currentCharacterThumb}" alt="${characterName}" class="character-img mb-2">
+                                            <h5>${characterName}</h5>
+                                        </a>
+                                        <div class="speech-bubble scrollable-bubble" style="background-color: ${leftPrimaryColor || '#007bff'}; color: ${leftSecondaryColor || '#ffffff'};">
+                                            <p>"${speakerThought || '...'}"</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Second Character -->
+                                    <div class="col-md-6 text-center character-column">
+                                        <a href="_character-template.html?name=${otherCharacter}">
+                                            <img src="${rel.otherCharacterThumb}" alt="${otherCharacter}" class="character-img mb-2">
+                                            <h5>${otherCharacter}</h5>
+                                        </a>
+                                        <div class="speech-bubble scrollable-bubble" style="background-color: ${rightPrimaryColor || '#007bff'}; color: ${rightSecondaryColor || '#ffffff'};">
+                                            <p>"${listenerThought || '...'}"</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Relationship Summary Row -->
+                                <div class="row mt-4">
+                                    <div class="col-12">
+                                        <div class="relationship-summary text-center p-3">
+                                            <p class="mb-0">${rel.summary || `${characterName} knows ${otherCharacter}.`}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
             linksContainer.append(linkHTML);
         });
     }

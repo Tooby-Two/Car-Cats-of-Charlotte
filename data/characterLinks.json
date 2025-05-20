@@ -2,6 +2,7 @@
     "relationships": [
         {
             "world": "car_cats",
+            "region": "Charlotte",
             "characters": ["Reddick", "Bubba"],
             "primaryCharacter": "Reddick",
             "thought": "I owe my life to Bubba, my friend, my buddy! The fact that he knows the dangers of hiding me, yet so adamantly insists on being with me, it really means a lot to me. He's the goofiest cat I know, too! (not that I know any others...) One day, he'll show me around the city, without this threat looming above our heads...",
@@ -10,6 +11,7 @@
         },
         {
             "world": "car_cats",
+            "region": "Charlotte",
             "characters": ["Reddick", "Drennix"],
             "primaryCharacter": "Reddick",
             "thought": "I hate him. I hate him with every fiber of my being. My life... everything I am... it was all irreversibly changed by this lunatic! I don't know how they let him stay in the position he is in! Oh, how much I wanted to escape from him for YEARS...",
@@ -18,6 +20,7 @@
         },
         {
             "world": "car_cats",
+            "region": "Daytona",
             "characters": ["Kai", "Rheem"],
             "primaryCharacter": "Kai",
             "thought": "Every time Rheem shows up, the whole world seems to light up. He's not like anybody I've ever met before... he's calm, fluid, and so gentle. When he swims up from the water, I forget about my training, my next race... everything. He has taught me that life is so much more than personal bests... it's about the moments we share with each other. I want to tell him how I feel, but what if it ruins what we have?",
@@ -33,6 +36,7 @@
         },
         {
             "world": "car_cats",
+            "region": "Charlotte",
             "characters": ["Kellogg", "Kyle"],
             "primaryCharacter": "Kyle",
             "thought": "",
@@ -41,6 +45,7 @@
         },
         {
             "world": "car_cats",
+            "region": "Charlotte",
             "characters": ["Lajoie", "Allmendinger"],
             "primaryCharacter": "Lajoie",
             "thought": "Little Dinger! He's a sweet little guy! He wouldn't hurt a fly, and I love him for that. I wish that he didn't have to go through the things that he went through. Seems to have taken a toll on him... But I'll support him no matter what!",
@@ -49,6 +54,7 @@
         },
         {
             "world": "car_cats",
+            "region": "Charlotte",
             "characters": ["Lajoie", "Kligercat"],
             "primaryCharacter": "Lajoie",
             "thought": "Spike was a great friend! He was really the standout cat in our group (which is saying a lot, because I was in it!). He was extremely outgoing and loved talking to everybody and getting everybody involved. Then Ricky turned... and Spike turned his back on us. He was still an outgoing personality, but he didn't talk to us, didn't go to any of our meetings... I was really concerned for him. Seems like he's doing alright today though, his smile on TV really is infectious. I have the means to contact him again, but I don't know if he wants that... he must have distanced himself for a reason.",
@@ -57,6 +63,7 @@
         },
         {
             "world": "car_cats",
+            "region": "Charlotte",
             "characters": ["Kligercat", "Allmendinger"],
             "primaryCharacter": "Kligercat",
             "thought": "...The Dinger... I... I don't know. He was always close to my heart. It's not worth thinking about now, though. It's... better this way. He's doing better now.",
@@ -65,6 +72,7 @@
         },
         {
             "world": "car_cats",
+            "region": "Charlotte",
             "characters": ["Creed", "Heim"],
             "primaryCharacter": "Creed",
             "thought": "Do people genuinely like Heim? Just curious.",
@@ -73,6 +81,7 @@
         },
         {
             "world": "car_cats",
+            "region": "Charlotte",
             "characters": ["Creed", "SVK"],
             "primaryCharacter": "Creed",
             "thought": "I have so much gratitude for SVK! He stood up for me when nobody else would. He's been such a great friend too! I admire his playfulness and his contagious smile. It's hard to believe that he's new to this town!",
@@ -81,6 +90,7 @@
         },
         {
             "world": "car_cats",
+            "region": "Charlotte",
             "characters": ["Heim", "SVK"],
             "primaryCharacter": "Heim",
             "thought": "I don't want to talk about it.",
@@ -89,6 +99,7 @@
         },
         {
             "world": "car_cats",
+            "region": "Charlotte",
             "characters": ["Rosso", "Wexley"],
             "primaryCharacter": "Rosso",
             "thought": "",
@@ -97,6 +108,7 @@
         },
         {
             "world": "car_cats",
+            "region": "Charlotte",
             "characters": ["Rosso", "Mayer"],
             "primaryCharacter": "Rosso",
             "thought": "",
@@ -105,6 +117,7 @@
         },
         {
             "world": "car_cats",
+            "region": "Charlotte",
             "characters": ["Wexley", "Mayer"],
             "primaryCharacter": "Wexley",
             "thought": "",
@@ -113,6 +126,7 @@
         },
         {
             "world": "car_cats",
+            "region": "Daytona",
             "characters": ["Jeff", "William"],
             "primaryCharacter": "Jeff",
             "thought": "",
@@ -121,6 +135,7 @@
         },
         {
             "world": "car_cats",
+            "region": "Charlotte",
             "characters": ["Reaper", "Kaiross"],
             "primaryCharacter": "Reaper",
             "thought": "I respect him. Deeply. He understands the weight of what we have endured, the battles we've fought, and the scars we bear. But hiding in the forests of Charlotte? That's not survival- it's surrender. I've seen what those city cats have done. We have lost so much because of them. I don't want patience, I want justice! I must serve him because I must, but I'm preparing for the day when I can finally take my revenge on those who have wronged us.",
@@ -129,6 +144,7 @@
         },
         {
             "world": "car_cats",
+            "region": "Charlotte",
             "characters": ["SVK", "Zilisch"],
             "primaryCharacter": "SVK",
             "thought": "",
@@ -137,6 +153,7 @@
         },
         {
             "world": "car_cats",
+            "region": "Daytona",
             "characters": ["Chase", "William"],
             "primaryCharacter": "Chase",
             "thought": "",
@@ -145,6 +162,7 @@
         },
         {
             "world": "car_cats",
+            "region": "Daytona",
             "characters": ["Chase", "Alex"],
             "primaryCharacter": "Chase",
             "thought": "",
@@ -153,6 +171,7 @@
         },
         {
             "world": "car_cats",
+            "region": "Daytona",
             "characters": ["Chase", "Kai"],
             "primaryCharacter": "Chase",
             "thought": "",
@@ -161,6 +180,7 @@
         },
         {
             "world": "car_cats",
+            "region": "Daytona",
             "characters": ["Alex", "William"],
             "primaryCharacter": "Alex",
             "thought": "",
@@ -169,6 +189,7 @@
         },
         {
             "world": "car_cats",
+            "region": "Daytona",
             "characters": ["Alex", "Kai"],
             "primaryCharacter": "Alex",
             "thought": "",
@@ -177,6 +198,7 @@
         },
         {
             "world": "car_cats",
+            "region": "Daytona",
             "characters": ["Kai", "William"],
             "primaryCharacter": "Kai",
             "thought": "",
@@ -190,6 +212,33 @@
             "thought": "",
             "quote": "",
             "summary": ""
+        },
+        {
+            "world": "car_cats",
+            "region": "Charlotte",
+            "characters": ["Ricky", "Lajoie"],
+            "primaryCharacter": "Ricky",
+            "thought": "I knew Lajoie from when we were kids. We got along really well. It seemed like Lajoie was one of the only cats that would respect me. Of course, he was still the pompous fool he is today, but I appreciated his time. If there's one thing I regret, it's not being strong enough to stop what had happened... maybe I'd still be close to Lajoie if I was.",
+            "quote": "Ricky!! I appreciated my time with him! I felt really bad for him when we were kids. He got picked on a lot and I felt like he needed a friend. My cool nature was always there, haha! Then... it surprised me, that's all I can say. I tried my best to calm him down, but he just wouldn't listen. I researched the transformation a lot after it happened, trying to understand... but I just couldn't. I hope he's doing better now though... he's in a better place.",
+            "summary": "Ricky and Lajoie are childhood friends. They were very close, often meeting together after school with their group of friends. After Ricky's transformation and supposed execution, Lajoie was devastated. Lajoie had to move on for his career and image, but eight years later, Lajoie still thinks about Ricky."
+        },
+        {
+            "world": "car_cats",
+            "region": "Charlotte",
+            "characters": ["Ricky", "Allmendinger"],
+            "primaryCharacter": "Ricky",
+            "thought": "When Lajoie first introduced Allmendinger to our group, I didn't really like him very much. It felt extremely forced. But Kligercat really seemed to like Allmendinger and continued to invite him to our meetings after school. I was frustrated, at first, but then I began to know Allmendinger. He's very sweet to everybody, even to me. That's crazy to me! It takes a strong soul to be as kind as he is. I think about him a lot, as do all my friends. I hope that they're in a good place, and one day, I can meet them again... on good terms, of course!",
+            "quote": "...It was my fault that Ricky went on that rampage. I should have never brought him back to the city... I knew how dangerous he was... and I just ran away, I didn't even try to stop him. I was so scared... I didn't know what to do. I'm so sorry, Ricky. I hope you can forgive me one day... you might be alive if I hadn't been so impulsive...",
+            "summary": "Ricky and Allmendinger are childhood friends. Lajoie introduced Allmendinger to Ricky, and the four became close friends. After Ricky's transformation, Allmendinger carried Ricky back to the suburbs for help, but Ricky attacked Allmendinger. Allmendinger fled, and Ricky, in a rage, attacked the city. After Ricky's supposed execution, Allmendinger was devastated, blaming himself for Ricky's rampage and execution. He has not moved on, and has been hurting inside for years."
+        },
+        {
+            "world": "car_cats",
+            "region": "Charlotte",
+            "characters": ["Ricky", "Kligercat"],
+            "primaryCharacter": "Ricky",
+            "thought": "Spike... I remember when he first joined our group. He was outgoing, funny, and was a great addition to our small friend group. We were all so happy... and then he told us about this supposed beautiful sight in the woods. I was so excited, and I wasn't going to chicken out! I was going to be the first one to see it! I didn't know that it would be the last time I saw my friends... I miss them so much. I hope they're doing well, wherever they are.",
+            "quote": "...I try to forget about what happened. I try to get Ricky out of my head, the mistakes I made, and the consequences it caused... but I can't. I can't forget about him. I can't forget about the pain that I caused him and so many others... and I don't know if I can ever forgive myself for what happened...",
+            "summary": "Ricky and Kligercat are childhood friends. Kligercat joined Ricky's friend group when they were kids. Kligercat suggested that they go into the woods to investigate a rumor of a beautiful sight. When they got into the woods, they were attacked by a Were-Cat. Ricky was bitten and subsequently transformed. After Ricky's capture and supposed execution, Kligercat blamed himself for Ricky's transformation and execution. He tells himself that he shouldn't have suggested the trip into the woods, knowing how dangerous it was. "
         }
     ]
 }

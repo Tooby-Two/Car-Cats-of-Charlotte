@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Cats - Daytona</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        :root {
+            --primary-color: #000;
+        }
+
+        .indent {
+            text-indent: 2em;
+            /* Adjust the value (e.g., 2em) to control the size of the indentation */
+        }
+
+        .sidebar {
+            width: 100px;
+            height: 100vh;
+            background-color: #343a40;
+            color: white;
+            position: sticky;
+            top: 0;
+            overflow-y: auto;
+            background-size: cover;
+        }
+
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.1s;
+        }
+
+        .sidebar a:hover {
+            background-color: #495057;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .main-layout {
+            display: flex;
+            flex-wrap: nowrap;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+        }
+
+        .world-header {
+            background-color: #0000002e;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .timeline-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .timeline {
+            display: flex;
+            overflow-x: auto;
+            padding: 10px;
+            gap: 20px;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .timeline-event {
+            flex: 0 0 auto;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .timeline-event:hover {
+            transform: scale(1.1);
+        }
+
+        .timeline-event img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid #ddd;
+        }
+
+        /* Default light mode styles */
+        .event-details {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            /* Light background */
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            color: #000;
+            /* Default text color */
+        }
+
+        /* Dark mode styles */
+        body[data-theme="dark"] .event-details {
+            background-color: #222222;
+            /* Dark gray background */
+            color: white;
+            /* White text */
+        }
+
+        /* Default light mode styles */
+        #event-date,
+        #event-location {
+            color: black;
+            /* Black text for light mode */
+        }
+
+        /* Dark mode styles */
+        body[data-theme="dark"] #event-date,
+        body[data-theme="dark"] #event-location {
+            color: white;
+            /* White text for dark mode */
+        }
+
+        .character-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .locations-container {
+            padding: 20px;
+        }
+
+        .location-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .location-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #0000001c;
+            border-radius: 10px;
+            padding: 15px;
+            width: 100%;
+            /* Make the card span the full width */
+            margin-bottom: 20px;
+        }
+
+        .location-card .location-text {
+            flex-grow: 1;
+            /* Allow the text to take up remaining space */
+            padding-right: 20px;
+            /* Add spacing between text and image */
+        }
+
+        .location-card .location-image img {
+            max-width: 150px;
+            /* Limit the image width */
+            height: auto;
+            /* Maintain aspect ratio */
+            border-radius: 10px;
+        }
+
+        /* Character link card styling */
+        .character-link-card {
+            transition: all 0.3s ease;
+        }
+
+        .character-link-card .card-header {
+            cursor: pointer;
+            padding: 0.75rem;
+            transition: background-color 0.2s ease;
+        }
+
+        .character-link-card .card-header:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        /* Character thumbnails in the header */
+        .character-thumbnail {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #007bff;
+        }
+
+        /* Character content layout */
+        .character-content {
+            display: flex;
+            margin-bottom: 30px;
+        }
+
+        .character-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            padding-bottom: 120px;
+            /* Space for the speech bubble */
+        }
+
+        /* Character images in the expanded view */
+        .character-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #007bff;
+            transition: transform 0.3s ease;
+        }
+
+        .character-img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Speech bubbles */
+        .speech-bubble {
+            position: absolute;
+            bottom: 20px;
+            left: 10%;
+            right: 10%;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            max-height: 100px;
+            overflow-y: auto;
+        }
+
+        .speech-bubble::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            margin-left: -10px;
+            border-width: 0 10px 10px;
+            border-style: solid;
+            /* Border color will be set dynamically in JS to match background */
+        }
+
+        /* Scrollable content in speech bubbles */
+        .scrollable-bubble {
+            max-height: 100px;
+            overflow-y: auto;
+        }
+
+        /* Relationship indicator */
+        .relationship-indicator {
+            color: #6c757d;
+            font-size: 1.2rem;
+        }
+
+        /* Character names */
+        .character-name {
+            font-weight: bold;
+        }
+
+        /* Relationship summary styling */
+        .relationship-summary {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 0;
+            border-top: 1px solid #dee2e6;
+            clear: both;
+            position: relative;
+            z-index: 10;
+            /* Make sure it's above other elements */
+        }
+
+        .world-header img {
+            max-width: 100%;
+            /* Ensure the image doesn't exceed the container width */
+            height: auto;
+            /* Maintain the aspect ratio */
+            max-height: 300px;
+            /* Limit the vertical size */
+            object-fit: contain;
+            /* Ensure the image fits within the specified dimensions */
+            margin: 0 auto;
+            /* Center the image horizontally */
+            display: block;
+            /* Ensure the image behaves like a block element */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Placeholder for the Navbar -->
+    <div id="navbar-container"></div>
+
+    <!-- Main Layout with Sidebars -->
+    <div class="main-layout">
+        <!-- Left Sidebar -->
+        <div class="sidebar">
+        </div>
+
+        <!-- Main Content -->
+        <div class="content content-main">
+            <!-- World Header -->
+            <div class="world-header">
+                <img src="images/carcats/Kai/RheemKai.png" alt="Car Cats of Daytona" class="img-fluid mb-3">
+                <h1>Car Cats of Daytona</h1>
+                <p>Car Cats living in Daytona.</p>
+                <div class="text-center">
+                    <a href="car_cats.html" class="btn btn-primary">Back to Car Cats</a>
+                </div>
+            </div>
+
+            <!-- Tabs Navigation -->
+            <ul class="nav nav-tabs my-4" id="worldTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="summary-tab" data-bs-toggle="tab" data-bs-target="#summary"
+                        type="button" role="tab" aria-controls="summary" aria-selected="true">
+                        Summary
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="gallery-tab" data-bs-toggle="tab" data-bs-target="#gallery"
+                        type="button" role="tab" aria-controls="gallery" aria-selected="true">
+                        Gallery
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="characters-tab" data-bs-toggle="tab" data-bs-target="#characters"
+                        type="button" role="tab" aria-controls="characters" aria-selected="false">
+                        Characters
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="links-tab" data-bs-toggle="tab" data-bs-target="#links" type="button"
+                        role="tab" aria-controls="links" aria-selected="false">
+                        Links
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="timeline-tab" data-bs-toggle="tab" data-bs-target="#timeline"
+                        type="button" role="tab" aria-controls="timeline" aria-selected="false">
+                        Timeline
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="location-tab" data-bs-toggle="tab" data-bs-target="#locations"
+                        type="button" role="tab" aria-controls="locations" aria-selected="false">
+                        Locations
+                    </button>
+                </li>
+            </ul>
+
+            <!-- Tabs Content -->
+            <div class="tab-content" id="worldTabsContent">
+
+                <!-- Summary Tab -->
+                <div class="tab-pane fade show active" id="summary" role="tabpanel" aria-labelledby="summary-tab">
+                    <div class="world-summary">
+                        <h2>Summary</h2>
+                        <p class="indent">
+                            Daytona is a vibrant costal city-state where land and sea meet. The city is known for its beautiful beaches, peaceful harbors, and a bustling downtown. Bridges connect the land while water highways allow for swimming and boating. Daytona is a large tourist destination, but also a lovely place to live and work. It's not as profitable or expansive as Charlotte, but if a cat wishes to settle down, Daytona is a perfect place to move to. Daytona's cats are known for their hospitality and kindness, making it easy to find friends in your neighbors.
+                        </p>
+                        <p class="indent">
+                            The culture of Daytona is open and free- anybody is welcome here! Car Cat subspecies live in harmony, living and working together without conflict. The main subspecies in Charlotte are regular Car Cats, without supernatural abilities. Scattered around Daytona are other subspecies of Car Cats, such as Were-Cats and the occasional vampire. But the second largest subspecies in Daytona are Aquatic Cats, who have evolved to live both on land and in the water. They have gills, webbing between their toes, dorsal fins, and a large fish-like tail. They use the water highways of Daytona to traverse the city, and retreat to the ocean to find their own communities underwater and on the docks of the ocean. Rheem, an Aquatic Cat who has lived in Daytona all his life, watches life from the waves, too nervous to go onto land and socialize with the thousands of residents in Daytona.
+                        </p>
+                        <p class="indent">
+                            A large part of Daytona's culture are the triathlons. These events bring the city together to watch as the best athletes in the city-state and beyond race. Swimming in the oceans and canals, to biking through the city, to running through trails in the woods, triathlons bring out the best in the athletes that compete. Every triathlon is like a celebration of Daytona, and Daytona is practically built just for them. One racer in particular is Kai, a young and successful triathlete that rarely faulters. Though, he might take his training and results a little too seriously...
+                        </p>
+                        <p class="indent">
+                            Kai loves to train on the beaches of Daytona, right where Rheem often watches from the ocean. One fateful day, when Kai trains too hard on his bike and crashes, Rheem was right there to help him up. From that moment forward, Rheem and Kai have been best friends. They swim together in the oceans, travel to popular tourist spots together, and train for Kai's triathlons together. They've grown to really enjoy each other's company, but are too afraid to tell the other their feelings.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Gallery Tab -->
+                <div class="tab-pane fade show" id="gallery" role="tabpanel" aria-labelledby="gallery-tab">
+                    <h2>Gallery</h2>
+                    <div class="world-gallery row" id="indivCharacterGallery">
+                        <!-- Gallery images will be dynamically loaded here -->
+                    </div>
+                </div>
+
+                <!-- Characters Tab -->
+                <div class="tab-pane fade" id="characters" role="tabpanel" aria-labelledby="characters-tab">
+                    <h2>Characters</h2>
+                    <div class="character-list row">
+                        <!-- Character cards will be dynamically loaded here -->
+                    </div>
+                </div>
+
+                <!-- Links Tab -->
+                <div class="tab-pane fade" id="links" role="tabpanel" aria-labelledby="links-tab">
+                    <div class="links-container">
+                        <h2>Character Links</h2>
+                        <div id="character-links" class="d-flex flex-column gap-4">
+                            <!-- Character links will be dynamically loaded here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline Tab -->
+                <div class="tab-pane fade" id="timeline" role="tabpanel" aria-labelledby="timeline-tab">
+                    <h2>Timeline</h2>
+                    <div class="timeline-container">
+                        <div class="timeline">
+                            <!-- Timeline events will be dynamically loaded here -->
+                        </div>
+                        <div class="event-details mt-4">
+                            <h3 id="event-title" class="text-center"></h3>
+                            <div id="event-characters" class="d-flex justify-content-center mt-3"></div>
+                            <br>
+                            <p id="event-date" class="text-center"></p>
+                            <p id="event-location" class="text-center"></p>
+                            <hr>
+                            </hr>
+                            <p id="event-description" class="text-center"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Locations Tab -->
+                <div class="tab-pane fade" id="locations" role="tabpanel" aria-labelledby="locations-tab">
+                    <div class="locations-container">
+                        <h2>Key Locations</h2>
+                        <div class="location-list">
+                            <!-- Locations will be dynamically loaded here -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Lightbox -->
+        <div id="lightboxOverlay">
+            <div id="lightboxContent">
+                <img id="lightboxImage" src="" alt="">
+                <div id="lightboxCredit"></div>
+                <button id="lightboxClose">X</button>
+            </div>
+        </div>
+
+        <!-- Right Sidebar -->
+        <div class="sidebar">
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/daytona.js"></script>
+</body>
+
+</html>
