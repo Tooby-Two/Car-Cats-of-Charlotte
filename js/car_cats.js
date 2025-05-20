@@ -28,8 +28,11 @@ $(document).ready(function () {
     function loadGallery() {
         $.getJSON('data/tagToCharacterMapping.json', function (mapping) {
             const characterFiles = Object.entries(mapping)
-                .filter(([character, folder]) => folder === worldName)
-                .map(([character, folder]) => `characters/${folder}/${character}.html`);
+                .filter(([character, info]) => info.folder === worldName)
+                .map(([character, info]) => {
+                    const subfolder = info.subfolder ? `/${info.subfolder}` : '';
+                    return `characters/${info.folder}${subfolder}/${character}.html`;
+                });
     
             galleryContainer.empty();
     
@@ -112,27 +115,30 @@ $(document).ready(function () {
         $.getJSON('data/tagToCharacterMapping.json', function (mapping) {
             // Filter characters by worldName
             const characterFiles = Object.entries(mapping)
-                .filter(([character, folder]) => folder === worldName)
-                .map(([character, folder]) => `characters/${folder}/${character}.html`); // Use folder here
-
+                .filter(([character, info]) => info.folder === worldName)
+                .map(([character, info]) => {
+                    const subfolder = info.subfolder ? `/${info.subfolder}` : '';
+                    return `characters/${info.folder}${subfolder}/${character}.html`;
+                });
+    
             characterListContainer.empty(); // Clear existing content
-
+    
             if (characterFiles.length === 0) {
                 characterListContainer.append('<p class="text-muted">No characters available for this world.</p>');
                 return;
             }
-
+    
             characterFiles.forEach(file => {
                 $.get(file, function (response) {
                     // Extract the JSON data from the <script> tag with id="character-data"
                     const characterData = $(response).filter('#character-data').html();
-
+    
                     try {
                         const data = JSON.parse(characterData);
-
+    
                         if (data) {
                             const thumbnail = data.gallery?.[0]?.thumb || 'images/placeholder.png';
-
+    
                             const characterCard = `
                                 <div class="col-6 col-sm-4 col-md-3 mb-3">
                                     <div class="card">
@@ -332,37 +338,33 @@ $(document).ready(function () {
         $.getJSON('data/characterLinks.json', async function (data) {
             const linksContainer = $('#character-links');
             linksContainer.empty();
-    
+
             // Filter relationships by the current world
             const relationships = data.relationships.filter(rel => rel.world === worldName);
-    
+
             if (!relationships || relationships.length === 0) {
                 linksContainer.html('<p>No character links available for this world.</p>');
                 return;
             }
-    
+
             for (const rel of relationships) {
                 const [character1, character2] = rel.characters;
-    
+
                 // Fetch data for both characters
                 const character1Data = await fetchCharacterData(character1);
                 const character2Data = await fetchCharacterData(character2);
-    
+
                 // Use the first gallery image or fallback to placeholder
                 const character1Image = character1Data?.gallery?.[0]?.thumb || 'images/placeholder_thumb.png';
                 const character2Image = character2Data?.gallery?.[0]?.thumb || 'images/placeholder_thumb.png';
-    
+
                 // Use primary and secondary colors or fallback to defaults
                 const character1PrimaryColor = character1Data?.color || '#007bff';
                 const character1SecondaryColor = character1Data?.colorSecondary || '#ffffff';
                 const character2PrimaryColor = character2Data?.color || '#007bff';
                 const character2SecondaryColor = character2Data?.colorSecondary || '#ffffff';
-    
-                // Determine which character is the speaker
-                const primaryCharacter = rel.primaryCharacter;
-                const speakerThought = primaryCharacter === character1 ? rel.thought : rel.quote;
-                const listenerThought = primaryCharacter === character1 ? rel.quote : rel.thought;
-    
+
+                // Generate the HTML for the character link
                 const linkHTML = `
                     <div class="character-link-container d-flex align-items-center justify-content-center">
                         <!-- First Character -->
@@ -371,7 +373,7 @@ $(document).ready(function () {
                                 <img src="${character1Image}" alt="${character1}" class="character-img">
                             </a>
                             <div class="speech-bubble left scrollable-bubble" style="background-color: ${character1PrimaryColor}; color: ${character1SecondaryColor};">
-                                <p>"${speakerThought || "..."}"</p>
+                                <p>"${rel.thought || '...'}</p>
                             </div>
                         </div>
     
@@ -381,14 +383,9 @@ $(document).ready(function () {
                                 <img src="${character2Image}" alt="${character2}" class="character-img">
                             </a>
                             <div class="speech-bubble right scrollable-bubble" style="background-color: ${character2PrimaryColor}; color: ${character2SecondaryColor};">
-                                <p>"${listenerThought || "..."}"</p>
+                                <p>"${rel.quote || '...'}</p>
                             </div>
                         </div>
-                    </div>
-    
-                    <!-- Relationship Summary -->
-                    <div class="relationship-summary text-center">
-                        <p>${rel.summary || `${character1} knows ${character2}.`}</p>
                     </div>
                 `;
                 linksContainer.append(linkHTML);
@@ -400,9 +397,22 @@ $(document).ready(function () {
     }
 
     async function fetchCharacterData(characterName) {
-        const characterFile = `characters/car_cats/${characterName}.html`; // Adjust the folder path as needed
-    
         try {
+            // Fetch the mapping to get folder and subfolder info
+            const mapping = await $.getJSON('data/tagToCharacterMapping.json');
+            const characterInfo = mapping[characterName];
+
+            if (!characterInfo) {
+                console.error(`Character ${characterName} not found in tagToCharacterMapping.json.`);
+                return null;
+            }
+
+            // Construct the file path dynamically
+            const folder = characterInfo.folder || 'car_cats';
+            const subfolder = characterInfo.subfolder ? `/${characterInfo.subfolder}` : '';
+            const characterFile = `characters/${folder}/${subfolder}/${characterName}.html`;
+
+            // Fetch the character file
             const response = await $.get(characterFile);
             const characterData = $(response).filter('#character-data').html();
             return JSON.parse(characterData);
