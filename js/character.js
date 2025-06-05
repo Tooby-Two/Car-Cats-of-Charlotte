@@ -100,6 +100,7 @@ $(document).ready(function () {
         // Set basic info with fallbacks for missing data
         $('#character-designer').html(data.designer || 'Unknown');
         $('#main-character-image').attr('src', data.gallery?.[0]?.full || 'images/placeholder.png');
+        $('#character-full-name').html(data.fullName || 'N/A');
         $('#character-age').html(data.age || 'Unknown');
         $('#character-pronouns').html(data.pronouns || 'Not specified');
         $('#character-species').html(data.species || 'Unknown');

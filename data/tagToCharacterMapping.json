@@ -24,6 +24,7 @@
   "Hill": { "folder": "car_cats", "subfolder": "charlotte" },
   "Kaiross": { "folder": "car_cats", "subfolder": "charlotte" },
   "Reaper": { "folder": "car_cats", "subfolder": "charlotte" },
+  "Palou": { "folder": "car_cats", "subfolder": "indianapolis" },
   "Jeffery": { "folder": "jefferyverse" },
   "Arthur": { "folder": "other" },
   "Dragon": { "folder": "other" },
@@ -39,9 +40,9 @@
   "Willow": { "folder": "other" },
   "Nova": { "folder": "ecliptica" },
   "Volt": { "folder": "ecliptica" },
-  "Raiden": { "folder": "cbcs" },
+  "Kaizen": { "folder": "cbcs" },
   "Vergil": { "folder": "cbcs" },
-  "Jetstream": { "folder": "cbcs" },
+  "Masamaro": { "folder": "cbcs" },
   "Shadow Milk": { "folder": "cbcs" },
   "DOG": { "folder": "cbcs" }
 }
